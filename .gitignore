@@ -12,26 +12,26 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# ---- data/: 공개 데모(510_지하1층_pit)에 필요한 파일만 포함, 나머지 원본 CAD 도면 제외 ----
+# ---- data/: 공개 데모(지하1층_pit)에 필요한 파일만 포함, 나머지 원본 CAD 도면 제외 ----
 data/*
-!data/510_지하1층_pit.json
-!data/510_지하1층_구조.json
-!data/510_지하1층_구조_MLINE버전.json
-!data/510_지하1층_대기공간추가.json
+!data/지하1층_pit.json
+!data/지하1층_구조.json
+!data/지하1층_구조_MLINE버전.json
+!data/지하1층_대기공간추가.json
 
 # ---- output/: 데모 리포트 재현에 필요한 산출물만 포함, 스크래치/디버그물 제외 ----
 output/*
-!output/510_지하1층_pit_rooms_rect.json
-!output/510_지하1층_pit_rooms_flood.json
-!output/510_지하1층_pit_layer_classification.json
-!output/510_지하1층_pit_beams.json
-!output/510_지하1층_pit_head_layout.html
-!output/510_지하1층_pit_evac_layout.html
-!output/510_지하1층_대기공간추가_rooms_rect.json
-!output/510_지하1층_대기공간추가_rooms_flood.json
-!output/510_지하1층_대기공간추가_layer_classification.json
-!output/510_지하1층_대기공간추가_beams.json
-!output/510_지하1층_대기공간추가_head_layout.html
+!output/지하1층_pit_rooms_rect.json
+!output/지하1층_pit_rooms_flood.json
+!output/지하1층_pit_layer_classification.json
+!output/지하1층_pit_beams.json
+!output/지하1층_pit_head_layout.html
+!output/지하1층_pit_evac_layout.html
+!output/지하1층_대기공간추가_rooms_rect.json
+!output/지하1층_대기공간추가_rooms_flood.json
+!output/지하1층_대기공간추가_layer_classification.json
+!output/지하1층_대기공간추가_beams.json
+!output/지하1층_대기공간추가_head_layout.html
 !output/head_law_checks.json
 !output/building.ttl
 !output/1층.ttl

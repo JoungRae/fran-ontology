@@ -66,23 +66,23 @@ CAD는 "선의 좌표 목록"일 뿐이고, 법령은 자연어 문장일 뿐입
 pip install -r requirements.txt
 
 # 1) 방 인식
-python plan_rooms_rect.py "data/510_지하1층_pit.json"
-python plan_rooms_flood.py "data/510_지하1층_pit.json" --merge-into-rect
+python plan_rooms_rect.py "data/지하1층_pit.json"
+python plan_rooms_flood.py "data/지하1층_pit.json" --merge-into-rect
 
 # 2) (선택) 구조도 정합 — 보 위치 이식
-python align_beams.py "data/510_지하1층_구조_MLINE버전.json" "data/510_지하1층_pit.json" \
+python align_beams.py "data/지하1층_구조_MLINE버전.json" "data/지하1층_pit.json" \
     --anchor "S-CON-HID" --beam-lines "S-BEEM(부대)" --beam-polys "S-BTS(거더)" --depth 900
 
 # 3) 헤드 배치 리포트 생성
-python fire_layout.py "510_지하1층_pit" --heads
+python fire_layout.py "지하1층_pit" --heads
 #   반경 조절(성능 인정 헤드 등): --r-unit 3.2 --r-common 2.6
 
 # 4) 피난 경로 리포트 생성
-python evac_report.py "510_지하1층_pit"
+python evac_report.py "지하1층_pit"
 #   내화구조 완화(50m) 적용: --fire-resist
 
 # 5) 브라우저에서 반경을 바꿔가며 재계산하고 싶다면 로컬 서버 실행
-python fire_server.py 510_지하1층_pit
+python fire_server.py 지하1층_pit
 ```
 
 `layer_classify.py`(GPT 레이어 분류), `fetch_head_checks.py`(법령 DB 조회)는 각각

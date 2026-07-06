@@ -1,5 +1,5 @@
 {
- "source": "510_지하1층_pit.json",
+ "source": "지하1층_pit.json",
  "method": "floodfill",
  "rooms": [
   {

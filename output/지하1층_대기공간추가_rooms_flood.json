@@ -1,5 +1,5 @@
 {
- "source": "510_지하1층_대기공간추가.json",
+ "source": "지하1층_대기공간추가.json",
  "method": "floodfill",
  "rooms": [
   {

@@ -49,7 +49,7 @@ def main():
         limit_eff = float(argv[i + 1])
         del argv[i:i + 2]
         fire_resist = True
-    base = next((a for a in argv if not a.startswith("--")), "510_지하1층_pit")
+    base = next((a for a in argv if not a.startswith("--")), "지하1층_pit")
     FO = os.path.dirname(os.path.abspath(__file__))
     rooms_data = json.load(open(os.path.join(FO, "output", f"{base}_rooms_rect.json"),
                                 encoding="utf-8"))["rooms"]
