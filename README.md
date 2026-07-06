@@ -4,7 +4,7 @@
 그래프로 변환하고, 이를 근거로 **스프링클러 헤드 자동 배치**와 **피난 경로 검토**를
 법령 조항과 대조해 판정까지 내주는 파이프라인입니다.
 
-> 🔗 **라이브 데모 (GitHub Pages)**: `docs/index.html` 참고 — Pages 활성화 후 여기에 링크가 채워집니다.
+> 🔗 **라이브 데모**: https://joungrae.github.io/fran-ontology/
 
 ## 이게 뭔가요
 
