@@ -1,0 +1,569 @@
+{
+ "source": "건축_평면도_지하1층.json",
+ "dwg_type": "arch",
+ "keep_dangling": true,
+ "ref_layer": "XREF_지하주차장(5BL)|A-CON(주차장)",
+ "ref_window_layer": null,
+ "categories": {
+  "XREF_지하주차장(5BL)|A-DOOR": "door",
+  "XREF_지하주차장(5BL)|A-FUR-ETC": "other",
+  "XREF_지하주차장(5BL)|A-CON-HID": "other",
+  "XREF_지하주차장(5BL)|A-CON(주동)": "wall_struct",
+  "XREF_지하주차장(5BL)|A-FUR-BATH": "other",
+  "XREF_지하주차장(5BL)|A-BL": "wall_nonstruct",
+  "XREF_지하주차장(5BL)|A-FIN": "other",
+  "XREF_지하주차장(5BL)|A-ELEV": "elevator",
+  "DEFPOINTS": "other",
+  "XREF_지하주차장(5BL)|A-HAT-TILE": "other",
+  "XREF_지하주차장(5BL)|A-CEN-DEF": "other",
+  "XREF_지하주차장(5BL)|A-CEN-CON": "other",
+  "XREF_지하주차장(5BL)|A-WAL": "wall_nonstruct",
+  "XREF_지하주차장(5BL)|A-CEN": "other",
+  "XREF_지하주차장(5BL)|A-INSUL": "other",
+  "XREF_지하주차장(5BL)|A-ELEVATOR": "elevator",
+  "XREF_지하주차장(5BL)|A-TOILET": "other",
+  "XREF_지하주차장(5BL)|A-WALL-DRY": "wall_nonstruct",
+  "XREF_지하주차장(5BL)|A-COL(주차장)": "column_struct",
+  "XREF_지하주차장(5BL)|A-STL": "wall_nonstruct",
+  "XREF_지하주차장(5BL)|DEFPOINT": "other",
+  "XREF_지하주차장(5BL)|주차_장애인(3.3X5.0)": "other",
+  "XREF_지하주차장(5BL)|A-HID": "other",
+  "XREF_지하주차장(5BL)|A-ST": "stair",
+  "XREF_지하주차장(5BL)|A-SYM": "other",
+  "XREF_지하주차장(5BL)|A-CEN(주열)": "other",
+  "XREF_지하주차장(5BL)|A-계단난간": "other",
+  "A-CEN1": "other",
+  "XREF_지하주차장(5BL)|A-FIN1": "other",
+  "XREF_지하주차장(5BL)|A-OPEN": "other",
+  "XREF_지하주차장(5BL)|A-FUR-KIT": "other",
+  "XREF_지하주차장(5BL)|DEFPOINT2": "other",
+  "XREF_지하주차장(5BL)|A-WIN": "window",
+  "XREF_지하주차장(5BL)|A-OPEN1": "other",
+  "XREF_지하주차장(5BL)|주차라인": "other",
+  "XREF_지하주차장(5BL)|DEFPOINT1": "other",
+  "XREF_지하주차장(5BL)|A-HID(상부)": "other",
+  "XREF_지하주차장(5BL)|A-FIN(방습벽)": "other",
+  "XREF_지하주차장(5BL)|DEF": "other",
+  "XREF_지하주차장(5BL)|A-CON(주차장)": "wall_struct",
+  "A-DIM": "other",
+  "A-TEXT-3": "other",
+  "A-TEXT-7": "other",
+  "BL-PL": "other",
+  "XREF_지하주차장(5BL)|BL-PL": "other",
+  "XREF_지하주차장(5BL)|주차-장애인주차 3.3x5.0": "other",
+  "XREF_지하주차장(5BL)|주차_해치": "other",
+  "XREF_지하주차장(5BL)|주차_전기(완속)": "other",
+  "XREF_지하주차장(5BL)|주차_해치1": "other",
+  "XREF_지하주차장(5BL)|주차_가족배려(2.5X5.0)": "other",
+  "XREF_지하주차장(5BL)|주차_확장형(2.6X5.2)": "other",
+  "XREF_지하주차장(5BL)|주차_일반형(2.5X5.0)": "other",
+  "XREF_지하주차장(5BL)|A-SYM(주차동선)": "other",
+  "XREF_지하주차장(5BL)|A-대지경계선": "other",
+  "XREF_지하주차장(5BL)|A-DOOR1": "door",
+  "XREF_지하주차장(5BL)|A-WIN1": "window",
+  "XREF_지하주차장(5BL)|A-ETC(점자)": "other",
+  "XREF_지하주차장(5BL)|A-ETC-점자": "other",
+  "XREF_지하주차장(5BL)|A-H-FUR": "other",
+  "XREF_지하주차장(5BL)|DEF-DIM": "other",
+  "XREF_지하주차장(5BL)|DEF-TEXT": "other",
+  "XREF_지하주차장(5BL)|#CHECK": "other",
+  "XREF_지하주차장(5BL)|A-TXT(동번호)": "other",
+  "XREF_지하주차장(5BL)|A-FIN(외부단열)": "other",
+  "Defpoint": "other"
+ },
+ "mixed_layers": [],
+ "judgments": {
+  "XREF_지하주차장(5BL)|A-DOOR": {
+   "stage": 1,
+   "category": "door",
+   "confidence": "high",
+   "reason": "Layer name DOOR; doors/frames/swing arcs are doors"
+  },
+  "XREF_지하주차장(5BL)|A-FUR-ETC": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Furniture (FUR) is not a building element for structural comparison"
+  },
+  "XREF_지하주차장(5BL)|A-CON-HID": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Hidden concrete lines; hidden/virtual lines excluded"
+  },
+  "XREF_지하주차장(5BL)|A-CON(주동)": {
+   "stage": 1,
+   "category": "wall_struct",
+   "confidence": "high",
+   "reason": "A-CON indicates concrete structural walls; matches reference convention"
+  },
+  "XREF_지하주차장(5BL)|A-FUR-BATH": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "설명: 욕실가구 (bathroom furniture) not structural"
+  },
+  "XREF_지하주차장(5BL)|A-BL": {
+   "stage": 2,
+   "category": "wall_nonstruct",
+   "majority": "3/3",
+   "votes": [
+    {
+     "category": "wall_nonstruct",
+     "confidence": "high",
+     "reason": "Red shows pairs of parallel lines forming thin interior partitions that define rooms, sitting on wall faces similar in position to the yellow reference but much thinner than the RC wall. No red elements appear in openings like windows, nor as centerlines or dimensions."
+    },
+    {
+     "category": "wall_nonstruct",
+     "confidence": "medium",
+     "reason": "Red elements are mostly paired parallel lines forming interior room partitions, much thinner than the yellow structural concrete wall and aligned with wall faces, not centerlines or openings."
+    },
+    {
+     "category": "wall_nonstruct",
+     "confidence": "high",
+     "reason": "Red consists of many short double-line runs forming room partitions with door gaps, located inside the plan and thinner than the yellow RC reference. They sit on wall faces rather than in openings, indicating non-structural drywall/masonry partitions."
+    }
+   ]
+  },
+  "XREF_지하주차장(5BL)|A-FIN": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "설명: 마감선(몰탈); finishes are excluded"
+  },
+  "XREF_지하주차장(5BL)|A-ELEV": {
+   "stage": 1,
+   "category": "elevator",
+   "confidence": "high",
+   "reason": "ELEV indicates elevator geometry"
+  },
+  "DEFPOINTS": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Defpoints/text; not physical elements"
+  },
+  "XREF_지하주차장(5BL)|A-HAT-TILE": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Hatch/tile pattern, not element outline"
+  },
+  "XREF_지하주차장(5BL)|A-CEN-DEF": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Center/definition lines; virtual"
+  },
+  "XREF_지하주차장(5BL)|A-CEN-CON": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Centerlines for concrete; virtual"
+  },
+  "XREF_지하주차장(5BL)|A-WAL": {
+   "stage": 2,
+   "category": "wall_nonstruct",
+   "majority": "3/3",
+   "votes": [
+    {
+     "category": "wall_nonstruct",
+     "confidence": "medium",
+     "reason": "Red elements form paired parallel outlines making thin partitions that define rooms, generally thinner than the yellow concrete walls and positioned on wall faces rather than in openings or as center/grid lines; thus they represent non-structural wall faces."
+    },
+    {
+     "category": "wall_nonstruct",
+     "confidence": "high",
+     "reason": "Red lines form paired faces outlining thin interior partitions (L-shapes, room dividers) and are distinct from the thicker yellow RC walls; they are not in window openings and are not centerlines or annotation."
+    },
+    {
+     "category": "wall_nonstruct",
+     "confidence": "medium",
+     "reason": "Red elements are mostly pairs of parallel lines forming room-partition outlines aligned with wall positions, thinner than the yellow concrete walls, indicating non-structural partitions. They are not in openings and not single centerlines; minor annotation-like bits may exist but the dominant geometry is partition walls."
+    }
+   ]
+  },
+  "XREF_지하주차장(5BL)|A-CEN": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Center lines; excluded"
+  },
+  "XREF_지하주차장(5BL)|A-INSUL": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Insulation; explicitly excluded"
+  },
+  "XREF_지하주차장(5BL)|A-ELEVATOR": {
+   "stage": 1,
+   "category": "elevator",
+   "confidence": "high",
+   "reason": "설명: ELEVATOR; elevator geometry"
+  },
+  "XREF_지하주차장(5BL)|A-TOILET": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Plumbing fixtures, not structural elements"
+  },
+  "XREF_지하주차장(5BL)|A-WALL-DRY": {
+   "stage": 1,
+   "category": "wall_nonstruct",
+   "confidence": "high",
+   "reason": "Explicit dry wall (건식벽), non-structural"
+  },
+  "XREF_지하주차장(5BL)|A-COL(주차장)": {
+   "stage": 1,
+   "category": "column_struct",
+   "confidence": "high",
+   "reason": "COL indicates structural columns; 주차장 골조 context"
+  },
+  "XREF_지하주차장(5BL)|A-STL": {
+   "stage": 2,
+   "category": "wall_nonstruct",
+   "majority": "2/3",
+   "votes": [
+    {
+     "category": "wall_nonstruct",
+     "confidence": "medium",
+     "reason": "Red elements are short pairs of parallel lines forming L-shaped and straight wall faces aligned with interior partitions, not centered lines or openings. They appear thinner than the yellow structural concrete wall, indicating light/drywall or masonry partitions."
+    },
+    {
+     "category": "wall_nonstruct",
+     "confidence": "medium",
+     "reason": "Red elements are pairs of parallel lines forming short L-shaped wall segments aligned with room boundaries, not across openings. They represent wall faces but are thinner and interior compared to the yellow structural concrete wall, indicating non-structural partitions."
+    },
+    {
+     "category": "other",
+     "confidence": "medium",
+     "reason": "Red objects are small, isolated L-shaped corner markers not aligned with yellow wall faces nor sitting in window openings. They do not form paired wall outlines, stairs, doors, or columns; they appear to be symbols/markers rather than built geometry."
+    }
+   ]
+  },
+  "XREF_지하주차장(5BL)|DEFPOINT": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Defpoint/text; not geometry of elements"
+  },
+  "XREF_지하주차장(5BL)|주차_장애인(3.3X5.0)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Parking markings/signage"
+  },
+  "XREF_지하주차장(5BL)|A-HID": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Hidden lines; excluded"
+  },
+  "XREF_지하주차장(5BL)|A-ST": {
+   "stage": 1,
+   "category": "stair",
+   "confidence": "high",
+   "reason": "설명: 계단,램프; stair geometry"
+  },
+  "XREF_지하주차장(5BL)|A-SYM": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Symbols; not physical elements"
+  },
+  "XREF_지하주차장(5BL)|A-CEN(주열)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Centerlines for column rows; virtual"
+  },
+  "XREF_지하주차장(5BL)|A-계단난간": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Handrails not in allowed categories; treat as other"
+  },
+  "A-CEN1": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Centerline layer; virtual"
+  },
+  "XREF_지하주차장(5BL)|A-FIN1": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Finish line; excluded"
+  },
+  "XREF_지하주차장(5BL)|A-OPEN": {
+   "stage": 2,
+   "category": "other",
+   "majority": "3/3",
+   "votes": [
+    {
+     "category": "other",
+     "confidence": "high",
+     "reason": "Red elements are small X/marker symbols and short line annotations (likely slab/shaft openings). They do not align with wall faces or window openings; not physical wall/column geometry."
+    },
+    {
+     "category": "other",
+     "confidence": "high",
+     "reason": "Red elements are isolated symbols/marks (X shapes, short bars/zigzags) not paired wall face lines or window outlines; they sit across context lines rather than at wall/window positions, indicating non-physical annotation/guide graphics rather than built geometry."
+    },
+    {
+     "category": "other",
+     "confidence": "high",
+     "reason": "Red elements are sparse X marks and a few long single lines that cross spaces and extend beyond the plan; they do not form paired wall faces nor sit within wall openings like windows. They appear to be symbols/guide or annotation lines, not built geometry."
+    }
+   ],
+   "geo_validator": {
+    "opening_score": 0.0,
+    "door_swing_score": 0.0,
+    "before": "other",
+    "after": "other"
+   }
+  },
+  "XREF_지하주차장(5BL)|A-FUR-KIT": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "설명: 설치가구; furniture not structural"
+  },
+  "XREF_지하주차장(5BL)|DEFPOINT2": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Defpoints/text; not element outlines"
+  },
+  "XREF_지하주차장(5BL)|A-WIN": {
+   "stage": 1,
+   "category": "window",
+   "confidence": "high",
+   "reason": "WIN indicates windows"
+  },
+  "XREF_지하주차장(5BL)|A-OPEN1": {
+   "stage": 2,
+   "category": "other",
+   "majority": "3/3",
+   "votes": [
+    {
+     "category": "other",
+     "confidence": "high",
+     "reason": "Red shows a few short isolated ticks/X-mark lines not aligned with wall faces or window openings. No paired parallel lines or door/window geometry (no arcs). They look like annotation/symbol marks, not built elements."
+    },
+    {
+     "category": "other",
+     "confidence": "high",
+     "reason": "Only a few short, isolated line segments including an X-shaped mark; they do not form paired wall faces nor sit in wall openings like windows. Appear to be opening/annotation symbols, not built geometry."
+    },
+    {
+     "category": "other",
+     "confidence": "medium",
+     "reason": "Red consists of a few short symbol-like lines (X and small brackets) not forming parallel wall faces or spanning window openings. They don’t align with wall faces like the yellow reference and appear as annotations rather than built geometry."
+    }
+   ],
+   "geo_validator": {
+    "opening_score": 0.0,
+    "door_swing_score": 0.0,
+    "before": "other",
+    "after": "other"
+   }
+  },
+  "XREF_지하주차장(5BL)|주차라인": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Parking lane/stripe lines; not building elements"
+  },
+  "XREF_지하주차장(5BL)|DEFPOINT1": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Defpoint marker; not physical geometry"
+  },
+  "XREF_지하주차장(5BL)|A-HID(상부)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Hidden (upper) lines; excluded"
+  },
+  "XREF_지하주차장(5BL)|A-FIN(방습벽)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Finish/waterproof (방습); excluded by rule"
+  },
+  "XREF_지하주차장(5BL)|DEF": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Misc/text; not element outlines"
+  },
+  "XREF_지하주차장(5BL)|A-CON(주차장)": {
+   "stage": 1,
+   "category": "wall_struct",
+   "confidence": "high",
+   "reason": "Given reference: structural concrete wall (주차장 골조)"
+  },
+  "A-DIM": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Dimensions; excluded"
+  },
+  "A-TEXT-3": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Text annotations; excluded"
+  },
+  "A-TEXT-7": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Text annotations; excluded"
+  },
+  "BL-PL": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "No entities/plan block placeholder; not elements"
+  },
+  "XREF_지하주차장(5BL)|BL-PL": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "설명: 평면블럭; block placeholders, not element outlines"
+  },
+  "XREF_지하주차장(5BL)|주차-장애인주차 3.3x5.0": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Parking marking; not building element"
+  },
+  "XREF_지하주차장(5BL)|주차_해치": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Hatch; not element outline"
+  },
+  "XREF_지하주차장(5BL)|주차_전기(완속)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "EV parking symbols/lines; not structural"
+  },
+  "XREF_지하주차장(5BL)|주차_해치1": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Hatch; not element outline"
+  },
+  "XREF_지하주차장(5BL)|주차_가족배려(2.5X5.0)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Parking designation text/symbols"
+  },
+  "XREF_지하주차장(5BL)|주차_확장형(2.6X5.2)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Parking markings; not building elements"
+  },
+  "XREF_지하주차장(5BL)|주차_일반형(2.5X5.0)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Parking markings; not building elements"
+  },
+  "XREF_지하주차장(5BL)|A-SYM(주차동선)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Traffic flow symbols; not elements"
+  },
+  "XREF_지하주차장(5BL)|A-대지경계선": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Site boundary line; not building element"
+  },
+  "XREF_지하주차장(5BL)|A-DOOR1": {
+   "stage": 1,
+   "category": "door",
+   "confidence": "high",
+   "reason": "설명: 문, 문프레임; doors"
+  },
+  "XREF_지하주차장(5BL)|A-WIN1": {
+   "stage": 1,
+   "category": "window",
+   "confidence": "high",
+   "reason": "설명: 출입이 불가능한 창문; windows"
+  },
+  "XREF_지하주차장(5BL)|A-ETC(점자)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Braille/dots etc.; not structural elements"
+  },
+  "XREF_지하주차장(5BL)|A-ETC-점자": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Braille dot circles; not structural elements"
+  },
+  "XREF_지하주차장(5BL)|A-H-FUR": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Furniture/hatch; not structural elements"
+  },
+  "XREF_지하주차장(5BL)|DEF-DIM": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Dimensions; excluded"
+  },
+  "XREF_지하주차장(5BL)|DEF-TEXT": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Text labels; excluded"
+  },
+  "XREF_지하주차장(5BL)|#CHECK": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Check/auxiliary layer; not element outlines"
+  },
+  "XREF_지하주차장(5BL)|A-TXT(동번호)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Text (building number); excluded"
+  },
+  "XREF_지하주차장(5BL)|A-FIN(외부단열)": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "설명: 코아외단열; insulation/finish excluded"
+  },
+  "Defpoint": {
+   "stage": 1,
+   "category": "other",
+   "confidence": "high",
+   "reason": "Defpoint layer; not physical geometry"
+  }
+ },
+ "extended": {
+  "count": 0,
+  "by_layer": {},
+  "items": []
+ },
+ "pruned": {
+  "count": 0,
+  "by_layer": {},
+  "entity_idx": []
+ }
+}

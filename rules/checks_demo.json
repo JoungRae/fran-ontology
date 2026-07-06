@@ -1,0 +1,243 @@
+{
+  "checks": [
+    {
+      "id": 1001,
+      "code": "BLDG-SETBACK-NORTH-RESI",
+      "title": "전용주거·일반주거지역 북측 인접대지경계선 이격",
+      "domain": "site",
+      "applicability": { "zone": ["전용주거지역", "일반주거지역"] },
+      "rule": {
+        "type": "branches",
+        "branches": [
+          { "if": { "height_part_m": { "<=": 9 } },
+            "require": { "north_setback_m": { ">=": 1.5 } } },
+          { "if": { "height_part_m": { ">": 9 } },
+            "require": { "north_setback_m": "height_part_m / 2" } }
+        ]
+      },
+      "required_drawing_fields": ["북측 인접대지경계선 거리", "각 부분 높이"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "decree",
+        "law_title": "건축법 시행령",
+        "article": "제86조 제1항",
+        "effective_date": "2024-12-01",
+        "excerpt": "전용주거지역과 일반주거지역의 북측 인접대지경계선으로부터 …"
+      },
+      "source_excerpt": "건축법 시행령 §86 ① — 전용주거지역과 일반주거지역의 북측 인접대지경계선으로부터 …"
+    },
+    {
+      "id": 1002,
+      "code": "HOUSING-EVAC-AREA",
+      "title": "공동주택 대피공간 면적",
+      "domain": "egress",
+      "applicability": { "use": ["공동주택"] },
+      "rule": { "type": "min_value", "field": "evacuation_area_m2", "min": 3.0 },
+      "required_drawing_fields": ["대피공간 면적"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "decree",
+        "law_title": "건축법 시행령",
+        "article": "제46조 제4항",
+        "effective_date": "2024-12-01",
+        "excerpt": "대피공간의 바닥면적은 3제곱미터 이상이어야 한다."
+      },
+      "source_excerpt": "건축법 시행령 §46 ④ — 대피공간의 바닥면적은 3제곱미터 이상이어야 한다."
+    },
+    {
+      "id": 1003,
+      "code": "HOUSING-EVAC-PRESENCE",
+      "title": "공동주택 대피공간 설치 의무",
+      "domain": "egress",
+      "applicability": { "use": ["공동주택"], "floors_above": { ">=": 4 } },
+      "rule": { "type": "boolean_requirement", "require": "has_evacuation_space" },
+      "required_drawing_fields": ["대피공간"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "decree",
+        "law_title": "건축법 시행령",
+        "article": "제46조 제4항",
+        "effective_date": "2024-12-01",
+        "excerpt": "4층 이상 공동주택의 각 세대마다 대피공간을 …"
+      },
+      "source_excerpt": "건축법 시행령 §46 ④ — 4층 이상 공동주택의 각 세대마다 대피공간을 …"
+    },
+    {
+      "id": 1004,
+      "code": "HOUSING-BATHROOM-AREA",
+      "title": "공동주택 욕실 최소 면적 (예시)",
+      "domain": "housing",
+      "applicability": { "use": ["공동주택"] },
+      "rule": { "type": "min_value", "field": "bathroom_area_m2", "min": 2.0 },
+      "required_drawing_fields": ["욕실 면적"],
+      "severity": "recommended",
+      "source": {
+        "kind": "example",
+        "law_title": "데모 권장 룰 (법령 매핑 없음)",
+        "article": null,
+        "excerpt": "욕실 면적 2㎡ 이상 권장."
+      },
+      "source_excerpt": "예시 규칙 — 욕실 면적 2㎡ 이상 권장."
+    },
+    {
+      "id": 1005,
+      "code": "BLDG-LANDSCAPE-RATIO",
+      "title": "조경 면적 비율",
+      "domain": "site",
+      "applicability": { "site_area_m2": { ">=": 200 } },
+      "rule": {
+        "type": "min_ratio",
+        "numerator_field": "landscape_m2",
+        "denominator_field": "site_area_m2",
+        "min_ratio": 0.10
+      },
+      "required_drawing_fields": ["조경 면적", "대지 면적"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "act",
+        "law_title": "건축법",
+        "article": "제42조",
+        "effective_date": "2024-03-22",
+        "excerpt": "200㎡ 이상 대지는 조경 면적 확보."
+      },
+      "source_excerpt": "건축법 §42 — 200㎡ 이상 대지는 조경 면적 확보."
+    },
+    {
+      "id": 1006,
+      "code": "FIRE-CORRIDOR-WIDTH",
+      "title": "복도 유효폭 (도면 데이터 부재 예시)",
+      "domain": "egress",
+      "applicability": { "use": ["공동주택"] },
+      "rule": { "type": "min_value", "field": "corridor_width_m", "min": 1.2 },
+      "required_drawing_fields": ["복도 유효폭"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "example",
+        "law_title": "데모 — 복도 유효폭",
+        "article": null,
+        "excerpt": "복도 폭은 도면 분석기가 아직 추출하지 않는 항목."
+      },
+      "source_excerpt": "예시 — 복도 폭은 도면 분석기가 아직 추출하지 않는 항목."
+    },
+    {
+      "id": 1007,
+      "code": "FACTORY-SPECIAL",
+      "title": "공장 전용 검사 (applicability 비매칭 예시)",
+      "domain": "site",
+      "applicability": { "use": ["공장"] },
+      "rule": { "type": "min_value", "field": "site_area_m2", "min": 1000 },
+      "required_drawing_fields": ["대지 면적"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "example",
+        "law_title": "데모 — 공장 전용",
+        "article": null,
+        "excerpt": "공장 전용 — 본 프로젝트(공동주택)에는 적용되지 않음."
+      },
+      "source_excerpt": "공장 전용 — 본 프로젝트(공동주택)에는 적용되지 않음."
+    },
+    {
+      "id": 1008,
+      "code": "ZONE-FAR-LIMIT-3RES",
+      "title": "제3종일반주거지역 용적률 상한",
+      "domain": "site",
+      "applicability": { "zone": ["제3종일반주거지역"] },
+      "rule": { "type": "max_value", "field": "floor_area_ratio", "max": 3.0 },
+      "required_drawing_fields": ["용적률"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "ordinance",
+        "law_title": "서울특별시 도시계획조례",
+        "article": "제55조",
+        "sido": "서울특별시",
+        "effective_date": "2024-07-11",
+        "excerpt": "제3종일반주거지역 용적률은 300% 이하."
+      },
+      "source_excerpt": "서울특별시 도시계획조례 — 제3종일반주거지역 용적률은 300% 이하."
+    },
+    {
+      "id": 1009,
+      "code": "ZONE-BCR-LIMIT-RESI",
+      "title": "주거지역 건폐율 상한 50%",
+      "domain": "site",
+      "applicability": { "zone": ["일반주거지역", "전용주거지역", "준주거지역"] },
+      "rule": { "type": "max_value", "field": "building_coverage_ratio", "max": 0.50 },
+      "required_drawing_fields": ["건폐율"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "decree",
+        "law_title": "국토의 계획 및 이용에 관한 법률 시행령",
+        "article": "제84조",
+        "effective_date": "2024-08-07",
+        "excerpt": "일반주거지역 건폐율 50% 이하."
+      },
+      "source_excerpt": "국토계획법 시행령 §84 — 일반주거지역 건폐율 50% 이하."
+    },
+    {
+      "id": 1010,
+      "code": "HOUSING-INTER-BLDG-DIST",
+      "title": "공동주택 동간거리",
+      "domain": "site",
+      "applicability": { "use": ["공동주택"], "floors_above": { ">=": 4 } },
+      "rule": {
+        "type": "branches",
+        "branches": [
+          { "if": { "building_height_m": { "<=": 30 } },
+            "require": { "building_distance_m": { ">=": 15 } } },
+          { "if": { "building_height_m": { ">": 30 } },
+            "require": { "building_distance_m": "building_height_m * 0.5" } }
+        ]
+      },
+      "required_drawing_fields": ["동간거리", "건축물 높이"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "rule",
+        "law_title": "주택건설기준 등에 관한 규정",
+        "article": "제10조",
+        "effective_date": "2024-04-25",
+        "excerpt": "인동 거리는 건축물 높이의 0.5배 이상."
+      },
+      "source_excerpt": "주택건설기준 §10 — 인동 거리는 건축물 높이의 0.5배 이상."
+    },
+    {
+      "id": 1011,
+      "code": "PARKING-MIN-RATIO",
+      "title": "공동주택 부설주차장 — 세대당 최소 1대",
+      "domain": "parking",
+      "applicability": { "use": ["공동주택"] },
+      "rule": {
+        "type": "min_ratio",
+        "numerator_field": "parking_count",
+        "denominator_field": "household_count",
+        "min_ratio": 1.0
+      },
+      "required_drawing_fields": ["부설주차장 대수", "세대수"],
+      "severity": "mandatory",
+      "source": {
+        "kind": "decree",
+        "law_title": "주차장법 시행령",
+        "article": "제6조 [별표 1]",
+        "effective_date": "2023-09-29",
+        "excerpt": "공동주택은 세대당 1대 이상."
+      },
+      "source_excerpt": "주차장법 시행령 §6 — 공동주택은 세대당 1대 이상."
+    },
+    {
+      "id": 1012,
+      "code": "LDK-LIVING-AREA",
+      "title": "거실 최소 면적 (예시)",
+      "domain": "housing",
+      "applicability": { "use": ["공동주택"] },
+      "rule": { "type": "min_value", "field": "living_dining_area_m2", "min": 15.0 },
+      "required_drawing_fields": ["거실 면적"],
+      "severity": "recommended",
+      "source": {
+        "kind": "example",
+        "law_title": "데모 — 멀티-kind 매핑 시연",
+        "article": null,
+        "excerpt": "공동주택 거실 면적 15㎡ 이상 권장."
+      },
+      "source_excerpt": "예시 — 공동주택 거실 면적 15㎡ 이상 권장."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+numpy
+matplotlib
+contourpy
+rdflib
+python-dotenv
+openai
+psycopg[binary]

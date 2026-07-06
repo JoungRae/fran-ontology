@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FRAN Ontology — CAD 도면 자동 검토 데모</title>
+<style>
+:root{--bg:#0f1d33;--panel:#fff;--ink:#1e2937;--mut:#64748b;--line:#e2e8f0;--acc:#2563eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:Pretendard,"Malgun Gothic",system-ui,sans-serif;color:var(--ink);
+background:#eef1f5}
+header{background:var(--bg);color:#fff;padding:48px 20px 56px;text-align:center}
+header h1{margin:0 0 10px;font-size:26px}
+header p{margin:0;color:#9fb6de;font-size:14.5px;max-width:640px;margin:0 auto}
+main{max-width:840px;margin:-30px auto 60px;padding:0 20px}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+padding:18px 20px;box-shadow:0 8px 24px rgba(15,29,51,.10);text-decoration:none;color:inherit;
+display:block;transition:transform .12s}
+.card:hover{transform:translateY(-2px)}
+.card .tag{display:inline-block;background:#eef2ff;color:var(--acc);font-size:11px;
+font-weight:800;letter-spacing:.06em;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+.card h3{margin:0 0 6px;font-size:16.5px}
+.card p{margin:0;color:var(--mut);font-size:13.5px;line-height:1.6}
+.foot{margin-top:34px;color:var(--mut);font-size:12.5px;line-height:1.8}
+.foot a{color:var(--acc)}
+.badge{display:inline-block;background:#f1f5f9;border-radius:6px;padding:2px 8px;
+font-size:11.5px;color:var(--mut);margin-right:6px}
+</style></head>
+<body>
+<header>
+  <h1>🏗️ FRAN Ontology</h1>
+  <p>CAD 평면도 → BOT 온톨로지 → AI 법규 검토·소방 배치 자동화 데모.
+  아래 리포트는 전부 실제로 생성된 결과물이며, 자립적 HTML이라 서버 없이 바로 열립니다.</p>
+</header>
+<main>
+  <div class="grid">
+    <a class="card" href="fire_head_layout_pit.html">
+      <span class="tag">스프링클러 헤드</span>
+      <h3>🔥 헤드 배치 검토 — 지하1층 부대시설</h3>
+      <p>구역별 최대커버 배치 + 보 살수장애 회피 + 100mm 셀 전수 검수.
+      법정 기준 대조 판정과 AI 검토 어시스턴트(직접 API 키 입력) 포함.</p>
+    </a>
+    <a class="card" href="fire_head_layout_refuge.html">
+      <span class="tag">스프링클러 헤드</span>
+      <h3>🔥 헤드 배치 검토 — 대피공간 포함 버전</h3>
+      <p>건축법 시행령 §46④ 대피공간 헤드 설치 예외(체크 15805)가 자동 적용된
+      배치 결과를 비교해볼 수 있습니다.</p>
+    </a>
+    <a class="card" href="evac_layout_pit.html">
+      <span class="tag">피난 경로</span>
+      <h3>🚪 피난 경로 검토 — 보행거리 30m 판정</h3>
+      <p>계단 출입구 자동 추출 → 보행 거리장 → 실별 30m/50m(내화 완화) 판정.
+      최원점 피난 동선을 도면 위에 표시합니다.</p>
+    </a>
+  </div>
+  <p class="foot">
+    <span class="badge">읽기 전용 데모</span>
+    <span class="badge">API 키는 사용자가 직접 입력(localStorage만 사용)</span><br/><br/>
+    소스 코드와 실행 방법은
+    <a href="https://github.com/">GitHub 저장소</a>의 README를 참고하세요.
+    법적 판정은 결정적 규칙으로 산출되며, 각 리포트 하단의 AI 어시스턴트는 결과 해설만
+    담당합니다(판정에 관여하지 않음).
+  </p>
+</main>
+</body></html>

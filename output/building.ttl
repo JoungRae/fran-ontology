@@ -1,0 +1,5522 @@
+@prefix bot: <https://w3id.org/bot#> .
+@prefix fran: <https://example.org/fran#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix inst: <https://example.org/fran/inst#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+fran:Column a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:accessibleDesign a owl:DatatypeProperty .
+
+fran:areaM2 a owl:DatatypeProperty .
+
+fran:clearWidthM a owl:DatatypeProperty .
+
+fran:doubleLoadedCorridor a owl:DatatypeProperty .
+
+fran:fixtureType a owl:DatatypeProperty .
+
+fran:stairTravelDistanceM a owl:DatatypeProperty .
+
+fran:structural a owl:DatatypeProperty ;
+    rdfs:domain fran:Wall ;
+    rdfs:range xsd:boolean .
+
+fran:verticalContinuation a owl:ObjectProperty .
+
+inst:1층_Fixture_10 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(162933 662090)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_11 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(11349 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Fixture_12 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(154273 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_14 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(119957 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:1층_Fixture_16 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(119957 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:1층_Fixture_17 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(120277 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_19 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(118004 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:1층_Fixture_2 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(101637 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:1층_Fixture_20 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(116937 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:1층_Fixture_21 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(121177 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:1층_Fixture_22 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(121177 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_23 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(201584 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Fixture_24 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(58660 662090)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_25 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(210244 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Fixture_26 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(67320 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_28 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(144757 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:1층_Fixture_3 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(99312 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:1층_Fixture_30 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(142804 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:1층_Fixture_31 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(141737 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:1층_Fixture_33 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(145977 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_34 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(145067 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_35 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(226384 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Fixture_36 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(83460 662090)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_37 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(235044 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Fixture_38 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(92120 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_4 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(103589 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:1층_Fixture_40 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(126437 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:1층_Fixture_42 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(126437 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:1층_Fixture_43 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(126117 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_44 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(124112 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:1층_Fixture_45 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(128389 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:1층_Fixture_46 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(129457 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:1층_Fixture_47 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(125217 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:1층_Fixture_48 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(125217 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_49 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(44809 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Fixture_5 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(104657 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:1층_Fixture_50 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(187733 662090)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_51 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(36149 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Fixture_52 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(179073 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:1층_Fixture_7 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(100417 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_8 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(101327 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:1층_Fixture_9 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(20009 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:1층_Interface_1 a bot:Interface ;
+    bot:hasElement inst:1층_Door_1 ;
+    bot:interfaceOf inst:1층_Room_0,
+        inst:1층_Room_1 .
+
+inst:1층_Interface_10 a bot:Interface ;
+    bot:hasElement inst:1층_Door_10 ;
+    bot:interfaceOf inst:1층_Room_10,
+        inst:1층_Room_8 .
+
+inst:1층_Interface_11 a bot:Interface ;
+    bot:hasElement inst:1층_Door_11 ;
+    bot:interfaceOf inst:1층_Room_10,
+        inst:1층_Room_11 .
+
+inst:1층_Interface_12 a bot:Interface ;
+    bot:hasElement inst:1층_Door_12 ;
+    bot:interfaceOf inst:1층_Room_13,
+        inst:1층_Room_19 .
+
+inst:1층_Interface_13 a bot:Interface ;
+    bot:hasElement inst:1층_Door_13 ;
+    bot:interfaceOf inst:1층_Room_14,
+        inst:1층_Room_22 .
+
+inst:1층_Interface_14 a bot:Interface ;
+    bot:hasElement inst:1층_Window_1 ;
+    bot:interfaceOf inst:1층_Room_15,
+        inst:1층_Room_28 .
+
+inst:1층_Interface_15 a bot:Interface ;
+    bot:hasElement inst:1층_Door_14 ;
+    bot:interfaceOf inst:1층_Room_16,
+        inst:1층_Room_20 .
+
+inst:1층_Interface_16 a bot:Interface ;
+    bot:hasElement inst:1층_Door_15 ;
+    bot:interfaceOf inst:1층_Room_17,
+        inst:1층_Room_24 .
+
+inst:1층_Interface_17 a bot:Interface ;
+    bot:hasElement inst:1층_Door_16 ;
+    bot:interfaceOf inst:1층_Room_19,
+        inst:1층_Room_54 .
+
+inst:1층_Interface_18 a bot:Interface ;
+    bot:hasElement inst:1층_Door_17 ;
+    bot:interfaceOf inst:1층_Room_20,
+        inst:1층_Room_21 .
+
+inst:1층_Interface_19 a bot:Interface ;
+    bot:hasElement inst:1층_Door_18 ;
+    bot:interfaceOf inst:1층_Room_21,
+        inst:1층_Room_22 .
+
+inst:1층_Interface_2 a bot:Interface ;
+    bot:hasElement inst:1층_Door_2 ;
+    bot:interfaceOf inst:1층_Room_1,
+        inst:1층_Room_19 .
+
+inst:1층_Interface_20 a bot:Interface ;
+    bot:hasElement inst:1층_Door_19 ;
+    bot:interfaceOf inst:1층_Room_21,
+        inst:1층_Room_23 .
+
+inst:1층_Interface_21 a bot:Interface ;
+    bot:hasElement inst:1층_Door_20 ;
+    bot:interfaceOf inst:1층_Room_23,
+        inst:1층_Room_24 .
+
+inst:1층_Interface_22 a bot:Interface ;
+    bot:hasElement inst:1층_Door_21 ;
+    bot:interfaceOf inst:1층_Room_25,
+        inst:1층_Room_26 .
+
+inst:1층_Interface_23 a bot:Interface ;
+    bot:hasElement inst:1층_Door_22 ;
+    bot:interfaceOf inst:1층_Room_27,
+        inst:1층_Room_28 .
+
+inst:1층_Interface_24 a bot:Interface ;
+    bot:hasElement inst:1층_Door_23 ;
+    bot:interfaceOf inst:1층_Room_27,
+        inst:1층_Room_34 .
+
+inst:1층_Interface_25 a bot:Interface ;
+    bot:hasElement inst:1층_Door_24 ;
+    bot:interfaceOf inst:1층_Room_28,
+        inst:1층_Room_31 .
+
+inst:1층_Interface_26 a bot:Interface ;
+    bot:hasElement inst:1층_Door_25 ;
+    bot:interfaceOf inst:1층_Room_29,
+        inst:1층_Room_32 .
+
+inst:1층_Interface_27 a bot:Interface ;
+    bot:hasElement inst:1층_Door_26 ;
+    bot:interfaceOf inst:1층_Room_30,
+        inst:1층_Room_36 .
+
+inst:1층_Interface_28 a bot:Interface ;
+    bot:hasElement inst:1층_Door_27 ;
+    bot:interfaceOf inst:1층_Room_32,
+        inst:1층_Room_33 .
+
+inst:1층_Interface_29 a bot:Interface ;
+    bot:hasElement inst:1층_Door_28 ;
+    bot:interfaceOf inst:1층_Room_33,
+        inst:1층_Room_34 .
+
+inst:1층_Interface_3 a bot:Interface ;
+    bot:hasElement inst:1층_Door_3 ;
+    bot:interfaceOf inst:1층_Room_2,
+        inst:1층_Room_3 .
+
+inst:1층_Interface_30 a bot:Interface ;
+    bot:hasElement inst:1층_Door_29 ;
+    bot:interfaceOf inst:1층_Room_33,
+        inst:1층_Room_35 .
+
+inst:1층_Interface_31 a bot:Interface ;
+    bot:hasElement inst:1층_Door_30 ;
+    bot:interfaceOf inst:1층_Room_35,
+        inst:1층_Room_36 .
+
+inst:1층_Interface_32 a bot:Interface ;
+    bot:hasElement inst:1층_Door_31 ;
+    bot:interfaceOf inst:1층_Room_38,
+        inst:1층_Room_44 .
+
+inst:1층_Interface_33 a bot:Interface ;
+    bot:hasElement inst:1층_Door_32 ;
+    bot:interfaceOf inst:1층_Room_39,
+        inst:1층_Room_47 .
+
+inst:1층_Interface_34 a bot:Interface ;
+    bot:hasElement inst:1층_Door_33 ;
+    bot:interfaceOf inst:1층_Room_41,
+        inst:1층_Room_45 .
+
+inst:1층_Interface_35 a bot:Interface ;
+    bot:hasElement inst:1층_Door_34 ;
+    bot:interfaceOf inst:1층_Room_42,
+        inst:1층_Room_49 .
+
+inst:1층_Interface_36 a bot:Interface ;
+    bot:hasElement inst:1층_Window_2 ;
+    bot:interfaceOf inst:1층_Room_44,
+        inst:1층_Room_53 .
+
+inst:1층_Interface_37 a bot:Interface ;
+    bot:hasElement inst:1층_Door_35 ;
+    bot:interfaceOf inst:1층_Room_44,
+        inst:1층_Room_55 .
+
+inst:1층_Interface_38 a bot:Interface ;
+    bot:hasElement inst:1층_Door_36 ;
+    bot:interfaceOf inst:1층_Room_45,
+        inst:1층_Room_46 .
+
+inst:1층_Interface_39 a bot:Interface ;
+    bot:hasElement inst:1층_Door_37 ;
+    bot:interfaceOf inst:1층_Room_46,
+        inst:1층_Room_47 .
+
+inst:1층_Interface_4 a bot:Interface ;
+    bot:hasElement inst:1층_Door_4 ;
+    bot:interfaceOf inst:1층_Room_2,
+        inst:1층_Room_9 .
+
+inst:1층_Interface_40 a bot:Interface ;
+    bot:hasElement inst:1층_Door_38 ;
+    bot:interfaceOf inst:1층_Room_46,
+        inst:1층_Room_48 .
+
+inst:1층_Interface_41 a bot:Interface ;
+    bot:hasElement inst:1층_Door_39 ;
+    bot:interfaceOf inst:1층_Room_48,
+        inst:1층_Room_49 .
+
+inst:1층_Interface_42 a bot:Interface ;
+    bot:hasElement inst:1층_Door_40 ;
+    bot:interfaceOf inst:1층_Room_50,
+        inst:1층_Room_54 .
+
+inst:1층_Interface_43 a bot:Interface ;
+    bot:hasElement inst:1층_Door_41 ;
+    bot:interfaceOf inst:1층_Room_51,
+        inst:1층_Room_55 .
+
+inst:1층_Interface_44 a bot:Interface ;
+    bot:hasElement inst:1층_Door_42 ;
+    bot:interfaceOf inst:1층_Room_52,
+        inst:1층_Room_54 .
+
+inst:1층_Interface_45 a bot:Interface ;
+    bot:hasElement inst:1층_Door_43 ;
+    bot:interfaceOf inst:1층_Room_53,
+        inst:1층_Room_55 .
+
+inst:1층_Interface_5 a bot:Interface ;
+    bot:hasElement inst:1층_Door_5 ;
+    bot:interfaceOf inst:1층_Room_3,
+        inst:1층_Room_6 .
+
+inst:1층_Interface_6 a bot:Interface ;
+    bot:hasElement inst:1층_Door_6 ;
+    bot:interfaceOf inst:1층_Room_4,
+        inst:1층_Room_7 .
+
+inst:1층_Interface_7 a bot:Interface ;
+    bot:hasElement inst:1층_Door_7 ;
+    bot:interfaceOf inst:1층_Room_11,
+        inst:1층_Room_5 .
+
+inst:1층_Interface_8 a bot:Interface ;
+    bot:hasElement inst:1층_Door_8 ;
+    bot:interfaceOf inst:1층_Room_7,
+        inst:1층_Room_8 .
+
+inst:1층_Interface_9 a bot:Interface ;
+    bot:hasElement inst:1층_Door_9 ;
+    bot:interfaceOf inst:1층_Room_8,
+        inst:1층_Room_9 .
+
+inst:Site_5BL a bot:Site ;
+    rdfs:label "5BL 단지"@ko ;
+    bot:hasBuilding inst:Building_5BL_A .
+
+inst:기준층_Fixture_1 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(128809 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_10 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(210117 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Fixture_12 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(210437 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:기준층_Fixture_13 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(104009 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_14 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(246933 662060)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_15 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(183312 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:기준층_Fixture_16 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(187589 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:기준층_Fixture_17 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(188657 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:기준층_Fixture_18 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(95349 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_19 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(238273 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_2 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(271733 662060)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_21 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(184417 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Fixture_22 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(185327 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Fixture_24 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(185637 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:기준층_Fixture_25 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(310384 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_26 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(167460 662060)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_28 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(226804 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:기준층_Fixture_29 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(225737 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:기준층_Fixture_3 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(208112 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:기준층_Fixture_30 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(319044 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_31 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(176120 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_33 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(229977 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Fixture_34 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(229067 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Fixture_36 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(228757 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:기준층_Fixture_37 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(285584 957229)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_38 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(142660 662060)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_4 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(212389 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:기준층_Fixture_40 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(202004 919275)"^^geo:wktLiteral ] ;
+    fran:fixtureType "sink" .
+
+inst:기준층_Fixture_41 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(200937 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:기준층_Fixture_42 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(294244 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_43 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(151320 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_44 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(205177 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:기준층_Fixture_45 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(205177 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Fixture_46 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(204277 919895)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Fixture_48 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(203957 915598)"^^geo:wktLiteral ] ;
+    fran:fixtureType "dist_panel" .
+
+inst:기준층_Fixture_5 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(213457 918743)"^^geo:wktLiteral ] ;
+    fran:fixtureType "stove" .
+
+inst:기준층_Fixture_6 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(120149 957919)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:기준층_Fixture_7 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(263073 662850)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:기준층_Fixture_8 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(209217 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:기준층_Fixture_9 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(209217 919435)"^^geo:wktLiteral ] ;
+    fran:fixtureType "laundry" .
+
+inst:기준층_Interface_1 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_1 ;
+    bot:interfaceOf inst:기준층_Room_0,
+        inst:기준층_Room_32 .
+
+inst:기준층_Interface_10 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_10 ;
+    bot:interfaceOf inst:기준층_Room_10,
+        inst:기준층_Room_9 .
+
+inst:기준층_Interface_11 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_11 ;
+    bot:interfaceOf inst:기준층_Room_10,
+        inst:기준층_Room_11 .
+
+inst:기준층_Interface_12 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_12 ;
+    bot:interfaceOf inst:기준층_Room_10,
+        inst:기준층_Room_12 .
+
+inst:기준층_Interface_13 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_13 ;
+    bot:interfaceOf inst:기준층_Room_12,
+        inst:기준층_Room_13 .
+
+inst:기준층_Interface_14 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_14 ;
+    bot:interfaceOf inst:기준층_Room_15,
+        inst:기준층_Room_21 .
+
+inst:기준층_Interface_15 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_15 ;
+    bot:interfaceOf inst:기준층_Room_16,
+        inst:기준층_Room_24 .
+
+inst:기준층_Interface_16 a bot:Interface ;
+    bot:hasElement inst:기준층_Window_1 ;
+    bot:interfaceOf inst:기준층_Room_17,
+        inst:기준층_Room_30 .
+
+inst:기준층_Interface_17 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_16 ;
+    bot:interfaceOf inst:기준층_Room_18,
+        inst:기준층_Room_22 .
+
+inst:기준층_Interface_18 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_17 ;
+    bot:interfaceOf inst:기준층_Room_19,
+        inst:기준층_Room_26 .
+
+inst:기준층_Interface_19 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_18 ;
+    bot:interfaceOf inst:기준층_Room_21,
+        inst:기준층_Room_53 .
+
+inst:기준층_Interface_2 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_2 ;
+    bot:interfaceOf inst:기준층_Room_1,
+        inst:기준층_Room_36 .
+
+inst:기준층_Interface_20 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_19 ;
+    bot:interfaceOf inst:기준층_Room_22,
+        inst:기준층_Room_23 .
+
+inst:기준층_Interface_21 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_20 ;
+    bot:interfaceOf inst:기준층_Room_23,
+        inst:기준층_Room_24 .
+
+inst:기준층_Interface_22 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_21 ;
+    bot:interfaceOf inst:기준층_Room_23,
+        inst:기준층_Room_25 .
+
+inst:기준층_Interface_23 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_22 ;
+    bot:interfaceOf inst:기준층_Room_25,
+        inst:기준층_Room_26 .
+
+inst:기준층_Interface_24 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_23 ;
+    bot:interfaceOf inst:기준층_Room_27,
+        inst:기준층_Room_28 .
+
+inst:기준층_Interface_25 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_24 ;
+    bot:interfaceOf inst:기준층_Room_29,
+        inst:기준층_Room_30 .
+
+inst:기준층_Interface_26 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_25 ;
+    bot:interfaceOf inst:기준층_Room_29,
+        inst:기준층_Room_34 .
+
+inst:기준층_Interface_27 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_26 ;
+    bot:interfaceOf inst:기준층_Room_30,
+        inst:기준층_Room_31 .
+
+inst:기준층_Interface_28 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_27 ;
+    bot:interfaceOf inst:기준층_Room_32,
+        inst:기준층_Room_33 .
+
+inst:기준층_Interface_29 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_28 ;
+    bot:interfaceOf inst:기준층_Room_33,
+        inst:기준층_Room_34 .
+
+inst:기준층_Interface_3 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_3 ;
+    bot:interfaceOf inst:기준층_Room_2,
+        inst:기준층_Room_3 .
+
+inst:기준층_Interface_30 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_29 ;
+    bot:interfaceOf inst:기준층_Room_33,
+        inst:기준층_Room_35 .
+
+inst:기준층_Interface_31 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_30 ;
+    bot:interfaceOf inst:기준층_Room_35,
+        inst:기준층_Room_36 .
+
+inst:기준층_Interface_32 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_31 ;
+    bot:interfaceOf inst:기준층_Room_38,
+        inst:기준층_Room_44 .
+
+inst:기준층_Interface_33 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_32 ;
+    bot:interfaceOf inst:기준층_Room_39,
+        inst:기준층_Room_47 .
+
+inst:기준층_Interface_34 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_33 ;
+    bot:interfaceOf inst:기준층_Room_41,
+        inst:기준층_Room_45 .
+
+inst:기준층_Interface_35 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_34 ;
+    bot:interfaceOf inst:기준층_Room_42,
+        inst:기준층_Room_49 .
+
+inst:기준층_Interface_36 a bot:Interface ;
+    bot:hasElement inst:기준층_Window_2 ;
+    bot:interfaceOf inst:기준층_Room_44,
+        inst:기준층_Room_50 .
+
+inst:기준층_Interface_37 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_35 ;
+    bot:interfaceOf inst:기준층_Room_44,
+        inst:기준층_Room_52 .
+
+inst:기준층_Interface_38 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_36 ;
+    bot:interfaceOf inst:기준층_Room_45,
+        inst:기준층_Room_46 .
+
+inst:기준층_Interface_39 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_37 ;
+    bot:interfaceOf inst:기준층_Room_46,
+        inst:기준층_Room_47 .
+
+inst:기준층_Interface_4 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_4 ;
+    bot:interfaceOf inst:기준층_Room_21,
+        inst:기준층_Room_3 .
+
+inst:기준층_Interface_40 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_38 ;
+    bot:interfaceOf inst:기준층_Room_46,
+        inst:기준층_Room_48 .
+
+inst:기준층_Interface_41 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_39 ;
+    bot:interfaceOf inst:기준층_Room_48,
+        inst:기준층_Room_49 .
+
+inst:기준층_Interface_42 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_40 ;
+    bot:interfaceOf inst:기준층_Room_50,
+        inst:기준층_Room_52 .
+
+inst:기준층_Interface_43 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_41 ;
+    bot:interfaceOf inst:기준층_Room_51,
+        inst:기준층_Room_53 .
+
+inst:기준층_Interface_5 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_5 ;
+    bot:interfaceOf inst:기준층_Room_4,
+        inst:기준층_Room_5 .
+
+inst:기준층_Interface_6 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_6 ;
+    bot:interfaceOf inst:기준층_Room_11,
+        inst:기준층_Room_4 .
+
+inst:기준층_Interface_7 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_7 ;
+    bot:interfaceOf inst:기준층_Room_5,
+        inst:기준층_Room_8 .
+
+inst:기준층_Interface_8 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_8 ;
+    bot:interfaceOf inst:기준층_Room_6,
+        inst:기준층_Room_9 .
+
+inst:기준층_Interface_9 a bot:Interface ;
+    bot:hasElement inst:기준층_Door_9 ;
+    bot:interfaceOf inst:기준층_Room_13,
+        inst:기준층_Room_7 .
+
+inst:지하1층_Interface_1 a bot:Interface ;
+    bot:hasElement inst:지하1층_Door_1 ;
+    bot:interfaceOf inst:지하1층_Room_1,
+        inst:지하1층_Room_11 .
+
+inst:지하1층_Interface_2 a bot:Interface ;
+    bot:hasElement inst:지하1층_Door_2 ;
+    bot:interfaceOf inst:지하1층_Room_10,
+        inst:지하1층_Room_3 .
+
+inst:지하1층_Interface_3 a bot:Interface ;
+    bot:hasElement inst:지하1층_Door_3 ;
+    bot:interfaceOf inst:지하1층_Room_10,
+        inst:지하1층_Room_4 .
+
+inst:지하1층_Interface_4 a bot:Interface ;
+    bot:hasElement inst:지하1층_Door_4 ;
+    bot:interfaceOf inst:지하1층_Room_11,
+        inst:지하1층_Room_7 .
+
+inst:1층_Elevator_1 a fran:Elevator .
+
+inst:1층_Fixture_1 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(105937 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:1층_Fixture_13 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(115657 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:1층_Fixture_15 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(115657 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:1층_Fixture_18 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(122282 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:1층_Fixture_27 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(140457 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:1층_Fixture_29 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(147082 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:1층_Fixture_32 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(145777 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:1층_Fixture_39 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(130737 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:1층_Fixture_41 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(130737 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:1층_Fixture_6 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(100617 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:1층_Room_40 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((98407 918665, 98517 918665, 98517 920005, 98407 920005, 98407 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.15 ;
+    fran:stairTravelDistanceM 17.6 ;
+    bot:adjacentElement inst:1층_Wall_141,
+        inst:1층_Wall_142,
+        inst:1층_Window_10 ;
+    bot:containsElement inst:1층_Window_10 .
+
+inst:1층_Room_43 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((98517 917030, 100217 917030, 100217 918365, 98517 918365, 98517 917030))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.27 ;
+    fran:stairTravelDistanceM 16.8 ;
+    bot:adjacentElement inst:1층_Wall_147,
+        inst:1층_Wall_148,
+        inst:1층_Wall_149,
+        inst:1층_Wall_150 .
+
+inst:1층_Stair_1 a fran:Stair .
+
+inst:1층_Unit_1 a fran:DwellingUnit ;
+    rdfs:label "세대 1"@ko ;
+    bot:hasSpace inst:1층_Room_37,
+        inst:1층_Room_38,
+        inst:1층_Room_39,
+        inst:1층_Room_40,
+        inst:1층_Room_41,
+        inst:1층_Room_42,
+        inst:1층_Room_43,
+        inst:1층_Room_45,
+        inst:1층_Room_46,
+        inst:1층_Room_47,
+        inst:1층_Room_48,
+        inst:1층_Room_49 .
+
+inst:1층_Unit_2 a fran:DwellingUnit ;
+    rdfs:label "세대 2"@ko ;
+    bot:hasSpace inst:1층_Room_15,
+        inst:1층_Room_25,
+        inst:1층_Room_26,
+        inst:1층_Room_27,
+        inst:1층_Room_28,
+        inst:1층_Room_29,
+        inst:1층_Room_30,
+        inst:1층_Room_31,
+        inst:1층_Room_32,
+        inst:1층_Room_33,
+        inst:1층_Room_34,
+        inst:1층_Room_35,
+        inst:1층_Room_36 .
+
+inst:1층_Unit_3 a fran:DwellingUnit ;
+    rdfs:label "세대 3"@ko ;
+    bot:hasSpace inst:1층_Room_12,
+        inst:1층_Room_13,
+        inst:1층_Room_14,
+        inst:1층_Room_16,
+        inst:1층_Room_17,
+        inst:1층_Room_18,
+        inst:1층_Room_20,
+        inst:1층_Room_21,
+        inst:1층_Room_22,
+        inst:1층_Room_23,
+        inst:1층_Room_24 .
+
+inst:1층_Unit_4 a fran:DwellingUnit ;
+    rdfs:label "세대 4"@ko ;
+    bot:hasSpace inst:1층_Room_0,
+        inst:1층_Room_1,
+        inst:1층_Room_10,
+        inst:1층_Room_11,
+        inst:1층_Room_2,
+        inst:1층_Room_3,
+        inst:1층_Room_4,
+        inst:1층_Room_5,
+        inst:1층_Room_6,
+        inst:1층_Room_7,
+        inst:1층_Room_8,
+        inst:1층_Room_9 .
+
+inst:1층_Wall_100 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(125227 919895, 126757 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_101 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(123287 918665, 123287 920255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_102 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(125147 915755, 125147 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_103 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(125147 917055, 126647 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_104 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(133807 914965, 133807 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_105 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(133807 917165, 135307 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_106 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(125017 917030, 125017 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_107 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(123317 917030, 125017 917030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_108 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(123317 918365, 125017 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_109 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(123317 913490, 126817 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_110 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(127037 913200, 130637 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_111 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(127037 918615, 130127 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_112 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130757 913200, 132557 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_113 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130757 914800, 132557 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_114 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(132677 913200, 135477 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_115 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(114387 916220, 114387 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_116 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(114387 916220, 114538 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_117 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(114387 917660, 114538 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_118 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(114538 916220, 115657 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_119 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119637 918255, 121167 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_120 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119637 919895, 121167 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_121 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(121427 920005, 123077 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_122 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(121247 915755, 121247 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_123 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119747 917055, 121247 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_124 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(112587 914965, 112587 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_125 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(111087 917165, 112587 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_126 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(121284 917030, 121284 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_127 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(121284 917030, 123077 917030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_128 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119577 913490, 123077 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_129 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(115757 913200, 119357 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_130 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(116267 918615, 119357 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_131 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(113744 913200, 115637 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_132 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(113744 914800, 115637 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_133 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(110917 913200, 113717 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_134 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105789 916220, 106024 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_135 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105789 917660, 106024 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_136 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(107207 916220, 107207 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_137 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(106024 916220, 107207 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_138 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(100427 918255, 100427 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_139 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(100427 918255, 101957 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_140 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(100427 919895, 101957 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_141 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(98407 918665, 98407 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_142 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(98517 918665, 98517 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_143 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(100347 915755, 100347 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_144 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(100347 917055, 101847 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_145 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(109007 914965, 109007 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_146 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(109007 917165, 110507 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_147 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(98517 917030, 98517 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_148 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(100217 917030, 100217 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_149 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(98517 917030, 100217 917030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_150 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(98517 918365, 100217 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_151 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(98517 913490, 98517 915590)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_152 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(98517 913490, 102017 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_153 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(102237 913200, 105837 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_154 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(102237 918615, 105327 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_155 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105957 913200, 107757 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_156 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105957 914800, 107757 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_157 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(107877 913200, 110677 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_158 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(132737 923055, 132737 926055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_159 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(141197 923055, 141197 926055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_160 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(132737 926055, 141197 926055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_161 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(107937 923055, 107937 926055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_162 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(116397 923055, 116397 926055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_163 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(107937 926055, 116397 926055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_164 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(133117 920455, 133117 922861)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_165 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(108317 920455, 108317 922861)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_72 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(139187 916220, 139187 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_73 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(139187 916220, 139338 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_74 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(139187 917660, 139338 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_75 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(139338 916220, 140457 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_76 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144437 918255, 145967 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_77 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144437 919895, 145967 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_78 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(147877 918665, 147877 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_79 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(146227 920005, 147877 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_80 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(146047 915755, 146047 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_81 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144547 917055, 146047 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_82 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(137387 914965, 137387 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_83 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(135887 917165, 137387 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_84 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(146084 917030, 146084 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_85 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(147877 917030, 147877 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_86 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(146084 917030, 147877 917030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_87 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(147877 913490, 147877 915590)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_88 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144377 913490, 147877 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_89 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(140557 913200, 144157 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_90 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(141067 918615, 144157 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_91 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(138544 913200, 140437 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_92 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(138544 914800, 140437 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_93 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(135717 913200, 138517 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_94 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130589 916220, 130824 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_95 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130589 917660, 130824 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_96 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(132007 916220, 132007 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_97 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130824 916220, 132007 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Wall_98 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(125227 918255, 125227 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:1층_Wall_99 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(125227 918255, 126757 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:Building_5BL_A a bot:Building ;
+    rdfs:label "주동 A (5BL)"@ko ;
+    bot:hasStorey inst:Storey_1층,
+        inst:Storey_기준층,
+        inst:Storey_지하1층 .
+
+inst:Storey_기준층 a bot:Storey ;
+    rdfs:label "기준층(2~15층)"@ko ;
+    fran:aboveStorey inst:Storey_1층 ;
+    fran:elevationMm 3250 ;
+    fran:heightMm 2800 ;
+    fran:levelIndex 2 ;
+    bot:containsElement inst:기준층_Elevator_1,
+        inst:기준층_Stair_1 ;
+    bot:hasSpace inst:기준층_Room_21,
+        inst:기준층_Room_44,
+        inst:기준층_Room_50,
+        inst:기준층_Room_51,
+        inst:기준층_Room_52,
+        inst:기준층_Room_53,
+        inst:기준층_Unit_1,
+        inst:기준층_Unit_2,
+        inst:기준층_Unit_3,
+        inst:기준층_Unit_4 .
+
+inst:기준층_Elevator_1 a fran:Elevator .
+
+inst:기준층_Fixture_11 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(214737 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:기준층_Fixture_20 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(184617 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:기준층_Fixture_23 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(189937 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:기준층_Fixture_27 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(231082 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:기준층_Fixture_32 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(229777 918785)"^^geo:wktLiteral ] ;
+    fran:fixtureType "drain" .
+
+inst:기준층_Fixture_35 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(224457 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:기준층_Fixture_39 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(206282 919705)"^^geo:wktLiteral ] ;
+    fran:fixtureType "outdoor_unit" .
+
+inst:기준층_Fixture_47 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(199657 916940)"^^geo:wktLiteral ] ;
+    fran:fixtureType "comm_box" .
+
+inst:기준층_Room_40 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((182407 918665, 182517 918665, 182517 920005, 182407 920005, 182407 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.15 ;
+    fran:stairTravelDistanceM 17.6 ;
+    bot:adjacentElement inst:기준층_Wall_133,
+        inst:기준층_Wall_134,
+        inst:기준층_Window_10 ;
+    bot:containsElement inst:기준층_Window_10 .
+
+inst:기준층_Room_43 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((182517 916830, 184217 916830, 184217 918365, 182517 918365, 182517 916830))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.61 ;
+    fran:stairTravelDistanceM 16.9 ;
+    bot:adjacentElement inst:기준층_Wall_139,
+        inst:기준층_Wall_140,
+        inst:기준층_Wall_141,
+        inst:기준층_Wall_142 .
+
+inst:기준층_Stair_1 a fran:Stair .
+
+inst:기준층_Unit_1 a fran:DwellingUnit ;
+    rdfs:label "세대 1"@ko ;
+    bot:hasSpace inst:기준층_Room_37,
+        inst:기준층_Room_38,
+        inst:기준층_Room_39,
+        inst:기준층_Room_40,
+        inst:기준층_Room_41,
+        inst:기준층_Room_42,
+        inst:기준층_Room_43,
+        inst:기준층_Room_45,
+        inst:기준층_Room_46,
+        inst:기준층_Room_47,
+        inst:기준층_Room_48,
+        inst:기준층_Room_49 .
+
+inst:기준층_Unit_2 a fran:DwellingUnit ;
+    rdfs:label "세대 2"@ko ;
+    bot:hasSpace inst:기준층_Room_0,
+        inst:기준층_Room_1,
+        inst:기준층_Room_17,
+        inst:기준층_Room_27,
+        inst:기준층_Room_28,
+        inst:기준층_Room_29,
+        inst:기준층_Room_30,
+        inst:기준층_Room_31,
+        inst:기준층_Room_32,
+        inst:기준층_Room_33,
+        inst:기준층_Room_34,
+        inst:기준층_Room_35,
+        inst:기준층_Room_36 .
+
+inst:기준층_Unit_3 a fran:DwellingUnit ;
+    rdfs:label "세대 3"@ko ;
+    bot:hasSpace inst:기준층_Room_14,
+        inst:기준층_Room_15,
+        inst:기준층_Room_16,
+        inst:기준층_Room_18,
+        inst:기준층_Room_19,
+        inst:기준층_Room_20,
+        inst:기준층_Room_22,
+        inst:기준층_Room_23,
+        inst:기준층_Room_24,
+        inst:기준층_Room_25,
+        inst:기준층_Room_26 .
+
+inst:기준층_Unit_4 a fran:DwellingUnit ;
+    rdfs:label "세대 4"@ko ;
+    bot:hasSpace inst:기준층_Room_10,
+        inst:기준층_Room_11,
+        inst:기준층_Room_12,
+        inst:기준층_Room_13,
+        inst:기준층_Room_2,
+        inst:기준층_Room_3,
+        inst:기준층_Room_4,
+        inst:기준층_Room_5,
+        inst:기준층_Room_6,
+        inst:기준층_Room_7,
+        inst:기준층_Room_8,
+        inst:기준층_Room_9 .
+
+inst:기준층_Wall_100 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217807 914965, 217807 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_101 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217807 917165, 219307 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_102 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(209017 916830, 209017 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_103 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(207317 916830, 209017 916830)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_104 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(207317 918365, 209017 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_105 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(207317 913490, 210817 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_106 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(211037 913200, 214637 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_107 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(211037 918615, 214127 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_108 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214757 913200, 216557 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_109 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214757 914800, 216557 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_110 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(216677 913200, 219477 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_111 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(198387 916220, 198387 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_112 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(198387 916220, 198538 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_113 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(198387 917660, 198538 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_114 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(198538 916220, 199657 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_115 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203637 918255, 205167 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_116 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203637 919895, 205167 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_117 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(205427 920005, 207077 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_118 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(205284 916830, 205284 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_119 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(205284 916830, 207077 916830)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_120 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203577 913490, 207077 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_121 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(199757 913200, 203357 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_122 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(200267 918615, 203357 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_123 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(197744 913200, 199637 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_124 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(197744 914800, 199637 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_125 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(194917 913200, 197717 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_126 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189789 916220, 190024 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_127 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189789 917660, 190024 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_128 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(191207 916220, 191207 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_129 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(190024 916220, 191207 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_130 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(184427 918255, 184427 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_131 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(184427 918255, 185957 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_132 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(184427 919895, 185957 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_133 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(182407 918665, 182407 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_134 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(182517 918665, 182517 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_135 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(184347 915755, 184347 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_136 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(184347 917055, 185847 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_137 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(193007 914965, 193007 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_138 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(193007 917165, 194507 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_139 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(182517 916830, 182517 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_140 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(184217 916830, 184217 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_141 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(182517 916830, 184217 916830)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_142 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(182517 918365, 184217 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_143 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(182517 913490, 182517 915590)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_144 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(182517 913490, 186017 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_145 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(186237 913200, 189837 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_146 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(186237 918615, 189327 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_147 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189957 913200, 191757 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_148 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189957 914800, 191757 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_149 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(191877 913200, 194677 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_150 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(192317 920455, 192317 922861)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_151 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(192317 922861, 194967 922861)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_152 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217117 920455, 217117 922861)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_153 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217117 922861, 219767 922861)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_64 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(205247 915755, 205247 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_65 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203747 917055, 205247 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_66 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(196587 914965, 196587 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_67 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(195087 917165, 196587 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_68 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223187 916220, 223187 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_69 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223187 916220, 223338 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_70 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223187 917660, 223338 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_71 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223338 916220, 224457 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_72 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228437 918255, 229967 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_73 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228437 919895, 229967 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_74 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(231877 918665, 231877 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_75 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(230227 920005, 231877 920005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_76 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(230047 915755, 230047 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_77 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228547 917055, 230047 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_78 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(221387 914965, 221387 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_79 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(219887 917165, 221387 917165)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_80 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(230084 916830, 230084 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_81 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(231877 916830, 231877 918365)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_82 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(230084 916830, 231877 916830)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_83 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(231877 913490, 231877 915590)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_84 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228377 913490, 231877 913490)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_85 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(224557 913200, 228157 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_86 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(225067 918615, 228157 918615)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_87 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(222544 913200, 224437 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_88 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(222544 914800, 224437 914800)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_89 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(219717 913200, 222517 913200)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_90 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214589 916220, 214824 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_91 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214589 917660, 214824 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_92 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(216007 916220, 216007 917660)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_93 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214824 916220, 216007 916220)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_94 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(209227 918255, 209227 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_95 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(209227 918255, 210757 918255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_96 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(209227 919895, 210757 919895)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_97 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(207287 918665, 207287 920255)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:기준층_Wall_98 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(209147 915755, 209147 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:기준층_Wall_99 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(209147 917055, 210647 917055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_Elevator_1 a fran:Elevator .
+
+inst:지하1층_Room_0 a bot:Space ;
+    rdfs:label "홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((211062 911810, 218417 911810, 218417 913665, 211062 913665, 211062 911810))"^^geo:wktLiteral ] ;
+    fran:areaM2 13.64 ;
+    fran:doubleLoadedCorridor false ;
+    bot:adjacentElement inst:지하1층_Wall_13,
+        inst:지하1층_Wall_14 .
+
+inst:지하1층_Room_2 a bot:Space ;
+    rdfs:label "홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((195977 911810, 203332 911810, 203332 913665, 195977 913665, 195977 911810))"^^geo:wktLiteral ] ;
+    fran:areaM2 13.64 ;
+    fran:doubleLoadedCorridor false ;
+    bot:adjacentElement inst:지하1층_Wall_16,
+        inst:지하1층_Wall_17 .
+
+inst:지하1층_Stair_1 a fran:Stair .
+
+inst:지하1층_Wall_13 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(211062 911810, 211062 913665)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_14 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(211062 911810, 218417 911810)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_15 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(215672 918030, 223817 918030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_16 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203332 911810, 203332 913665)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_17 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(195977 911810, 203332 911810)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_18 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(190872 918030, 199017 918030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_19 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(192317 922855, 194967 922855)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_20 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189697 918030, 189697 919805)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_21 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189697 918030, 190872 918030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_22 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189697 919805, 190872 919805)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_23 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(199897 918030, 199897 920055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_24 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(199017 918030, 199897 918030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_25 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217117 922855, 219767 922855)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_26 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214497 918030, 214497 920055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_27 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214497 918030, 215672 918030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_28 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214497 920055, 215672 920055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_29 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(224697 918030, 224697 920055)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_Wall_30 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223817 918030, 224697 918030)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:1층_Room_18 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((123317 917030, 125017 917030, 125017 918365, 123317 918365, 123317 917030))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.27 ;
+    fran:stairTravelDistanceM 16.8 ;
+    bot:adjacentElement inst:1층_Wall_106,
+        inst:1층_Wall_107,
+        inst:1층_Wall_108,
+        inst:1층_Wall_26 ;
+    bot:adjacentZone inst:1층_Room_31 .
+
+inst:1층_Wall_1 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(139338.0 916220, 139338.0 917660)"^^geo:wktLiteral ] .
+
+inst:1층_Wall_10 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(135597.0 914965, 135597.0 917165)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_11 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144267.0 913490, 144267.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_12 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(141067 916097.5, 144157 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_13 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(140497.0 913200, 140497.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_14 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(140882.0 918030, 140882.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_15 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(138530.5 913200, 138530.5 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_16 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(135597.0 913200, 135597.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_17 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130824.0 916220, 130824.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_18 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130358.0 916220, 130358.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_19 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130824 917845.0, 132007 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_2 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(140762.0 916220, 140762.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_20 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130475.5 916220, 130475.5 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_21 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(126897.0 918255, 126897.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_22 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(123092.0 918665, 123092.0 920005)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_23 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(125147 915672.5, 126647 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_24 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(126842.0 916175, 126842.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_25 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(133807 914882.5, 135307 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_26 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(123197.0 917030, 123197.0 918365)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_27 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130312.0 918030, 130312.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_28 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(133117 920255.0, 135767 920255.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_29 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(136233 920199.5, 140533 920199.5)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_3 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(139338 917845.0, 140457 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_30 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(126927.0 913490, 126927.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_31 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(123197.0 913490, 123197.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_32 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(127037 916097.5, 130127 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_33 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(130697.0 913200, 130697.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_34 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(132617.0 913200, 132617.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_35 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(114538.0 916220, 114538.0 917660)"^^geo:wktLiteral ] .
+
+inst:1층_Wall_36 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(115962.0 916220, 115962.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_37 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(114538 917845.0, 115657 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_38 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(121297.0 918665, 121297.0 919895)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_39 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119497.0 918255, 119497.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_4 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(146097.0 918665, 146097.0 919895)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_40 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(121427 918515.0, 123077 918515.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_41 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119747 915672.5, 121247 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_42 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119552.0 916175, 119552.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_43 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(111087 914882.5, 112587 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_44 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(110797.0 914965, 110797.0 917165)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_45 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(119467.0 913490, 119467.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_46 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(116267 916097.5, 119357 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_47 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(115697.0 913200, 115697.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_48 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(116082.0 918030, 116082.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_49 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(113730.5 913200, 113730.5 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_5 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144297.0 918255, 144297.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_50 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(110797.0 913200, 110797.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_51 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(106024.0 916220, 106024.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_52 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105558.0 916220, 105558.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_53 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(106024 917845.0, 107207 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_54 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105675.5 916220, 105675.5 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_55 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(102097.0 918255, 102097.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_56 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(100347 915672.5, 101847 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_57 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(102042.0 916175, 102042.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_58 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(109007 914882.5, 110507 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_59 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105512.0 918030, 105512.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_6 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(146227 918515.0, 147877 918515.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_60 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(108317 920255.0, 110967 920255.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_61 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(111433 920199.5, 115733 920199.5)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_62 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(102127.0 913490, 102127.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_63 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(102237 916097.5, 105327 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_64 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(105897.0 913200, 105897.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_65 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(107817.0 913200, 107817.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_66 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(133117 922958.0, 135767 922958.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_67 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(136233 922949.5, 140533 922949.5)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_68 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(108317 922958.0, 110967 922958.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_69 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(111433 922949.5, 115733 922949.5)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_7 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144547 915672.5, 146047 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Wall_70 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(136000.0 920455, 136000.0 922844)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_71 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(111200.0 920455, 111200.0 922844)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_8 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(144352.0 916175, 144352.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:1층_Wall_9 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(135887 914882.5, 137387 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:1층_Window_10 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(98517 919335)"^^geo:wktLiteral ] .
+
+inst:1층_Window_11 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(108317 921658)"^^geo:wktLiteral ] .
+
+inst:1층_Window_3 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(145202 919895)"^^geo:wktLiteral ] .
+
+inst:1층_Window_4 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(147877 919335)"^^geo:wktLiteral ] .
+
+inst:1층_Window_5 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(147052 920005)"^^geo:wktLiteral ] .
+
+inst:1층_Window_6 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(125992 919895)"^^geo:wktLiteral ] .
+
+inst:1층_Window_7 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(120402 919895)"^^geo:wktLiteral ] .
+
+inst:1층_Window_8 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(122252 920005)"^^geo:wktLiteral ] .
+
+inst:1층_Window_9 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(101192 919895)"^^geo:wktLiteral ] .
+
+inst:Storey_1층 a bot:Storey ;
+    rdfs:label "1층"@ko ;
+    fran:aboveStorey inst:Storey_지하1층 ;
+    fran:elevationMm 0 ;
+    fran:heightMm 3250 ;
+    fran:levelIndex 1 ;
+    bot:containsElement inst:1층_Elevator_1,
+        inst:1층_Stair_1 ;
+    bot:hasSpace inst:1층_Room_19,
+        inst:1층_Room_44,
+        inst:1층_Room_50,
+        inst:1층_Room_51,
+        inst:1층_Room_52,
+        inst:1층_Room_53,
+        inst:1층_Room_54,
+        inst:1층_Room_55,
+        inst:1층_Unit_1,
+        inst:1층_Unit_2,
+        inst:1층_Unit_3,
+        inst:1층_Unit_4 .
+
+inst:Storey_지하1층 a bot:Storey ;
+    rdfs:label "지하1층"@ko ;
+    fran:elevationMm -4050 ;
+    fran:heightMm 4050 ;
+    fran:levelIndex -1 ;
+    bot:containsElement inst:지하1층_Elevator_1,
+        inst:지하1층_Stair_1 ;
+    bot:hasSpace inst:지하1층_Room_0,
+        inst:지하1층_Room_1,
+        inst:지하1층_Room_10,
+        inst:지하1층_Room_11,
+        inst:지하1층_Room_2,
+        inst:지하1층_Room_3,
+        inst:지하1층_Room_4,
+        inst:지하1층_Room_5,
+        inst:지하1층_Room_6,
+        inst:지하1층_Room_7,
+        inst:지하1층_Room_8,
+        inst:지하1층_Room_9 .
+
+inst:기준층_Room_20 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((207317 916830, 209017 916830, 209017 918365, 207317 918365, 207317 916830))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.61 ;
+    fran:stairTravelDistanceM 16.9 ;
+    bot:adjacentElement inst:기준층_Wall_102,
+        inst:기준층_Wall_103,
+        inst:기준층_Wall_104,
+        inst:기준층_Wall_29 ;
+    bot:adjacentZone inst:기준층_Room_31 .
+
+inst:기준층_Wall_1 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203747 915672.5, 205247 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_10 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(230227 918515.0, 231877 918515.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_11 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228547 915672.5, 230047 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_12 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228352.0 916175, 228352.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_13 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(219887 914882.5, 221387 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_14 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(219597.0 914965, 219597.0 917165)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_15 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228267.0 913490, 228267.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_16 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(225067 916097.5, 228157 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_17 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(224497.0 913200, 224497.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_18 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(222530.5 913200, 222530.5 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_19 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(219597.0 913200, 219597.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_2 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203552.0 916175, 203552.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_20 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214824.0 916220, 214824.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_21 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214358.0 916220, 214358.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_22 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(215672 917845.0, 216007 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_23 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214475.5 916220, 214475.5 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_24 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(210897.0 918255, 210897.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_25 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(207092.0 918665, 207092.0 920005)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_26 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(209147 915672.5, 210647 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_27 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(210842.0 916175, 210842.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_28 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217807 914882.5, 219307 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_29 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(207197.0 916830, 207197.0 918365)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_3 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(195087 914882.5, 196587 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_30 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217117 920255.0, 219767 920255.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_31 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(220233 920199.5, 223817 920199.5)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_32 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(210927.0 913490, 210927.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_33 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(207197.0 913490, 207197.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_34 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(211037 916097.5, 214127 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_35 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(214697.0 913200, 214697.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_36 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(216617.0 913200, 216617.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_37 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(198538.0 916220, 198538.0 917660)"^^geo:wktLiteral ] .
+
+inst:기준층_Wall_38 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(199962.0 916220, 199962.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_39 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(198538 917845.0, 199017 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_4 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(194797.0 914965, 194797.0 917165)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_40 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(205297.0 918665, 205297.0 919895)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_41 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203497.0 918255, 203497.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_42 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(205427 918515.0, 207077 918515.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_43 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(203467.0 913490, 203467.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_44 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(200267 916097.5, 203357 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_45 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(199697.0 913200, 199697.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_46 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(197730.5 913200, 197730.5 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_47 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(194797.0 913200, 194797.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_48 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(190024.0 916220, 190024.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_49 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189558.0 916220, 189558.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_5 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223338.0 916220, 223338.0 917660)"^^geo:wktLiteral ] .
+
+inst:기준층_Wall_50 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(190872 917845.0, 191207 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_51 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189675.5 916220, 189675.5 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_52 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(186097.0 918255, 186097.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_53 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(184347 915672.5, 185847 915672.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_54 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(186042.0 916175, 186042.0 917055)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_55 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(193007 914882.5, 194507 914882.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_56 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(192317 920255.0, 194967 920255.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_57 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(195433 920199.5, 199017 920199.5)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_58 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(186127.0 913490, 186127.0 915590)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_59 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(186237 916097.5, 189327 916097.5)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_6 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(224762.0 916220, 224762.0 917660)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_60 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(189897.0 913200, 189897.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_61 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(191817.0 913200, 191817.0 914800)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_62 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(195200.0 920455, 195200.0 922744)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_63 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(220000.0 920455, 220000.0 922744)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_7 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223338 917845.0, 223817 917845.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:기준층_Wall_8 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(230097.0 918665, 230097.0 919895)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Wall_9 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(228297.0 918255, 228297.0 918615)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:기준층_Window_10 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(182517 919335)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_11 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(192317 921658)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_3 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(229202 919895)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_4 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(231877 919335)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_5 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(231052 920005)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_6 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(209992 919895)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_7 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(204402 919895)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_8 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(206252 920005)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_9 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(185192 919895)"^^geo:wktLiteral ] .
+
+inst:지하1층_Wall_1 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(217117 920255.0, 219767 920255.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_Wall_10 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(199017 920191.0, 199784 920191.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_Wall_11 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(219975.5 920455, 219975.5 922727)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_Wall_12 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223817 920191.0, 224584 920191.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_Wall_2 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(215672.0 918030, 215672.0 920055)"^^geo:wktLiteral ] .
+
+inst:지하1층_Wall_3 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(223817.0 918030, 223817.0 920055)"^^geo:wktLiteral ] .
+
+inst:지하1층_Wall_4 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(220184 920191.0, 223817 920191.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_Wall_5 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(192317 920130.0, 194967 920130.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_Wall_6 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(190872.0 918030, 190872.0 919805)"^^geo:wktLiteral ] .
+
+inst:지하1층_Wall_7 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(199017.0 918030, 199017.0 919805)"^^geo:wktLiteral ] .
+
+inst:지하1층_Wall_8 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(195384 920066.0, 199017 920066.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_Wall_9 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "LINESTRING(195175.5 920455, 195175.5 922727)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+fran:Elevator a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:Stair a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+inst:1층_Door_1 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(139338 916940)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:1층_Door_10 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(140497 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_11 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(138530 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_12 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(131416 917845)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:1층_Door_13 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(126897 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:1층_Door_14 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(125897 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_15 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(134557 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.94 .
+
+inst:1층_Door_16 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(138383 920200)"^^geo:wktLiteral ] .
+
+inst:1층_Door_17 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(126927 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_18 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(128582 916098)"^^geo:wktLiteral ] .
+
+inst:1층_Door_19 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(130697 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_2 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(139898 917845)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:1층_Door_20 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(132617 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_21 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(114538 916940)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:1층_Door_22 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(121297 919280)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:1층_Door_23 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(119497 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:1층_Door_24 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(122252 918515)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:1층_Door_25 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(120497 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_26 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(111837 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.94 .
+
+inst:1층_Door_27 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(119467 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_28 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(117812 916098)"^^geo:wktLiteral ] .
+
+inst:1층_Door_29 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(115697 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_3 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(146097 919280)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:1층_Door_30 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(113730 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_31 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(106616 917845)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:1층_Door_32 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(102097 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:1층_Door_33 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(101097 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_34 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(109757 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.94 .
+
+inst:1층_Door_35 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(113583 920200)"^^geo:wktLiteral ] .
+
+inst:1층_Door_36 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(102127 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_37 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(103782 916098)"^^geo:wktLiteral ] .
+
+inst:1층_Door_38 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(105897 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_39 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(107817 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_4 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(144297 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:1층_Door_40 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(138383 922950)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.01 .
+
+inst:1층_Door_41 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(113583 922950)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.01 .
+
+inst:1층_Door_42 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(136000 921650)"^^geo:wktLiteral ] .
+
+inst:1층_Door_43 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(111200 921650)"^^geo:wktLiteral ] .
+
+inst:1층_Door_5 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(147052 918515)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:1층_Door_6 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(145297 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_7 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(136637 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.94 .
+
+inst:1층_Door_8 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(144267 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:1층_Door_9 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(142612 916098)"^^geo:wktLiteral ] .
+
+inst:1층_Room_0 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((139187 916220, 139338 916220, 139338 917660, 139187 917660, 139187 916220))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 0.22 ;
+    fran:stairTravelDistanceM 9.9 ;
+    bot:adjacentElement inst:1층_Door_1,
+        inst:1층_Wall_1,
+        inst:1층_Wall_72,
+        inst:1층_Wall_73,
+        inst:1층_Wall_74 ;
+    bot:adjacentZone inst:1층_Room_1 .
+
+inst:1층_Room_12 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((130589 916220, 130824 916220, 130824 917660, 130589 917660, 130589 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.34 ;
+    fran:stairTravelDistanceM 9.9 ;
+    bot:adjacentElement inst:1층_Wall_17,
+        inst:1층_Wall_18,
+        inst:1층_Wall_94,
+        inst:1층_Wall_95 ;
+    bot:adjacentZone inst:1층_Room_13,
+        inst:1층_Room_22 ;
+    bot:containsElement inst:1층_Fixture_39,
+        inst:1층_Fixture_41 .
+
+inst:1층_Room_14 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((125227 918255, 126757 918255, 126757 919895, 125227 919895, 125227 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    fran:stairTravelDistanceM 15.4 ;
+    bot:adjacentElement inst:1층_Door_13,
+        inst:1층_Wall_100,
+        inst:1층_Wall_21,
+        inst:1층_Wall_98,
+        inst:1층_Wall_99,
+        inst:1층_Window_6 ;
+    bot:adjacentZone inst:1층_Room_22 ;
+    bot:containsElement inst:1층_Window_6 .
+
+inst:1층_Room_15 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((123107 918665, 123287 918665, 123287 920255, 123107 920255, 123107 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.29 ;
+    bot:adjacentElement inst:1층_Wall_101,
+        inst:1층_Wall_22,
+        inst:1층_Window_1 ;
+    bot:adjacentZone inst:1층_Room_28 .
+
+inst:1층_Room_25 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((114387 916220, 114538 916220, 114538 917660, 114387 917660, 114387 916220))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 0.22 ;
+    bot:adjacentElement inst:1층_Door_21,
+        inst:1층_Wall_115,
+        inst:1층_Wall_116,
+        inst:1층_Wall_117,
+        inst:1층_Wall_35 ;
+    bot:adjacentZone inst:1층_Room_26 .
+
+inst:1층_Room_37 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((105789 916220, 106024 916220, 106024 917660, 105789 917660, 105789 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.34 ;
+    fran:stairTravelDistanceM 9.9 ;
+    bot:adjacentElement inst:1층_Wall_134,
+        inst:1층_Wall_135,
+        inst:1층_Wall_51,
+        inst:1층_Wall_52 ;
+    bot:adjacentZone inst:1층_Room_38,
+        inst:1층_Room_47 ;
+    bot:containsElement inst:1층_Fixture_1 .
+
+inst:1층_Room_39 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((100427 918255, 101957 918255, 101957 919895, 100427 919895, 100427 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    fran:stairTravelDistanceM 15.4 ;
+    bot:adjacentElement inst:1층_Door_32,
+        inst:1층_Wall_138,
+        inst:1층_Wall_139,
+        inst:1층_Wall_140,
+        inst:1층_Wall_55,
+        inst:1층_Window_9 ;
+    bot:adjacentZone inst:1층_Room_47 ;
+    bot:containsElement inst:1층_Fixture_6,
+        inst:1층_Window_9 .
+
+inst:1층_Room_6 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((146084 917030, 147877 917030, 147877 918365, 146084 918365, 146084 917030))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.39 ;
+    fran:stairTravelDistanceM 16.8 ;
+    bot:adjacentElement inst:1층_Door_5,
+        inst:1층_Wall_6,
+        inst:1층_Wall_84,
+        inst:1층_Wall_85,
+        inst:1층_Wall_86 ;
+    bot:adjacentZone inst:1층_Room_3 .
+
+inst:1층_Window_1 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(123092 919335)"^^geo:wktLiteral ] .
+
+inst:1층_Window_2 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(109642 920255)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_1 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(204497 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Door_10 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(228267 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_11 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(226612 916098)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_12 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(224497 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_13 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(222530 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_14 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(215840 917845)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:기준층_Door_15 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(210897 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:기준층_Door_16 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(209897 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Door_17 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(218557 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Door_18 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(222025 920200)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_19 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(210927 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_2 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(195837 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Door_20 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(212582 916098)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_21 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(214697 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_22 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(216617 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_23 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(198538 916940)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:기준층_Door_24 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(205297 919280)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:기준층_Door_25 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(203497 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:기준층_Door_26 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(206252 918515)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:기준층_Door_27 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(203467 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_28 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(201812 916098)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_29 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(199697 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_3 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(223338 916940)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:기준층_Door_30 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(197730 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_31 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(191040 917845)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:기준층_Door_32 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(186097 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:기준층_Door_33 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(185097 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Door_34 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(193757 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Door_35 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(197225 920200)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_36 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(186127 914540)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_37 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(187782 916098)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_38 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(189897 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_39 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(191817 914000)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.84 .
+
+inst:기준층_Door_4 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(223578 917845)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.03 .
+
+inst:기준층_Door_40 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(195200 921600)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_41 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(220000 921600)"^^geo:wktLiteral ] .
+
+inst:기준층_Door_5 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(230097 919280)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:기준층_Door_6 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(228297 918435)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.85 .
+
+inst:기준층_Door_7 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(231052 918515)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.65 .
+
+inst:기준층_Door_8 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(229297 915672)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Door_9 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(220637 914882)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 0.69 .
+
+inst:기준층_Room_14 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((214589 916220, 214824 916220, 214824 917660, 214589 917660, 214589 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.34 ;
+    fran:stairTravelDistanceM 9.9 ;
+    bot:adjacentElement inst:기준층_Wall_20,
+        inst:기준층_Wall_21,
+        inst:기준층_Wall_90,
+        inst:기준층_Wall_91 ;
+    bot:adjacentZone inst:기준층_Room_15,
+        inst:기준층_Room_24 ;
+    bot:containsElement inst:기준층_Fixture_11 .
+
+inst:기준층_Room_16 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((209227 918255, 210757 918255, 210757 919895, 209227 919895, 209227 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    fran:stairTravelDistanceM 15.4 ;
+    bot:adjacentElement inst:기준층_Door_15,
+        inst:기준층_Wall_24,
+        inst:기준층_Wall_94,
+        inst:기준층_Wall_95,
+        inst:기준층_Wall_96,
+        inst:기준층_Window_6 ;
+    bot:adjacentZone inst:기준층_Room_24 ;
+    bot:containsElement inst:기준층_Window_6 .
+
+inst:기준층_Room_17 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((207107 918665, 207287 918665, 207287 920255, 207107 920255, 207107 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.29 ;
+    bot:adjacentElement inst:기준층_Wall_25,
+        inst:기준층_Wall_97,
+        inst:기준층_Window_1 ;
+    bot:adjacentZone inst:기준층_Room_30 .
+
+inst:기준층_Room_2 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((223187 916220, 223338 916220, 223338 917660, 223187 917660, 223187 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.22 ;
+    fran:stairTravelDistanceM 9.6 ;
+    bot:adjacentElement inst:기준층_Door_3,
+        inst:기준층_Wall_5,
+        inst:기준층_Wall_68,
+        inst:기준층_Wall_69,
+        inst:기준층_Wall_70 ;
+    bot:adjacentZone inst:기준층_Room_3 .
+
+inst:기준층_Room_27 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((198387 916220, 198538 916220, 198538 917660, 198387 917660, 198387 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.22 ;
+    bot:adjacentElement inst:기준층_Door_23,
+        inst:기준층_Wall_111,
+        inst:기준층_Wall_112,
+        inst:기준층_Wall_113,
+        inst:기준층_Wall_37 ;
+    bot:adjacentZone inst:기준층_Room_28 .
+
+inst:기준층_Room_37 a bot:Space ;
+    rdfs:label "팬트리"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((189789 916220, 190024 916220, 190024 917660, 189789 917660, 189789 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 0.34 ;
+    fran:stairTravelDistanceM 9.9 ;
+    bot:adjacentElement inst:기준층_Wall_126,
+        inst:기준층_Wall_127,
+        inst:기준층_Wall_48,
+        inst:기준층_Wall_49 ;
+    bot:adjacentZone inst:기준층_Room_38,
+        inst:기준층_Room_47 ;
+    bot:containsElement inst:기준층_Fixture_23 .
+
+inst:기준층_Room_39 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((184427 918255, 185957 918255, 185957 919895, 184427 919895, 184427 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    fran:stairTravelDistanceM 15.4 ;
+    bot:adjacentElement inst:기준층_Door_32,
+        inst:기준층_Wall_130,
+        inst:기준층_Wall_131,
+        inst:기준층_Wall_132,
+        inst:기준층_Wall_52,
+        inst:기준층_Window_9 ;
+    bot:adjacentZone inst:기준층_Room_47 ;
+    bot:containsElement inst:기준층_Fixture_20,
+        inst:기준층_Window_9 .
+
+inst:기준층_Room_8 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((230084 916830, 231877 916830, 231877 918365, 230084 918365, 230084 916830))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.75 ;
+    fran:stairTravelDistanceM 16.6 ;
+    bot:adjacentElement inst:기준층_Door_7,
+        inst:기준층_Wall_10,
+        inst:기준층_Wall_80,
+        inst:기준층_Wall_81,
+        inst:기준층_Wall_82 ;
+    bot:adjacentZone inst:기준층_Room_5 .
+
+inst:기준층_Window_1 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(207092 919335)"^^geo:wktLiteral ] .
+
+inst:기준층_Window_2 a fran:Window ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(193642 920255)"^^geo:wktLiteral ] .
+
+inst:지하1층_Door_1 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(222000 920191)"^^geo:wktLiteral ] .
+
+inst:지하1층_Door_2 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(197200 920066)"^^geo:wktLiteral ] .
+
+inst:지하1층_Door_3 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(195176 921591)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.07 .
+
+inst:지하1층_Door_4 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POINT(219976 921591)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.07 .
+
+inst:지하1층_Room_5 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((189697 918030, 190872 918030, 190872 919805, 189697 919805, 189697 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.09 ;
+    bot:adjacentElement inst:지하1층_Wall_20,
+        inst:지하1층_Wall_21,
+        inst:지하1층_Wall_22,
+        inst:지하1층_Wall_6 ;
+    bot:adjacentZone inst:지하1층_Room_3 .
+
+inst:지하1층_Room_8 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((214497 918030, 215672 918030, 215672 920055, 214497 920055, 214497 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.38 ;
+    bot:adjacentElement inst:지하1층_Wall_2,
+        inst:지하1층_Wall_26,
+        inst:지하1층_Wall_27,
+        inst:지하1층_Wall_28 ;
+    bot:adjacentZone inst:지하1층_Room_1 .
+
+inst:1층_Room_16 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((125147 915755, 126647 915755, 126647 917055, 125147 917055, 125147 915755))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 1.95 ;
+    fran:stairTravelDistanceM 15.0 ;
+    bot:adjacentElement inst:1층_Door_14,
+        inst:1층_Wall_102,
+        inst:1층_Wall_103,
+        inst:1층_Wall_23,
+        inst:1층_Wall_24 ;
+    bot:adjacentZone inst:1층_Room_20,
+        inst:1층_Room_22 .
+
+inst:1층_Room_17 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((133807 914965, 135307 914965, 135307 917165, 133807 917165, 133807 914965))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 3.3 ;
+    fran:stairTravelDistanceM 13.1 ;
+    bot:adjacentElement inst:1층_Door_15,
+        inst:1층_Wall_10,
+        inst:1층_Wall_104,
+        inst:1층_Wall_105,
+        inst:1층_Wall_25 ;
+    bot:adjacentZone inst:1층_Room_24,
+        inst:1층_Room_5 .
+
+inst:1층_Room_29 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((119747 915755, 121247 915755, 121247 917055, 119747 917055, 119747 915755))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 1.95 ;
+    bot:adjacentElement inst:1층_Door_25,
+        inst:1층_Wall_122,
+        inst:1층_Wall_123,
+        inst:1층_Wall_41,
+        inst:1층_Wall_42 ;
+    bot:adjacentZone inst:1층_Room_32,
+        inst:1층_Room_34 .
+
+inst:1층_Room_30 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((111087 914965, 112587 914965, 112587 917165, 111087 917165, 111087 914965))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 3.3 ;
+    bot:adjacentElement inst:1층_Door_26,
+        inst:1층_Wall_124,
+        inst:1층_Wall_125,
+        inst:1층_Wall_43,
+        inst:1층_Wall_44 ;
+    bot:adjacentZone inst:1층_Room_36,
+        inst:1층_Room_42 .
+
+inst:1층_Room_31 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((121284 917030, 123077 917030, 123077 918365, 121284 918365, 121284 917030))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.39 ;
+    bot:adjacentElement inst:1층_Door_24,
+        inst:1층_Wall_126,
+        inst:1층_Wall_127,
+        inst:1층_Wall_26,
+        inst:1층_Wall_40 ;
+    bot:adjacentZone inst:1층_Room_18,
+        inst:1층_Room_28 .
+
+inst:1층_Room_4 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((144547 915755, 146047 915755, 146047 917055, 144547 917055, 144547 915755))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 1.95 ;
+    fran:stairTravelDistanceM 15.0 ;
+    bot:adjacentElement inst:1층_Door_6,
+        inst:1층_Wall_7,
+        inst:1층_Wall_8,
+        inst:1층_Wall_80,
+        inst:1층_Wall_81 ;
+    bot:adjacentZone inst:1층_Room_7,
+        inst:1층_Room_9 .
+
+inst:1층_Room_41 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((100347 915755, 101847 915755, 101847 917055, 100347 917055, 100347 915755))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 1.95 ;
+    fran:stairTravelDistanceM 15.0 ;
+    bot:adjacentElement inst:1층_Door_33,
+        inst:1층_Wall_143,
+        inst:1층_Wall_144,
+        inst:1층_Wall_56,
+        inst:1층_Wall_57 ;
+    bot:adjacentZone inst:1층_Room_45,
+        inst:1층_Room_47 .
+
+inst:1층_Room_42 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((109007 914965, 110507 914965, 110507 917165, 109007 917165, 109007 914965))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 3.3 ;
+    fran:stairTravelDistanceM 13.1 ;
+    bot:adjacentElement inst:1층_Door_34,
+        inst:1층_Wall_145,
+        inst:1층_Wall_146,
+        inst:1층_Wall_44,
+        inst:1층_Wall_58 ;
+    bot:adjacentZone inst:1층_Room_30,
+        inst:1층_Room_49 .
+
+inst:1층_Room_5 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((135887 914965, 137387 914965, 137387 917165, 135887 917165, 135887 914965))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 3.3 ;
+    fran:stairTravelDistanceM 13.3 ;
+    bot:adjacentElement inst:1층_Door_7,
+        inst:1층_Wall_10,
+        inst:1층_Wall_82,
+        inst:1층_Wall_83,
+        inst:1층_Wall_9 ;
+    bot:adjacentZone inst:1층_Room_11,
+        inst:1층_Room_17 .
+
+inst:1층_Room_50 a bot:Space ;
+    rdfs:label "로비"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((132737 923055, 141197 923055, 141197 926055, 132737 926055, 132737 923055))"^^geo:wktLiteral ] ;
+    fran:areaM2 25.38 ;
+    fran:doubleLoadedCorridor false ;
+    bot:adjacentElement inst:1층_Door_40,
+        inst:1층_Wall_158,
+        inst:1층_Wall_159,
+        inst:1층_Wall_160,
+        inst:1층_Wall_66,
+        inst:1층_Wall_67 ;
+    bot:adjacentZone inst:1층_Room_52,
+        inst:1층_Room_54 .
+
+inst:1층_Room_51 a bot:Space ;
+    rdfs:label "로비"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((107937 923055, 116397 923055, 116397 926055, 107937 926055, 107937 923055))"^^geo:wktLiteral ] ;
+    fran:areaM2 25.38 ;
+    fran:doubleLoadedCorridor false ;
+    bot:adjacentElement inst:1층_Door_41,
+        inst:1층_Wall_161,
+        inst:1층_Wall_162,
+        inst:1층_Wall_163,
+        inst:1층_Wall_68,
+        inst:1층_Wall_69 ;
+    bot:adjacentZone inst:1층_Room_53,
+        inst:1층_Room_55 .
+
+inst:기준층_Room_0 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((203747 915755, 205247 915755, 205247 917055, 203747 917055, 203747 915755))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.95 ;
+    bot:adjacentElement inst:기준층_Door_1,
+        inst:기준층_Wall_1,
+        inst:기준층_Wall_2,
+        inst:기준층_Wall_64,
+        inst:기준층_Wall_65 ;
+    bot:adjacentZone inst:기준층_Room_32,
+        inst:기준층_Room_34 .
+
+inst:기준층_Room_1 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((195087 914965, 196587 914965, 196587 917165, 195087 917165, 195087 914965))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.3 ;
+    bot:adjacentElement inst:기준층_Door_2,
+        inst:기준층_Wall_3,
+        inst:기준층_Wall_4,
+        inst:기준층_Wall_66,
+        inst:기준층_Wall_67 ;
+    bot:adjacentZone inst:기준층_Room_36,
+        inst:기준층_Room_42 .
+
+inst:기준층_Room_18 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((209147 915755, 210647 915755, 210647 917055, 209147 917055, 209147 915755))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.95 ;
+    fran:stairTravelDistanceM 15.0 ;
+    bot:adjacentElement inst:기준층_Door_16,
+        inst:기준층_Wall_26,
+        inst:기준층_Wall_27,
+        inst:기준층_Wall_98,
+        inst:기준층_Wall_99 ;
+    bot:adjacentZone inst:기준층_Room_22,
+        inst:기준층_Room_24 .
+
+inst:기준층_Room_19 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((217807 914965, 219307 914965, 219307 917165, 217807 917165, 217807 914965))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.3 ;
+    fran:stairTravelDistanceM 13.0 ;
+    bot:adjacentElement inst:기준층_Door_17,
+        inst:기준층_Wall_100,
+        inst:기준층_Wall_101,
+        inst:기준층_Wall_14,
+        inst:기준층_Wall_28 ;
+    bot:adjacentZone inst:기준층_Room_26,
+        inst:기준층_Room_7 .
+
+inst:기준층_Room_31 a bot:Space ;
+    rdfs:label "드레스룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((205284 916830, 207077 916830, 207077 918365, 205284 918365, 205284 916830))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.75 ;
+    bot:adjacentElement inst:기준층_Door_26,
+        inst:기준층_Wall_118,
+        inst:기준층_Wall_119,
+        inst:기준층_Wall_29,
+        inst:기준층_Wall_42 ;
+    bot:adjacentZone inst:기준층_Room_20,
+        inst:기준층_Room_30 .
+
+inst:기준층_Room_41 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((184347 915755, 185847 915755, 185847 917055, 184347 917055, 184347 915755))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.95 ;
+    fran:stairTravelDistanceM 15.0 ;
+    bot:adjacentElement inst:기준층_Door_33,
+        inst:기준층_Wall_135,
+        inst:기준층_Wall_136,
+        inst:기준층_Wall_53,
+        inst:기준층_Wall_54 ;
+    bot:adjacentZone inst:기준층_Room_45,
+        inst:기준층_Room_47 .
+
+inst:기준층_Room_42 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((193007 914965, 194507 914965, 194507 917165, 193007 917165, 193007 914965))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.3 ;
+    fran:stairTravelDistanceM 13.0 ;
+    bot:adjacentElement inst:기준층_Door_34,
+        inst:기준층_Wall_137,
+        inst:기준층_Wall_138,
+        inst:기준층_Wall_4,
+        inst:기준층_Wall_55 ;
+    bot:adjacentZone inst:기준층_Room_1,
+        inst:기준층_Room_49 .
+
+inst:기준층_Room_51 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((217117 920455, 219767 920455, 219767 922861, 217117 922861, 217117 920455))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.38 ;
+    fran:verticalContinuation inst:1층_Room_52 ;
+    bot:adjacentElement inst:기준층_Door_41,
+        inst:기준층_Wall_152,
+        inst:기준층_Wall_153,
+        inst:기준층_Wall_30,
+        inst:기준층_Wall_63 ;
+    bot:adjacentZone inst:기준층_Room_21,
+        inst:기준층_Room_53 .
+
+inst:기준층_Room_6 a bot:Space ;
+    rdfs:label "욕실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((228547 915755, 230047 915755, 230047 917055, 228547 917055, 228547 915755))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.95 ;
+    fran:stairTravelDistanceM 14.7 ;
+    bot:adjacentElement inst:기준층_Door_8,
+        inst:기준층_Wall_11,
+        inst:기준층_Wall_12,
+        inst:기준층_Wall_76,
+        inst:기준층_Wall_77 ;
+    bot:adjacentZone inst:기준층_Room_11,
+        inst:기준층_Room_9 .
+
+inst:기준층_Room_7 a bot:Space ;
+    rdfs:label "욕실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((219887 914965, 221387 914965, 221387 917165, 219887 917165, 219887 914965))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.3 ;
+    fran:stairTravelDistanceM 13.0 ;
+    bot:adjacentElement inst:기준층_Door_9,
+        inst:기준층_Wall_13,
+        inst:기준층_Wall_14,
+        inst:기준층_Wall_78,
+        inst:기준층_Wall_79 ;
+    bot:adjacentZone inst:기준층_Room_13,
+        inst:기준층_Room_19 .
+
+inst:지하1층_Room_6 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((199017 918030, 199897 918030, 199897 920055, 199017 920055, 199017 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.78 ;
+    bot:adjacentElement inst:지하1층_Wall_10,
+        inst:지하1층_Wall_23,
+        inst:지하1층_Wall_24,
+        inst:지하1층_Wall_7 ;
+    bot:adjacentZone inst:지하1층_Room_10,
+        inst:지하1층_Room_3 .
+
+inst:지하1층_Room_9 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((223817 918030, 224697 918030, 224697 920055, 223817 920055, 223817 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.78 ;
+    bot:adjacentElement inst:지하1층_Wall_12,
+        inst:지하1층_Wall_29,
+        inst:지하1층_Wall_3,
+        inst:지하1층_Wall_30 ;
+    bot:adjacentZone inst:지하1층_Room_1,
+        inst:지하1층_Room_11 .
+
+inst:1층_Room_10 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((138544 913200, 140437 913200, 140437 914800, 138544 914800, 138544 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.03 ;
+    fran:stairTravelDistanceM 12.8 ;
+    bot:adjacentElement inst:1층_Door_10,
+        inst:1층_Door_11,
+        inst:1층_Wall_13,
+        inst:1층_Wall_15,
+        inst:1층_Wall_91,
+        inst:1층_Wall_92 ;
+    bot:adjacentZone inst:1층_Room_11,
+        inst:1층_Room_8 .
+
+inst:1층_Room_13 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((130824 916220, 132007 916220, 132007 917660, 130824 917660, 130824 916220))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 1.7 ;
+    fran:stairTravelDistanceM 9.4 ;
+    bot:adjacentElement inst:1층_Door_12,
+        inst:1층_Wall_17,
+        inst:1층_Wall_19,
+        inst:1층_Wall_20,
+        inst:1층_Wall_96,
+        inst:1층_Wall_97 ;
+    bot:adjacentZone inst:1층_Room_12,
+        inst:1층_Room_19,
+        inst:1층_Room_22 .
+
+inst:1층_Room_2 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((144437 918255, 145967 918255, 145967 919895, 144437 919895, 144437 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    fran:stairTravelDistanceM 15.4 ;
+    bot:adjacentElement inst:1층_Door_3,
+        inst:1층_Door_4,
+        inst:1층_Wall_4,
+        inst:1층_Wall_5,
+        inst:1층_Wall_76,
+        inst:1층_Wall_77,
+        inst:1층_Window_3 ;
+    bot:adjacentZone inst:1층_Room_3,
+        inst:1층_Room_9 ;
+    bot:containsElement inst:1층_Fixture_32,
+        inst:1층_Window_3 .
+
+inst:1층_Room_23 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((130757 913200, 132557 913200, 132557 914800, 130757 914800, 130757 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.88 ;
+    fran:stairTravelDistanceM 12.6 ;
+    bot:adjacentElement inst:1층_Door_19,
+        inst:1층_Door_20,
+        inst:1층_Wall_112,
+        inst:1층_Wall_113,
+        inst:1층_Wall_33,
+        inst:1층_Wall_34 ;
+    bot:adjacentZone inst:1층_Room_21,
+        inst:1층_Room_24 .
+
+inst:1층_Room_26 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((114538 916220, 115657 916220, 115657 917660, 114538 917660, 114538 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.61 ;
+    bot:adjacentElement inst:1층_Door_21,
+        inst:1층_Wall_118,
+        inst:1층_Wall_35,
+        inst:1층_Wall_36,
+        inst:1층_Wall_37 ;
+    bot:adjacentZone inst:1층_Room_25,
+        inst:1층_Room_34,
+        inst:1층_Room_44 ;
+    bot:containsElement inst:1층_Fixture_13,
+        inst:1층_Fixture_15 .
+
+inst:1층_Room_27 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((119637 918255, 121167 918255, 121167 919895, 119637 919895, 119637 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    bot:adjacentElement inst:1층_Door_22,
+        inst:1층_Door_23,
+        inst:1층_Wall_119,
+        inst:1층_Wall_120,
+        inst:1층_Wall_38,
+        inst:1층_Wall_39,
+        inst:1층_Window_7 ;
+    bot:adjacentZone inst:1층_Room_28,
+        inst:1층_Room_34 ;
+    bot:containsElement inst:1층_Window_7 .
+
+inst:1층_Room_3 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((146227 918665, 147877 918665, 147877 920005, 146227 920005, 146227 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.21 ;
+    fran:stairTravelDistanceM 17.2 ;
+    bot:adjacentElement inst:1층_Door_3,
+        inst:1층_Door_5,
+        inst:1층_Wall_4,
+        inst:1층_Wall_6,
+        inst:1층_Wall_78,
+        inst:1층_Wall_79,
+        inst:1층_Window_4,
+        inst:1층_Window_5 ;
+    bot:adjacentZone inst:1층_Room_2,
+        inst:1층_Room_6 ;
+    bot:containsElement inst:1층_Fixture_29,
+        inst:1층_Window_4,
+        inst:1층_Window_5 .
+
+inst:1층_Room_35 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((113744 913200, 115637 913200, 115637 914800, 113744 914800, 113744 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.03 ;
+    bot:adjacentElement inst:1층_Door_29,
+        inst:1층_Door_30,
+        inst:1층_Wall_131,
+        inst:1층_Wall_132,
+        inst:1층_Wall_47,
+        inst:1층_Wall_49 ;
+    bot:adjacentZone inst:1층_Room_33,
+        inst:1층_Room_36 .
+
+inst:1층_Room_38 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((106024 916220, 107207 916220, 107207 917660, 106024 917660, 106024 916220))"^^geo:wktLiteral ] ;
+    fran:accessibleDesign true ;
+    fran:areaM2 1.7 ;
+    fran:stairTravelDistanceM 9.4 ;
+    bot:adjacentElement inst:1층_Door_31,
+        inst:1층_Wall_136,
+        inst:1층_Wall_137,
+        inst:1층_Wall_51,
+        inst:1층_Wall_53,
+        inst:1층_Wall_54 ;
+    bot:adjacentZone inst:1층_Room_37,
+        inst:1층_Room_44,
+        inst:1층_Room_47 .
+
+inst:1층_Room_45 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((98517 913490, 102017 913490, 102017 915590, 98517 915590, 98517 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    fran:stairTravelDistanceM 17.3 ;
+    bot:adjacentElement inst:1층_Door_33,
+        inst:1층_Door_36,
+        inst:1층_Wall_151,
+        inst:1층_Wall_152,
+        inst:1층_Wall_56,
+        inst:1층_Wall_62 ;
+    bot:adjacentZone inst:1층_Room_41,
+        inst:1층_Room_46 .
+
+inst:1층_Room_48 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((105957 913200, 107757 913200, 107757 914800, 105957 914800, 105957 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.88 ;
+    fran:stairTravelDistanceM 12.6 ;
+    bot:adjacentElement inst:1층_Door_38,
+        inst:1층_Door_39,
+        inst:1층_Wall_155,
+        inst:1층_Wall_156,
+        inst:1층_Wall_64,
+        inst:1층_Wall_65 ;
+    bot:adjacentZone inst:1층_Room_46,
+        inst:1층_Room_49 .
+
+inst:1층_Room_7 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((144377 913490, 147877 913490, 147877 915590, 144377 915590, 144377 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    fran:stairTravelDistanceM 17.3 ;
+    bot:adjacentElement inst:1층_Door_6,
+        inst:1층_Door_8,
+        inst:1층_Wall_11,
+        inst:1층_Wall_7,
+        inst:1층_Wall_87,
+        inst:1층_Wall_88 ;
+    bot:adjacentZone inst:1층_Room_4,
+        inst:1층_Room_8 .
+
+inst:기준층_Room_12 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((222544 913200, 224437 913200, 224437 914800, 222544 914800, 222544 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.03 ;
+    fran:stairTravelDistanceM 12.5 ;
+    bot:adjacentElement inst:기준층_Door_12,
+        inst:기준층_Door_13,
+        inst:기준층_Wall_17,
+        inst:기준층_Wall_18,
+        inst:기준층_Wall_87,
+        inst:기준층_Wall_88 ;
+    bot:adjacentZone inst:기준층_Room_10,
+        inst:기준층_Room_13 .
+
+inst:기준층_Room_15 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((214824 916220, 216007 916220, 216007 917660, 214824 917660, 214824 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.7 ;
+    fran:stairTravelDistanceM 9.4 ;
+    bot:adjacentElement inst:기준층_Door_14,
+        inst:기준층_Wall_20,
+        inst:기준층_Wall_22,
+        inst:기준층_Wall_23,
+        inst:기준층_Wall_92,
+        inst:기준층_Wall_93 ;
+    bot:adjacentZone inst:기준층_Room_14,
+        inst:기준층_Room_21,
+        inst:기준층_Room_24 .
+
+inst:기준층_Room_25 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((214757 913200, 216557 913200, 216557 914800, 214757 914800, 214757 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.88 ;
+    fran:stairTravelDistanceM 12.6 ;
+    bot:adjacentElement inst:기준층_Door_21,
+        inst:기준층_Door_22,
+        inst:기준층_Wall_108,
+        inst:기준층_Wall_109,
+        inst:기준층_Wall_35,
+        inst:기준층_Wall_36 ;
+    bot:adjacentZone inst:기준층_Room_23,
+        inst:기준층_Room_26 .
+
+inst:기준층_Room_28 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((198538 916220, 199657 916220, 199657 917660, 198538 917660, 198538 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.61 ;
+    bot:adjacentElement inst:기준층_Door_23,
+        inst:기준층_Wall_114,
+        inst:기준층_Wall_37,
+        inst:기준층_Wall_38,
+        inst:기준층_Wall_39 ;
+    bot:adjacentZone inst:기준층_Room_27,
+        inst:기준층_Room_34,
+        inst:기준층_Room_44 ;
+    bot:containsElement inst:기준층_Fixture_47 .
+
+inst:기준층_Room_29 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((203637 918255, 205167 918255, 205167 919895, 203637 919895, 203637 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    bot:adjacentElement inst:기준층_Door_24,
+        inst:기준층_Door_25,
+        inst:기준층_Wall_115,
+        inst:기준층_Wall_116,
+        inst:기준층_Wall_40,
+        inst:기준층_Wall_41,
+        inst:기준층_Window_7 ;
+    bot:adjacentZone inst:기준층_Room_30,
+        inst:기준층_Room_34 ;
+    bot:containsElement inst:기준층_Window_7 .
+
+inst:기준층_Room_35 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((197744 913200, 199637 913200, 199637 914800, 197744 914800, 197744 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.03 ;
+    bot:adjacentElement inst:기준층_Door_29,
+        inst:기준층_Door_30,
+        inst:기준층_Wall_123,
+        inst:기준층_Wall_124,
+        inst:기준층_Wall_45,
+        inst:기준층_Wall_46 ;
+    bot:adjacentZone inst:기준층_Room_33,
+        inst:기준층_Room_36 .
+
+inst:기준층_Room_38 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((190024 916220, 191207 916220, 191207 917660, 190024 917660, 190024 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.7 ;
+    fran:stairTravelDistanceM 9.4 ;
+    bot:adjacentElement inst:기준층_Door_31,
+        inst:기준층_Wall_128,
+        inst:기준층_Wall_129,
+        inst:기준층_Wall_48,
+        inst:기준층_Wall_50,
+        inst:기준층_Wall_51 ;
+    bot:adjacentZone inst:기준층_Room_37,
+        inst:기준층_Room_44,
+        inst:기준층_Room_47 .
+
+inst:기준층_Room_4 a bot:Space ;
+    rdfs:label "발코니"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((228437 918255, 229967 918255, 229967 919895, 228437 919895, 228437 918255))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.51 ;
+    fran:stairTravelDistanceM 15.1 ;
+    bot:adjacentElement inst:기준층_Door_5,
+        inst:기준층_Door_6,
+        inst:기준층_Wall_72,
+        inst:기준층_Wall_73,
+        inst:기준층_Wall_8,
+        inst:기준층_Wall_9,
+        inst:기준층_Window_3 ;
+    bot:adjacentZone inst:기준층_Room_11,
+        inst:기준층_Room_5 ;
+    bot:containsElement inst:기준층_Fixture_32,
+        inst:기준층_Window_3 .
+
+inst:기준층_Room_45 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((182517 913490, 186017 913490, 186017 915590, 182517 915590, 182517 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    fran:stairTravelDistanceM 17.3 ;
+    bot:adjacentElement inst:기준층_Door_33,
+        inst:기준층_Door_36,
+        inst:기준층_Wall_143,
+        inst:기준층_Wall_144,
+        inst:기준층_Wall_53,
+        inst:기준층_Wall_58 ;
+    bot:adjacentZone inst:기준층_Room_41,
+        inst:기준층_Room_46 .
+
+inst:기준층_Room_48 a bot:Space ;
+    rdfs:label "알파공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((189957 913200, 191757 913200, 191757 914800, 189957 914800, 189957 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.88 ;
+    fran:stairTravelDistanceM 12.6 ;
+    bot:adjacentElement inst:기준층_Door_38,
+        inst:기준층_Door_39,
+        inst:기준층_Wall_147,
+        inst:기준층_Wall_148,
+        inst:기준층_Wall_60,
+        inst:기준층_Wall_61 ;
+    bot:adjacentZone inst:기준층_Room_46,
+        inst:기준층_Room_49 .
+
+inst:기준층_Room_5 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((230227 918665, 231877 918665, 231877 920005, 230227 920005, 230227 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.21 ;
+    fran:stairTravelDistanceM 16.9 ;
+    bot:adjacentElement inst:기준층_Door_5,
+        inst:기준층_Door_7,
+        inst:기준층_Wall_10,
+        inst:기준층_Wall_74,
+        inst:기준층_Wall_75,
+        inst:기준층_Wall_8,
+        inst:기준층_Window_4,
+        inst:기준층_Window_5 ;
+    bot:adjacentZone inst:기준층_Room_4,
+        inst:기준층_Room_8 ;
+    bot:containsElement inst:기준층_Fixture_27,
+        inst:기준층_Window_4,
+        inst:기준층_Window_5 .
+
+inst:기준층_Room_50 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((192317 920455, 194967 920455, 194967 922861, 192317 922861, 192317 920455))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.38 ;
+    fran:verticalContinuation inst:1층_Room_53 ;
+    bot:adjacentElement inst:기준층_Door_40,
+        inst:기준층_Wall_150,
+        inst:기준층_Wall_151,
+        inst:기준층_Wall_56,
+        inst:기준층_Wall_62,
+        inst:기준층_Window_11,
+        inst:기준층_Window_2 ;
+    bot:adjacentZone inst:기준층_Room_44,
+        inst:기준층_Room_52 ;
+    bot:containsElement inst:기준층_Window_11 .
+
+inst:기준층_Room_52 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((195433 920344, 199733 920344, 199733 922744, 195433 922744, 195433 920344))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.32 ;
+    fran:verticalContinuation inst:1층_Room_55 ;
+    bot:adjacentElement inst:기준층_Door_35,
+        inst:기준층_Door_40,
+        inst:기준층_Wall_57,
+        inst:기준층_Wall_62 ;
+    bot:adjacentZone inst:기준층_Room_44,
+        inst:기준층_Room_50 .
+
+inst:기준층_Room_53 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((220233 920344, 224533 920344, 224533 922744, 220233 922744, 220233 920344))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.32 ;
+    fran:verticalContinuation inst:1층_Room_54 ;
+    bot:adjacentElement inst:기준층_Door_18,
+        inst:기준층_Door_41,
+        inst:기준층_Wall_31,
+        inst:기준층_Wall_63 ;
+    bot:adjacentZone inst:기준층_Room_21,
+        inst:기준층_Room_51 .
+
+inst:기준층_Room_9 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((228377 913490, 231877 913490, 231877 915590, 228377 915590, 228377 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    fran:stairTravelDistanceM 17.0 ;
+    bot:adjacentElement inst:기준층_Door_10,
+        inst:기준층_Door_8,
+        inst:기준층_Wall_11,
+        inst:기준층_Wall_15,
+        inst:기준층_Wall_83,
+        inst:기준층_Wall_84 ;
+    bot:adjacentZone inst:기준층_Room_10,
+        inst:기준층_Room_6 .
+
+inst:지하1층_Room_4 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((192317 920455, 194967 920455, 194967 922855, 192317 922855, 192317 920455))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.36 ;
+    bot:adjacentElement inst:지하1층_Door_3,
+        inst:지하1층_Wall_19,
+        inst:지하1층_Wall_5,
+        inst:지하1층_Wall_9 ;
+    bot:adjacentZone inst:지하1층_Room_10,
+        inst:지하1층_Room_3 .
+
+inst:지하1층_Room_7 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((217117 920455, 219767 920455, 219767 922855, 217117 922855, 217117 920455))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.36 ;
+    bot:adjacentElement inst:지하1층_Door_4,
+        inst:지하1층_Wall_1,
+        inst:지하1층_Wall_11,
+        inst:지하1층_Wall_25 ;
+    bot:adjacentZone inst:지하1층_Room_1,
+        inst:지하1층_Room_11 .
+
+inst:1층_Room_1 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((139338 916220, 140457 916220, 140457 917660, 139338 917660, 139338 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.61 ;
+    fran:stairTravelDistanceM 9.5 ;
+    bot:adjacentElement inst:1층_Door_1,
+        inst:1층_Door_2,
+        inst:1층_Wall_1,
+        inst:1층_Wall_2,
+        inst:1층_Wall_3,
+        inst:1층_Wall_75 ;
+    bot:adjacentZone inst:1층_Room_0,
+        inst:1층_Room_19,
+        inst:1층_Room_9 ;
+    bot:containsElement inst:1층_Fixture_27 .
+
+inst:1층_Room_11 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((135717 913200, 138517 913200, 138517 914800, 135717 914800, 135717 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    fran:stairTravelDistanceM 14.2 ;
+    bot:adjacentElement inst:1층_Door_11,
+        inst:1층_Door_7,
+        inst:1층_Wall_15,
+        inst:1층_Wall_16,
+        inst:1층_Wall_9,
+        inst:1층_Wall_93 ;
+    bot:adjacentZone inst:1층_Room_10,
+        inst:1층_Room_24,
+        inst:1층_Room_5 .
+
+inst:1층_Room_20 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((123317 913490, 126817 913490, 126817 915590, 123317 915590, 123317 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    fran:stairTravelDistanceM 17.3 ;
+    bot:adjacentElement inst:1층_Door_14,
+        inst:1층_Door_17,
+        inst:1층_Wall_109,
+        inst:1층_Wall_23,
+        inst:1층_Wall_30,
+        inst:1층_Wall_31 ;
+    bot:adjacentZone inst:1층_Room_16,
+        inst:1층_Room_21,
+        inst:1층_Room_32 .
+
+inst:1층_Room_24 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((132677 913200, 135477 913200, 135477 914800, 132677 914800, 132677 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    fran:stairTravelDistanceM 14.0 ;
+    bot:adjacentElement inst:1층_Door_15,
+        inst:1층_Door_20,
+        inst:1층_Wall_114,
+        inst:1층_Wall_16,
+        inst:1층_Wall_25,
+        inst:1층_Wall_34 ;
+    bot:adjacentZone inst:1층_Room_11,
+        inst:1층_Room_17,
+        inst:1층_Room_23 .
+
+inst:1층_Room_32 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((119577 913490, 123077 913490, 123077 915590, 119577 915590, 119577 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    bot:adjacentElement inst:1층_Door_25,
+        inst:1층_Door_27,
+        inst:1층_Wall_128,
+        inst:1층_Wall_31,
+        inst:1층_Wall_41,
+        inst:1층_Wall_45 ;
+    bot:adjacentZone inst:1층_Room_20,
+        inst:1층_Room_29,
+        inst:1층_Room_33 .
+
+inst:1층_Room_36 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((110917 913200, 113717 913200, 113717 914800, 110917 914800, 110917 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    bot:adjacentElement inst:1층_Door_26,
+        inst:1층_Door_30,
+        inst:1층_Wall_133,
+        inst:1층_Wall_43,
+        inst:1층_Wall_49,
+        inst:1층_Wall_50 ;
+    bot:adjacentZone inst:1층_Room_30,
+        inst:1층_Room_35,
+        inst:1층_Room_49 .
+
+inst:1층_Room_49 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((107877 913200, 110677 913200, 110677 914800, 107877 914800, 107877 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    fran:stairTravelDistanceM 14.0 ;
+    bot:adjacentElement inst:1층_Door_34,
+        inst:1층_Door_39,
+        inst:1층_Wall_157,
+        inst:1층_Wall_50,
+        inst:1층_Wall_58,
+        inst:1층_Wall_65 ;
+    bot:adjacentZone inst:1층_Room_36,
+        inst:1층_Room_42,
+        inst:1층_Room_48 .
+
+inst:1층_Room_52 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((133117 920455, 135767 920455, 135767 922861, 133117 922861, 133117 920455))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.38 ;
+    fran:verticalContinuation inst:지하1층_Room_7 ;
+    bot:adjacentElement inst:1층_Door_42,
+        inst:1층_Wall_164,
+        inst:1층_Wall_28,
+        inst:1층_Wall_66,
+        inst:1층_Wall_70 ;
+    bot:adjacentZone inst:1층_Room_19,
+        inst:1층_Room_50,
+        inst:1층_Room_54 .
+
+inst:기준층_Room_13 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((219717 913200, 222517 913200, 222517 914800, 219717 914800, 219717 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    fran:stairTravelDistanceM 13.9 ;
+    bot:adjacentElement inst:기준층_Door_13,
+        inst:기준층_Door_9,
+        inst:기준층_Wall_13,
+        inst:기준층_Wall_18,
+        inst:기준층_Wall_19,
+        inst:기준층_Wall_89 ;
+    bot:adjacentZone inst:기준층_Room_12,
+        inst:기준층_Room_26,
+        inst:기준층_Room_7 .
+
+inst:기준층_Room_22 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((207317 913490, 210817 913490, 210817 915590, 207317 915590, 207317 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    fran:stairTravelDistanceM 17.3 ;
+    bot:adjacentElement inst:기준층_Door_16,
+        inst:기준층_Door_19,
+        inst:기준층_Wall_105,
+        inst:기준층_Wall_26,
+        inst:기준층_Wall_32,
+        inst:기준층_Wall_33 ;
+    bot:adjacentZone inst:기준층_Room_18,
+        inst:기준층_Room_23,
+        inst:기준층_Room_32 .
+
+inst:기준층_Room_26 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((216677 913200, 219477 913200, 219477 914800, 216677 914800, 216677 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    fran:stairTravelDistanceM 14.0 ;
+    bot:adjacentElement inst:기준층_Door_17,
+        inst:기준층_Door_22,
+        inst:기준층_Wall_110,
+        inst:기준층_Wall_19,
+        inst:기준층_Wall_28,
+        inst:기준층_Wall_36 ;
+    bot:adjacentZone inst:기준층_Room_13,
+        inst:기준층_Room_19,
+        inst:기준층_Room_25 .
+
+inst:기준층_Room_3 a bot:Space ;
+    rdfs:label "현관"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((223338 916220, 224457 916220, 224457 917660, 223338 917660, 223338 916220))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.61 ;
+    fran:stairTravelDistanceM 9.2 ;
+    bot:adjacentElement inst:기준층_Door_3,
+        inst:기준층_Door_4,
+        inst:기준층_Wall_5,
+        inst:기준층_Wall_6,
+        inst:기준층_Wall_7,
+        inst:기준층_Wall_71 ;
+    bot:adjacentZone inst:기준층_Room_11,
+        inst:기준층_Room_2,
+        inst:기준층_Room_21 ;
+    bot:containsElement inst:기준층_Fixture_35 .
+
+inst:기준층_Room_32 a bot:Space ;
+    rdfs:label "침실1"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((203577 913490, 207077 913490, 207077 915590, 203577 915590, 203577 913490))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.35 ;
+    bot:adjacentElement inst:기준층_Door_1,
+        inst:기준층_Door_27,
+        inst:기준층_Wall_1,
+        inst:기준층_Wall_120,
+        inst:기준층_Wall_33,
+        inst:기준층_Wall_43 ;
+    bot:adjacentZone inst:기준층_Room_0,
+        inst:기준층_Room_22,
+        inst:기준층_Room_33 .
+
+inst:기준층_Room_36 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((194917 913200, 197717 913200, 197717 914800, 194917 914800, 194917 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    bot:adjacentElement inst:기준층_Door_2,
+        inst:기준층_Door_30,
+        inst:기준층_Wall_125,
+        inst:기준층_Wall_3,
+        inst:기준층_Wall_46,
+        inst:기준층_Wall_47 ;
+    bot:adjacentZone inst:기준층_Room_1,
+        inst:기준층_Room_35,
+        inst:기준층_Room_49 .
+
+inst:기준층_Room_49 a bot:Space ;
+    rdfs:label "침실2"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((191877 913200, 194677 913200, 194677 914800, 191877 914800, 191877 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.48 ;
+    fran:stairTravelDistanceM 14.0 ;
+    bot:adjacentElement inst:기준층_Door_34,
+        inst:기준층_Door_39,
+        inst:기준층_Wall_149,
+        inst:기준층_Wall_47,
+        inst:기준층_Wall_55,
+        inst:기준층_Wall_61 ;
+    bot:adjacentZone inst:기준층_Room_36,
+        inst:기준층_Room_42,
+        inst:기준층_Room_48 .
+
+inst:1층_Room_21 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((127037 913200, 130637 913200, 130637 916020, 127037 916020, 127037 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    fran:stairTravelDistanceM 14.2 ;
+    bot:adjacentElement inst:1층_Door_17,
+        inst:1층_Door_18,
+        inst:1층_Door_19,
+        inst:1층_Wall_110,
+        inst:1층_Wall_30,
+        inst:1층_Wall_32,
+        inst:1층_Wall_33 ;
+    bot:adjacentZone inst:1층_Room_20,
+        inst:1층_Room_22,
+        inst:1층_Room_23 .
+
+inst:1층_Room_28 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((121427 918665, 123077 918665, 123077 920005, 121427 920005, 121427 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.21 ;
+    bot:adjacentElement inst:1층_Door_22,
+        inst:1층_Door_24,
+        inst:1층_Wall_121,
+        inst:1층_Wall_22,
+        inst:1층_Wall_38,
+        inst:1층_Wall_40,
+        inst:1층_Window_1,
+        inst:1층_Window_8 ;
+    bot:adjacentZone inst:1층_Room_15,
+        inst:1층_Room_27,
+        inst:1층_Room_31 ;
+    bot:containsElement inst:1층_Fixture_18,
+        inst:1층_Window_8 .
+
+inst:1층_Room_33 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((115757 913200, 119357 913200, 119357 916020, 115757 916020, 115757 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    bot:adjacentElement inst:1층_Door_27,
+        inst:1층_Door_28,
+        inst:1층_Door_29,
+        inst:1층_Wall_129,
+        inst:1층_Wall_45,
+        inst:1층_Wall_46,
+        inst:1층_Wall_47 ;
+    bot:adjacentZone inst:1층_Room_32,
+        inst:1층_Room_34,
+        inst:1층_Room_35 .
+
+inst:1층_Room_46 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((102237 913200, 105837 913200, 105837 916020, 102237 916020, 102237 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    fran:stairTravelDistanceM 14.2 ;
+    bot:adjacentElement inst:1층_Door_36,
+        inst:1층_Door_37,
+        inst:1층_Door_38,
+        inst:1층_Wall_153,
+        inst:1층_Wall_62,
+        inst:1층_Wall_63,
+        inst:1층_Wall_64 ;
+    bot:adjacentZone inst:1층_Room_45,
+        inst:1층_Room_47,
+        inst:1층_Room_48 .
+
+inst:1층_Room_53 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((108317 920455, 110967 920455, 110967 922861, 108317 922861, 108317 920455))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.38 ;
+    fran:verticalContinuation inst:지하1층_Room_4 ;
+    bot:adjacentElement inst:1층_Door_43,
+        inst:1층_Wall_165,
+        inst:1층_Wall_60,
+        inst:1층_Wall_68,
+        inst:1층_Wall_71,
+        inst:1층_Window_11,
+        inst:1층_Window_2 ;
+    bot:adjacentZone inst:1층_Room_44,
+        inst:1층_Room_51,
+        inst:1층_Room_55 ;
+    bot:containsElement inst:1층_Window_11 .
+
+inst:1층_Room_8 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((140557 913200, 144157 913200, 144157 916020, 140557 916020, 140557 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    fran:stairTravelDistanceM 14.2 ;
+    bot:adjacentElement inst:1층_Door_10,
+        inst:1층_Door_8,
+        inst:1층_Door_9,
+        inst:1층_Wall_11,
+        inst:1층_Wall_12,
+        inst:1층_Wall_13,
+        inst:1층_Wall_89 ;
+    bot:adjacentZone inst:1층_Room_10,
+        inst:1층_Room_7,
+        inst:1층_Room_9 .
+
+inst:기준층_Room_10 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((224557 913200, 228157 913200, 228157 916020, 224557 916020, 224557 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    fran:stairTravelDistanceM 14.0 ;
+    bot:adjacentElement inst:기준층_Door_10,
+        inst:기준층_Door_11,
+        inst:기준층_Door_12,
+        inst:기준층_Wall_15,
+        inst:기준층_Wall_16,
+        inst:기준층_Wall_17,
+        inst:기준층_Wall_85 ;
+    bot:adjacentZone inst:기준층_Room_11,
+        inst:기준층_Room_12,
+        inst:기준층_Room_9 .
+
+inst:기준층_Room_11 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((225067 916175, 228157 916175, 228157 918615, 225067 918615, 225067 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    fran:stairTravelDistanceM 13.0 ;
+    bot:adjacentElement inst:기준층_Door_11,
+        inst:기준층_Door_6,
+        inst:기준층_Wall_12,
+        inst:기준층_Wall_16,
+        inst:기준층_Wall_6,
+        inst:기준층_Wall_86,
+        inst:기준층_Wall_9 ;
+    bot:adjacentZone inst:기준층_Room_10,
+        inst:기준층_Room_3,
+        inst:기준층_Room_4,
+        inst:기준층_Room_6 .
+
+inst:기준층_Room_23 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((211037 913200, 214637 913200, 214637 916020, 211037 916020, 211037 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    fran:stairTravelDistanceM 14.2 ;
+    bot:adjacentElement inst:기준층_Door_19,
+        inst:기준층_Door_20,
+        inst:기준층_Door_21,
+        inst:기준층_Wall_106,
+        inst:기준층_Wall_32,
+        inst:기준층_Wall_34,
+        inst:기준층_Wall_35 ;
+    bot:adjacentZone inst:기준층_Room_22,
+        inst:기준층_Room_24,
+        inst:기준층_Room_25 .
+
+inst:기준층_Room_30 a bot:Space ;
+    rdfs:label "실외기실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((205427 918665, 207077 918665, 207077 920005, 205427 920005, 205427 918665))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.21 ;
+    bot:adjacentElement inst:기준층_Door_24,
+        inst:기준층_Door_26,
+        inst:기준층_Wall_117,
+        inst:기준층_Wall_25,
+        inst:기준층_Wall_40,
+        inst:기준층_Wall_42,
+        inst:기준층_Window_1,
+        inst:기준층_Window_8 ;
+    bot:adjacentZone inst:기준층_Room_17,
+        inst:기준층_Room_29,
+        inst:기준층_Room_31 ;
+    bot:containsElement inst:기준층_Fixture_39,
+        inst:기준층_Window_8 .
+
+inst:기준층_Room_33 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((199757 913200, 203357 913200, 203357 916020, 199757 916020, 199757 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    bot:adjacentElement inst:기준층_Door_27,
+        inst:기준층_Door_28,
+        inst:기준층_Door_29,
+        inst:기준층_Wall_121,
+        inst:기준층_Wall_43,
+        inst:기준층_Wall_44,
+        inst:기준층_Wall_45 ;
+    bot:adjacentZone inst:기준층_Room_32,
+        inst:기준층_Room_34,
+        inst:기준층_Room_35 .
+
+inst:기준층_Room_34 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((200267 916175, 203357 916175, 203357 918615, 200267 918615, 200267 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    bot:adjacentElement inst:기준층_Door_25,
+        inst:기준층_Door_28,
+        inst:기준층_Wall_122,
+        inst:기준층_Wall_2,
+        inst:기준층_Wall_38,
+        inst:기준층_Wall_41,
+        inst:기준층_Wall_44 ;
+    bot:adjacentZone inst:기준층_Room_0,
+        inst:기준층_Room_28,
+        inst:기준층_Room_29,
+        inst:기준층_Room_33 .
+
+inst:기준층_Room_46 a bot:Space ;
+    rdfs:label "거실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((186237 913200, 189837 913200, 189837 916020, 186237 916020, 186237 913200))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.15 ;
+    fran:stairTravelDistanceM 14.2 ;
+    bot:adjacentElement inst:기준층_Door_36,
+        inst:기준층_Door_37,
+        inst:기준층_Door_38,
+        inst:기준층_Wall_145,
+        inst:기준층_Wall_58,
+        inst:기준층_Wall_59,
+        inst:기준층_Wall_60 ;
+    bot:adjacentZone inst:기준층_Room_45,
+        inst:기준층_Room_47,
+        inst:기준층_Room_48 .
+
+inst:지하1층_Room_1 a bot:Space ;
+    rdfs:label "ELEV.홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((215672 918030, 223817 918030, 223817 920055, 215672 920055, 215672 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 16.49 ;
+    fran:doubleLoadedCorridor false ;
+    bot:adjacentElement inst:지하1층_Door_1,
+        inst:지하1층_Wall_1,
+        inst:지하1층_Wall_15,
+        inst:지하1층_Wall_2,
+        inst:지하1층_Wall_3,
+        inst:지하1층_Wall_4 ;
+    bot:adjacentZone inst:지하1층_Room_11,
+        inst:지하1층_Room_7,
+        inst:지하1층_Room_8,
+        inst:지하1층_Room_9 .
+
+inst:지하1층_Room_10 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((195384 920327, 199784 920327, 199784 922727, 195384 922727, 195384 920327))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.56 ;
+    bot:adjacentElement inst:지하1층_Door_2,
+        inst:지하1층_Door_3,
+        inst:지하1층_Wall_10,
+        inst:지하1층_Wall_8,
+        inst:지하1층_Wall_9 ;
+    bot:adjacentZone inst:지하1층_Room_3,
+        inst:지하1층_Room_4,
+        inst:지하1층_Room_6 .
+
+inst:지하1층_Room_11 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((220184 920327, 224584 920327, 224584 922727, 220184 922727, 220184 920327))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.56 ;
+    bot:adjacentElement inst:지하1층_Door_1,
+        inst:지하1층_Door_4,
+        inst:지하1층_Wall_11,
+        inst:지하1층_Wall_12,
+        inst:지하1층_Wall_4 ;
+    bot:adjacentZone inst:지하1층_Room_1,
+        inst:지하1층_Room_7,
+        inst:지하1층_Room_9 .
+
+inst:지하1층_Room_3 a bot:Space ;
+    rdfs:label "ELEV.홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((190872 918030, 199017 918030, 199017 919805, 190872 919805, 190872 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 14.46 ;
+    fran:doubleLoadedCorridor false ;
+    bot:adjacentElement inst:지하1층_Door_2,
+        inst:지하1층_Wall_18,
+        inst:지하1층_Wall_5,
+        inst:지하1층_Wall_6,
+        inst:지하1층_Wall_7,
+        inst:지하1층_Wall_8 ;
+    bot:adjacentZone inst:지하1층_Room_10,
+        inst:지하1층_Room_4,
+        inst:지하1층_Room_5,
+        inst:지하1층_Room_6 .
+
+fran:DwellingUnit a owl:Class ;
+    rdfs:label "세대(단위주호)"@ko ;
+    rdfs:subClassOf bot:Space .
+
+inst:1층_Room_34 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((116267 916175, 119357 916175, 119357 918615, 116267 918615, 116267 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    bot:adjacentElement inst:1층_Door_23,
+        inst:1층_Door_28,
+        inst:1층_Wall_130,
+        inst:1층_Wall_36,
+        inst:1층_Wall_39,
+        inst:1층_Wall_42,
+        inst:1층_Wall_46,
+        inst:1층_Wall_48 ;
+    bot:adjacentZone inst:1층_Room_26,
+        inst:1층_Room_27,
+        inst:1층_Room_29,
+        inst:1층_Room_33,
+        inst:1층_Room_44 .
+
+inst:1층_Room_54 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((136233 920344, 140533 920344, 140533 922844, 136233 922844, 136233 920344))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.75 ;
+    fran:verticalContinuation inst:지하1층_Room_11 ;
+    bot:adjacentElement inst:1층_Door_16,
+        inst:1층_Door_40,
+        inst:1층_Door_42,
+        inst:1층_Wall_29,
+        inst:1층_Wall_67,
+        inst:1층_Wall_70 ;
+    bot:adjacentZone inst:1층_Room_19,
+        inst:1층_Room_50,
+        inst:1층_Room_52 .
+
+inst:1층_Room_55 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((111433 920344, 115733 920344, 115733 922844, 111433 922844, 111433 920344))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.75 ;
+    fran:verticalContinuation inst:지하1층_Room_10 ;
+    bot:adjacentElement inst:1층_Door_35,
+        inst:1층_Door_41,
+        inst:1층_Door_43,
+        inst:1층_Wall_61,
+        inst:1층_Wall_69,
+        inst:1층_Wall_71 ;
+    bot:adjacentZone inst:1층_Room_44,
+        inst:1층_Room_51,
+        inst:1층_Room_53 .
+
+inst:1층_Room_9 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((141067 916175, 144157 916175, 144157 918615, 141067 918615, 141067 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    fran:stairTravelDistanceM 13.3 ;
+    bot:adjacentElement inst:1층_Door_4,
+        inst:1층_Door_9,
+        inst:1층_Wall_12,
+        inst:1층_Wall_14,
+        inst:1층_Wall_2,
+        inst:1층_Wall_5,
+        inst:1층_Wall_8,
+        inst:1층_Wall_90 ;
+    bot:adjacentZone inst:1층_Room_1,
+        inst:1층_Room_19,
+        inst:1층_Room_2,
+        inst:1층_Room_4,
+        inst:1층_Room_8 .
+
+inst:기준층_Room_21 a bot:Space ;
+    rdfs:label "ELEV.홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((215672 918030, 223817 918030, 223817 920055, 215672 920055, 215672 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 16.49 ;
+    fran:doubleLoadedCorridor false ;
+    fran:verticalContinuation inst:1층_Room_19 ;
+    bot:adjacentElement inst:기준층_Door_14,
+        inst:기준층_Door_18,
+        inst:기준층_Door_4,
+        inst:기준층_Wall_22,
+        inst:기준층_Wall_30,
+        inst:기준층_Wall_31,
+        inst:기준층_Wall_7 ;
+    bot:adjacentZone inst:기준층_Room_15,
+        inst:기준층_Room_3,
+        inst:기준층_Room_51,
+        inst:기준층_Room_53 .
+
+inst:기준층_Room_24 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((211037 916175, 214127 916175, 214127 918615, 211037 918615, 211037 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    fran:stairTravelDistanceM 13.3 ;
+    bot:adjacentElement inst:기준층_Door_15,
+        inst:기준층_Door_20,
+        inst:기준층_Wall_107,
+        inst:기준층_Wall_21,
+        inst:기준층_Wall_23,
+        inst:기준층_Wall_24,
+        inst:기준층_Wall_27,
+        inst:기준층_Wall_34 ;
+    bot:adjacentZone inst:기준층_Room_14,
+        inst:기준층_Room_15,
+        inst:기준층_Room_16,
+        inst:기준층_Room_18,
+        inst:기준층_Room_23 .
+
+inst:기준층_Room_44 a bot:Space ;
+    rdfs:label "ELEV.홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((190872 918030, 199017 918030, 199017 920055, 190872 920055, 190872 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 16.49 ;
+    fran:doubleLoadedCorridor false ;
+    fran:verticalContinuation inst:1층_Room_44 ;
+    bot:adjacentElement inst:기준층_Door_31,
+        inst:기준층_Door_35,
+        inst:기준층_Wall_39,
+        inst:기준층_Wall_50,
+        inst:기준층_Wall_56,
+        inst:기준층_Wall_57,
+        inst:기준층_Window_2 ;
+    bot:adjacentZone inst:기준층_Room_28,
+        inst:기준층_Room_38,
+        inst:기준층_Room_50,
+        inst:기준층_Room_52 .
+
+inst:기준층_Room_47 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((186237 916175, 189327 916175, 189327 918615, 186237 918615, 186237 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    fran:stairTravelDistanceM 13.3 ;
+    bot:adjacentElement inst:기준층_Door_32,
+        inst:기준층_Door_37,
+        inst:기준층_Wall_146,
+        inst:기준층_Wall_49,
+        inst:기준층_Wall_51,
+        inst:기준층_Wall_52,
+        inst:기준층_Wall_54,
+        inst:기준층_Wall_59 ;
+    bot:adjacentZone inst:기준층_Room_37,
+        inst:기준층_Room_38,
+        inst:기준층_Room_39,
+        inst:기준층_Room_41,
+        inst:기준층_Room_46 .
+
+inst:1층_Room_22 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((127037 916175, 130127 916175, 130127 918615, 127037 918615, 127037 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    fran:stairTravelDistanceM 13.3 ;
+    bot:adjacentElement inst:1층_Door_13,
+        inst:1층_Door_18,
+        inst:1층_Wall_111,
+        inst:1층_Wall_18,
+        inst:1층_Wall_20,
+        inst:1층_Wall_21,
+        inst:1층_Wall_24,
+        inst:1층_Wall_27,
+        inst:1층_Wall_32 ;
+    bot:adjacentZone inst:1층_Room_12,
+        inst:1층_Room_13,
+        inst:1층_Room_14,
+        inst:1층_Room_16,
+        inst:1층_Room_19,
+        inst:1층_Room_21 .
+
+inst:1층_Room_47 a bot:Space ;
+    rdfs:label "주방/식당"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((102237 916175, 105327 916175, 105327 918615, 102237 918615, 102237 916175))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.54 ;
+    fran:stairTravelDistanceM 13.3 ;
+    bot:adjacentElement inst:1층_Door_32,
+        inst:1층_Door_37,
+        inst:1층_Wall_154,
+        inst:1층_Wall_52,
+        inst:1층_Wall_54,
+        inst:1층_Wall_55,
+        inst:1층_Wall_57,
+        inst:1층_Wall_59,
+        inst:1층_Wall_63 ;
+    bot:adjacentZone inst:1층_Room_37,
+        inst:1층_Room_38,
+        inst:1층_Room_39,
+        inst:1층_Room_41,
+        inst:1층_Room_44,
+        inst:1층_Room_46 .
+
+inst:1층_Room_19 a bot:Space ;
+    rdfs:label "ELEV.홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((130497 918030, 140697 918030, 140697 920055, 130497 920055, 130497 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 20.66 ;
+    fran:doubleLoadedCorridor true ;
+    fran:verticalContinuation inst:지하1층_Room_1,
+        inst:지하1층_Room_8,
+        inst:지하1층_Room_9 ;
+    bot:adjacentElement inst:1층_Door_12,
+        inst:1층_Door_16,
+        inst:1층_Door_2,
+        inst:1층_Wall_14,
+        inst:1층_Wall_19,
+        inst:1층_Wall_27,
+        inst:1층_Wall_28,
+        inst:1층_Wall_29,
+        inst:1층_Wall_3 ;
+    bot:adjacentZone inst:1층_Room_1,
+        inst:1층_Room_13,
+        inst:1층_Room_22,
+        inst:1층_Room_52,
+        inst:1층_Room_54,
+        inst:1층_Room_9 .
+
+inst:1층_Room_44 a bot:Space ;
+    rdfs:label "ELEV.홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "POLYGON((105697 918030, 115897 918030, 115897 920055, 105697 920055, 105697 918030))"^^geo:wktLiteral ] ;
+    fran:areaM2 20.66 ;
+    fran:doubleLoadedCorridor true ;
+    fran:verticalContinuation inst:지하1층_Room_3,
+        inst:지하1층_Room_5,
+        inst:지하1층_Room_6 ;
+    bot:adjacentElement inst:1층_Door_31,
+        inst:1층_Door_35,
+        inst:1층_Wall_37,
+        inst:1층_Wall_48,
+        inst:1층_Wall_53,
+        inst:1층_Wall_59,
+        inst:1층_Wall_60,
+        inst:1층_Wall_61,
+        inst:1층_Window_2 ;
+    bot:adjacentZone inst:1층_Room_26,
+        inst:1층_Room_34,
+        inst:1층_Room_38,
+        inst:1층_Room_47,
+        inst:1층_Room_53,
+        inst:1층_Room_55 .
+
+fran:Window a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:Door a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:Fixture a owl:Class ;
+    rdfs:label "위생·주방·설비 기구"@ko ;
+    rdfs:subClassOf bot:Element .
+
+fran:Wall a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
