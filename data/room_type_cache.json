@@ -1,0 +1,106 @@
+{
+ "/TPS": {
+  "유형": "샤프트",
+  "confidence": "high"
+ },
+ "AV": {
+  "유형": "샤프트",
+  "confidence": "medium"
+ },
+ "ELEV.": {
+  "유형": "샤프트",
+  "confidence": "high"
+ },
+ "ELEV.홀": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "EPS/TPS": {
+  "유형": "샤프트",
+  "confidence": "high"
+ },
+ "PIT": {
+  "유형": "샤프트",
+  "confidence": "medium"
+ },
+ "PS": {
+  "유형": "샤프트",
+  "confidence": "high"
+ },
+ "계단": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "계절창고": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "급기DA": {
+  "유형": "샤프트",
+  "confidence": "high"
+ },
+ "동통신실": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "라커(남)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "락커룸(여)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "배기DA": {
+  "유형": "샤프트",
+  "confidence": "high"
+ },
+ "사우나(남)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "사우나(여)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "샤워실(남)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "샤워실(여)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "실외기실PD": {
+  "유형": "샤프트",
+  "confidence": "medium"
+ },
+ "제연휀룸": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "창고": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "키즈짐": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "홀": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "화장실(남)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "화장실(여)": {
+  "유형": "실",
+  "confidence": "high"
+ },
+ "대피공간": {
+  "유형": "실",
+  "confidence": "high"
+ }
+}

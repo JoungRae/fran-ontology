@@ -16,10 +16,11 @@ import json
 import os
 import sys
 
-from rdflib import Literal
+from rdflib import Literal, URIRef
 from rdflib.namespace import RDF, RDFS, XSD
 
-from build_bot import (BOT, FRAN, INST, new_graph, build_storey)
+from build_bot import (BOT, FRAN, INST, new_graph, build_storey, add_beams,
+                       uri_name)
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -62,10 +63,15 @@ def main():
     elev = elevations(STACK)
     g = new_graph()
 
-    site = INST["Site_5BL"]
+    # 단지 이름은 설정에서 (build_bot.main 과 같은 규칙 — URI 가 일치해야 한다)
+    site_name = "5BL 단지"
+    _prof = os.path.join(args.data_dir, "building_profile.json")
+    if os.path.exists(_prof):
+        site_name = json.load(open(_prof, encoding="utf-8")).get("이름", site_name)
+    site = INST[f"Site_{uri_name(site_name)}"]
     building = INST["Building_5BL_A"]
     g.add((site, RDF.type, BOT.Site))
-    g.add((site, RDFS.label, Literal("5BL 단지", lang="ko")))
+    g.add((site, RDFS.label, Literal(site_name, lang="ko")))
     g.add((building, RDF.type, BOT.Building))
     g.add((building, RDFS.label, Literal("주동 A (5BL)", lang="ko")))
     g.add((site, BOT.hasBuilding, building))
@@ -84,7 +90,7 @@ def main():
         rooms_data = json.load(open(rp, encoding="utf-8"))["rooms"]
         cats = json.load(open(cp, encoding="utf-8"))["categories"]
 
-        storey = INST[f"Storey_{base}"]
+        storey = INST[f"Storey_{uri_name(base)}"]
         storey_uri[base] = storey
         g.add((storey, RDF.type, BOT.Storey))
         g.add((storey, RDFS.label, Literal(label, lang="ko")))
@@ -93,8 +99,16 @@ def main():
         g.add((storey, FRAN.heightMm, Literal(height, datatype=XSD.integer)))
         g.add((building, BOT.hasStorey, storey))
 
-        stats[base] = build_storey(g, storey, data["Entities"], rooms_data, cats,
-                                   pfx=f"{base}_")
+        pfx = f"{uri_name(base)}_"
+        stats[base] = build_storey(
+            g, storey, data["Entities"], rooms_data, cats, pfx=pfx,
+            ids_path=os.path.join(args.out_dir, f"{base}_room_ids.json"))
+        # 보도 층 접두사와 함께 — 안 그러면 층마다 inst:Beam_1 이 충돌한다
+        bp = os.path.join(args.out_dir, f"{base}_beams.json")
+        if os.path.exists(bp):
+            add_beams(g, storey, json.load(open(bp, encoding="utf-8")),
+                      rooms_rect=stats[base]["rooms_rect"],
+                      room_uri=stats[base]["room_uri"], pfx=pfx)
         print(f"[{label:12}] level={level:+d} elev={elev[base]:+6d}mm h={height}mm "
               f"→ 방 {stats[base]['rooms']} · 세대 {stats[base]['units']} · "
               f"인접 {stats[base]['adj']} · 개구부 {stats[base]['iface']}")
@@ -159,9 +173,8 @@ def main():
             for cl in stats[lo[0]].get("core_rooms", []):
                 if _kind(cu["name"]) == _kind(cl["name"]) \
                         and _ovl(cur, cl["rect"]) > 0.3:
-                    g.add((INST[f"{up[0]}_Room_{cu['id']}"],
-                           FRAN.verticalContinuation,
-                           INST[f"{lo[0]}_Room_{cl['id']}"]))
+                    g.add((URIRef(cu["uri"]), FRAN.verticalContinuation,
+                           URIRef(cl["uri"])))
                     n_vert += 1
                     vert_pairs.append(f"{up[0]}:{cu['name']}→{lo[0]}:{cl['name']}")
     if n_vert:

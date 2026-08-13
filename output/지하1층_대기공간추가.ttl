@@ -1,0 +1,1479 @@
+@prefix bot: <https://w3id.org/bot#> .
+@prefix fran: <https://example.org/fran#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix inst: <https://example.org/fran/inst#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+fran:Column a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:Window a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:accessibleDesign a owl:DatatypeProperty .
+
+fran:areaM2 a owl:DatatypeProperty .
+
+fran:clearWidthM a owl:DatatypeProperty .
+
+fran:depthMM a owl:DatatypeProperty ;
+    rdfs:domain fran:Beam .
+
+fran:doubleLoadedCorridor a owl:DatatypeProperty .
+
+fran:dwellingCount a owl:DatatypeProperty ;
+    rdfs:domain fran:DwellingUnit ;
+    rdfs:range xsd:integer .
+
+fran:exterior a owl:DatatypeProperty ;
+    rdfs:domain fran:Wall ;
+    rdfs:range xsd:boolean .
+
+fran:fixtureType a owl:DatatypeProperty .
+
+fran:roomIndex a owl:DatatypeProperty ;
+    rdfs:label "도면 내 방 순번(재인식 시 바뀔 수 있음)"@ko ;
+    rdfs:domain bot:Space ;
+    rdfs:range xsd:integer .
+
+fran:stairTravelDistanceM a owl:DatatypeProperty .
+
+fran:structural a owl:DatatypeProperty ;
+    rdfs:domain fran:Wall ;
+    rdfs:range xsd:boolean .
+
+fran:verticalContinuation a owl:ObjectProperty .
+
+inst:Site_강남_A아파트__가정 a bot:Site ;
+    rdfs:label "강남 A아파트 (가정)"@ko ;
+    bot:hasBuilding inst:Building_510 .
+
+inst:지하1층_대기공간추가_Interface_1 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_1,
+        inst:지하1층_대기공간추가_Room_대피공간_1,
+        inst:지하1층_대기공간추가_Room_라커_남_1 .
+
+inst:지하1층_대기공간추가_Interface_10 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_10,
+        inst:지하1층_대기공간추가_Room_라커_남_1,
+        inst:지하1층_대기공간추가_Room_샤워실_남_1 .
+
+inst:지하1층_대기공간추가_Interface_2 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_2,
+        inst:지하1층_대기공간추가_Room_대피공간_1,
+        inst:지하1층_대기공간추가_Room_샤워실_남_1 .
+
+inst:지하1층_대기공간추가_Interface_3 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_3,
+        inst:지하1층_대기공간추가_Room_PIT_1,
+        inst:지하1층_대기공간추가_Room_홀_1 .
+
+inst:지하1층_대기공간추가_Interface_4 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_4,
+        inst:지하1층_대기공간추가_Room_PIT_2,
+        inst:지하1층_대기공간추가_Room_계단_2 .
+
+inst:지하1층_대기공간추가_Interface_5 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_5,
+        inst:지하1층_대기공간추가_Room_창고_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Interface_6 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_6,
+        inst:지하1층_대기공간추가_Room_PS_1,
+        inst:지하1층_대기공간추가_Room_홀_1 .
+
+inst:지하1층_대기공간추가_Interface_7 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_7,
+        inst:지하1층_대기공간추가_Room_AV_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Interface_8 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_8,
+        inst:지하1층_대기공간추가_Room_사우나_여_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Interface_9 a bot:Interface ;
+    bot:interfaceOf inst:지하1층_대기공간추가_Door_9,
+        inst:지하1층_대기공간추가_Room_사우나_여_1,
+        inst:지하1층_대기공간추가_Room_샤워실_여_1 .
+
+fran:DwellingUnit a owl:Class ;
+    rdfs:label "세대(단위주호)"@ko ;
+    rdfs:subClassOf bot:Space .
+
+fran:Elevator a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:Stair a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+inst:Building_510 a bot:Building ;
+    rdfs:label "주동 510"@ko ;
+    bot:hasStorey inst:Storey_지하1층_대기공간추가 .
+
+inst:Storey_지하1층_대기공간추가 a bot:Storey ;
+    rdfs:label "지하1층_대기공간추가"@ko ;
+    bot:containsElement inst:지하1층_대기공간추가_Beam_1,
+        inst:지하1층_대기공간추가_Beam_10,
+        inst:지하1층_대기공간추가_Beam_11,
+        inst:지하1층_대기공간추가_Beam_12,
+        inst:지하1층_대기공간추가_Beam_13,
+        inst:지하1층_대기공간추가_Beam_14,
+        inst:지하1층_대기공간추가_Beam_15,
+        inst:지하1층_대기공간추가_Beam_16,
+        inst:지하1층_대기공간추가_Beam_17,
+        inst:지하1층_대기공간추가_Beam_18,
+        inst:지하1층_대기공간추가_Beam_19,
+        inst:지하1층_대기공간추가_Beam_2,
+        inst:지하1층_대기공간추가_Beam_20,
+        inst:지하1층_대기공간추가_Beam_21,
+        inst:지하1층_대기공간추가_Beam_22,
+        inst:지하1층_대기공간추가_Beam_23,
+        inst:지하1층_대기공간추가_Beam_24,
+        inst:지하1층_대기공간추가_Beam_25,
+        inst:지하1층_대기공간추가_Beam_26,
+        inst:지하1층_대기공간추가_Beam_27,
+        inst:지하1층_대기공간추가_Beam_28,
+        inst:지하1층_대기공간추가_Beam_29,
+        inst:지하1층_대기공간추가_Beam_3,
+        inst:지하1층_대기공간추가_Beam_30,
+        inst:지하1층_대기공간추가_Beam_31,
+        inst:지하1층_대기공간추가_Beam_32,
+        inst:지하1층_대기공간추가_Beam_33,
+        inst:지하1층_대기공간추가_Beam_34,
+        inst:지하1층_대기공간추가_Beam_35,
+        inst:지하1층_대기공간추가_Beam_36,
+        inst:지하1층_대기공간추가_Beam_37,
+        inst:지하1층_대기공간추가_Beam_38,
+        inst:지하1층_대기공간추가_Beam_39,
+        inst:지하1층_대기공간추가_Beam_4,
+        inst:지하1층_대기공간추가_Beam_40,
+        inst:지하1층_대기공간추가_Beam_41,
+        inst:지하1층_대기공간추가_Beam_42,
+        inst:지하1층_대기공간추가_Beam_43,
+        inst:지하1층_대기공간추가_Beam_44,
+        inst:지하1층_대기공간추가_Beam_45,
+        inst:지하1층_대기공간추가_Beam_46,
+        inst:지하1층_대기공간추가_Beam_47,
+        inst:지하1층_대기공간추가_Beam_48,
+        inst:지하1층_대기공간추가_Beam_49,
+        inst:지하1층_대기공간추가_Beam_5,
+        inst:지하1층_대기공간추가_Beam_50,
+        inst:지하1층_대기공간추가_Beam_51,
+        inst:지하1층_대기공간추가_Beam_52,
+        inst:지하1층_대기공간추가_Beam_53,
+        inst:지하1층_대기공간추가_Beam_54,
+        inst:지하1층_대기공간추가_Beam_55,
+        inst:지하1층_대기공간추가_Beam_56,
+        inst:지하1층_대기공간추가_Beam_57,
+        inst:지하1층_대기공간추가_Beam_58,
+        inst:지하1층_대기공간추가_Beam_59,
+        inst:지하1층_대기공간추가_Beam_6,
+        inst:지하1층_대기공간추가_Beam_60,
+        inst:지하1층_대기공간추가_Beam_61,
+        inst:지하1층_대기공간추가_Beam_62,
+        inst:지하1층_대기공간추가_Beam_63,
+        inst:지하1층_대기공간추가_Beam_64,
+        inst:지하1층_대기공간추가_Beam_65,
+        inst:지하1층_대기공간추가_Beam_66,
+        inst:지하1층_대기공간추가_Beam_67,
+        inst:지하1층_대기공간추가_Beam_68,
+        inst:지하1층_대기공간추가_Beam_7,
+        inst:지하1층_대기공간추가_Beam_8,
+        inst:지하1층_대기공간추가_Beam_9,
+        inst:지하1층_대기공간추가_Elevator_1,
+        inst:지하1층_대기공간추가_Stair_1 ;
+    bot:hasSpace inst:지하1층_대기공간추가_Cluster_1,
+        inst:지하1층_대기공간추가_Cluster_2,
+        inst:지하1층_대기공간추가_Room_AV_1,
+        inst:지하1층_대기공간추가_Room_ELEV._1,
+        inst:지하1층_대기공간추가_Room_ELEV._2,
+        inst:지하1층_대기공간추가_Room_ELEV._3,
+        inst:지하1층_대기공간추가_Room_ELEV.홀_1,
+        inst:지하1층_대기공간추가_Room_EPS_TPS_1,
+        inst:지하1층_대기공간추가_Room_PIT_1,
+        inst:지하1층_대기공간추가_Room_PIT_2,
+        inst:지하1층_대기공간추가_Room_PIT_3,
+        inst:지하1층_대기공간추가_Room_PS_1,
+        inst:지하1층_대기공간추가_Room_TPS_1,
+        inst:지하1층_대기공간추가_Room_계단_1,
+        inst:지하1층_대기공간추가_Room_계단_2,
+        inst:지하1층_대기공간추가_Room_계절창고_1,
+        inst:지하1층_대기공간추가_Room_급기DA_1,
+        inst:지하1층_대기공간추가_Room_대피공간_1,
+        inst:지하1층_대기공간추가_Room_동통신실_1,
+        inst:지하1층_대기공간추가_Room_라커_남_1,
+        inst:지하1층_대기공간추가_Room_락커룸_여_1,
+        inst:지하1층_대기공간추가_Room_배기DA_1,
+        inst:지하1층_대기공간추가_Room_사우나_여_1,
+        inst:지하1층_대기공간추가_Room_샤워실_남_1,
+        inst:지하1층_대기공간추가_Room_샤워실_여_1,
+        inst:지하1층_대기공간추가_Room_실외기실PD_1,
+        inst:지하1층_대기공간추가_Room_제연휀룸_1,
+        inst:지하1층_대기공간추가_Room_창고_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1,
+        inst:지하1층_대기공간추가_Room_홀_1,
+        inst:지하1층_대기공간추가_Room_화장실_남_1,
+        inst:지하1층_대기공간추가_Room_화장실_여_1 .
+
+inst:지하1층_대기공간추가_Beam_1 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(212071 387620, 206196 387620)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_15 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(212291 387720, 212291 391920)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_19 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(182941 395660, 182941 397810)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_2 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(205596 387620, 204211 387620)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_20 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(182541 390440, 182541 397810)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_46 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206096 399140, 211916 399140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_47 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(199491 399140, 205496 399140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_51 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191441 399140, 198991 399140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_54 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(185571 399140, 190941 399140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_55 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(174561 397810, 182541 397810)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_56 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(182941 397810, 185271 397810)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_57 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(185471 397810, 185571 397810)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_60 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((176526 375020, 184426 375020, 184426 373520, 176526 373520, 176526 375020, 176526 375020))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_61 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((184676 375020, 193026 375020, 193026 373520, 184676 373520, 184676 375020, 184676 375020))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_62 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((176526 382820, 184426 382820, 184426 381320, 176526 381320, 176526 382820, 176526 382820))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_63 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((183526 381320, 183526 375020, 183526 381320))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_64 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((184426 375020, 184426 381320, 184426 375020))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_65 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((192126 373520, 192126 366420, 192126 373520))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_66 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((193026 366420, 193026 373520, 193026 366420))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_67 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((184676 373520, 184676 366420, 184676 373520))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_68 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((185576 366420, 185576 373520, 185576 366420))"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Cluster_1 a fran:RoomCluster ;
+    rdfs:label "연결 공간군 1"@ko ;
+    bot:hasSpace inst:지하1층_대기공간추가_Room_대피공간_1,
+        inst:지하1층_대기공간추가_Room_라커_남_1,
+        inst:지하1층_대기공간추가_Room_샤워실_남_1 .
+
+inst:지하1층_대기공간추가_Cluster_2 a fran:RoomCluster ;
+    rdfs:label "연결 공간군 2"@ko ;
+    bot:hasSpace inst:지하1층_대기공간추가_Room_사우나_여_1,
+        inst:지하1층_대기공간추가_Room_샤워실_여_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Elevator_1 a fran:Elevator .
+
+inst:지하1층_대기공간추가_Fixture_1 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(203652 394293)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:지하1층_대기공간추가_Fixture_2 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(201752 394293)"^^geo:wktLiteral ] ;
+    fran:fixtureType "washbasin" .
+
+inst:지하1층_대기공간추가_Fixture_3 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(200377 396635)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:지하1층_대기공간추가_Fixture_4 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(195394 388195)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:지하1층_대기공간추가_Fixture_5 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(205744 396343)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:지하1층_대기공간추가_Fixture_6 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(205744 395298)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:지하1층_대기공간추가_Fixture_7 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(199309 396817)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:지하1층_대기공간추가_Fixture_8 a fran:Fixture ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(197329 391845)"^^geo:wktLiteral ] ;
+    fran:fixtureType "toilet" .
+
+inst:지하1층_대기공간추가_Room_ELEV._1 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((188887 390935, 190547 390935, 190547 393140, 188887 393140, 188887 390935))"^^geo:wktLiteral ] ;
+    fran:areaM2 3.66 ;
+    fran:roomIndex 13 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_55 .
+
+inst:지하1층_대기공간추가_Room_EPS_TPS_1 a bot:Space ;
+    rdfs:label "EPS/TPS"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((193611 393720, 194911 393720, 194911 395020, 193611 395020, 193611 393720))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.69 ;
+    fran:roomIndex 25 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_10,
+        inst:지하1층_대기공간추가_Beam_9 .
+
+inst:지하1층_대기공간추가_Room_계단_1 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((185611 391020, 188111 391020, 188111 395120, 185611 395120, 185611 391020))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.25 ;
+    fran:roomIndex 28 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_60 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_23,
+        inst:지하1층_대기공간추가_Beam_24,
+        inst:지하1층_대기공간추가_Beam_25,
+        inst:지하1층_대기공간추가_Beam_26 .
+
+inst:지하1층_대기공간추가_Room_락커룸_여_1 a bot:Space ;
+    rdfs:label "락커룸(여)"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((191411 389020, 197811 389020, 197811 396720, 191411 396720, 191411 389020))"^^geo:wktLiteral ] ;
+    fran:areaM2 49.28 ;
+    fran:roomIndex 16 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_56,
+        inst:지하1층_대기공간추가_Wall_57 ;
+    bot:containsElement inst:지하1층_대기공간추가_Fixture_8 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_10,
+        inst:지하1층_대기공간추가_Beam_30,
+        inst:지하1층_대기공간추가_Beam_48,
+        inst:지하1층_대기공간추가_Beam_49,
+        inst:지하1층_대기공간추가_Beam_8,
+        inst:지하1층_대기공간추가_Beam_9 .
+
+inst:지하1층_대기공간추가_Room_화장실_남_1 a bot:Space ;
+    rdfs:label "화장실(남)"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((198802 393975, 200952 393975, 200952 396865, 198802 396865, 198802 393975))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.21 ;
+    fran:roomIndex 10 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_49,
+        inst:지하1층_대기공간추가_Wall_50,
+        inst:지하1층_대기공간추가_Wall_51,
+        inst:지하1층_대기공간추가_Wall_52 ;
+    bot:containsElement inst:지하1층_대기공간추가_Fixture_3,
+        inst:지하1층_대기공간추가_Fixture_7 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_10,
+        inst:지하1층_대기공간추가_Beam_11,
+        inst:지하1층_대기공간추가_Beam_44,
+        inst:지하1층_대기공간추가_Beam_45 .
+
+inst:지하1층_대기공간추가_Room_화장실_여_1 a bot:Space ;
+    rdfs:label "화장실(여)"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((202872 394775, 205992 394775, 205992 396865, 202872 396865, 202872 394775))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.52 ;
+    fran:roomIndex 9 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_45,
+        inst:지하1층_대기공간추가_Wall_46,
+        inst:지하1층_대기공간추가_Wall_47,
+        inst:지하1층_대기공간추가_Wall_48 ;
+    bot:containsElement inst:지하1층_대기공간추가_Fixture_5,
+        inst:지하1층_대기공간추가_Fixture_6 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_33,
+        inst:지하1층_대기공간추가_Beam_40 .
+
+inst:지하1층_대기공간추가_Stair_1 a fran:Stair .
+
+inst:지하1층_대기공간추가_Wall_26 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(205992 391440, 205992 393785)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_27 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202032 393785, 205992 393785)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_28 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191292 383060, 191292 384460)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_29 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191292 383060, 194897 383060)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_30 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209867 373520, 213257 373520)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_31 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(216357 387000, 216357 395535)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_32 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(220392 387000, 220392 395535)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_33 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(216357 395535, 220392 395535)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_34 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(222712 375925, 222712 376865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_35 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(213507 375925, 222712 375925)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_36 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(213507 376865, 222712 376865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_37 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(195147 382770, 203682 382770)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_38 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(195147 387005, 203682 387005)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_39 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(214322 382770, 214322 384820)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_40 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206097 399640, 206097 400840)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_41 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206097 400840, 208072 400840)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_42 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(216567 395785, 216567 398910)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_43 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(212297 395785, 216567 395785)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_44 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(212297 398910, 216567 398910)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_45 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202872 394775, 202872 396865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_46 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(205992 394775, 205992 396865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_47 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202872 394775, 205992 394775)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_48 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202872 396865, 205992 396865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_49 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198802 393975, 198802 396865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_50 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(200952 393975, 200952 396865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_51 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198802 393975, 200952 393975)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_52 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198802 396865, 200952 396865)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_53 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(204002 373690, 204002 376375)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_54 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(204002 373690, 209617 373690)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_55 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(188887 393140, 190547 393140)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_56 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191411 389020, 191411 396720)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_57 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191411 389020, 197811 389020)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_58 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(185511 398220, 185511 399120)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_59 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(194811 387820, 194811 390820)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_60 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(188111 391020, 188111 395120)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_61 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(216011 384320, 216011 386620)"^^geo:wktLiteral ] ;
+    fran:exterior true ;
+    fran:structural true .
+
+fran:RoomCluster a owl:Class ;
+    rdfs:label "문으로 이어진 공간군(세대 아님)"@ko ;
+    rdfs:subClassOf bot:Space .
+
+inst:지하1층_대기공간추가_Beam_13 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206196 394370, 211916 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_14 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206196 393770, 211916 393770)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_16 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(212291 391920, 211916 391920)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_17 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(211916 391920, 211916 393770)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_18 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(211916 394370, 211916 399140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_21 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(190241 390440, 182541 390440)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_22 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(190241 390440, 191041 390440)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_23 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(186641 392940, 187731 392940)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_24 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(187731 393140, 186641 393140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_25 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(185841 394080, 185841 395210)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_26 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(185641 395210, 185641 394080)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_27 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(189761 395260, 190891 395260)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_28 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(182941 395660, 190941 395660)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_29 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(190941 395660, 190941 397810)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_3 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(204211 387620, 204211 388060)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_31 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(190941 398410, 190941 399140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_32 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206096 399040, 206096 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_34 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206096 393770, 206096 387720)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_36 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(208846 399140, 208846 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_37 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209346 399140, 209346 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_38 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209346 393770, 209346 387720)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_39 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(208846 393770, 208846 387720)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_4 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(204211 388060, 202586 388060)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_42 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202796 399140, 202796 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_50 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(185571 399140, 185571 397810)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_52 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198351 389060, 198071 389060)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Room_ELEV._3 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((210217 384820, 212077 384820, 212077 387025, 210217 387025, 210217 384820))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.1 ;
+    fran:roomIndex 15 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_11 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_ELEV.홀_1 .
+
+inst:지하1층_대기공간추가_Room_PIT_3 a bot:Space ;
+    rdfs:label "PIT"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((213507 375925, 222712 375925, 222712 376865, 213507 376865, 213507 375925))"^^geo:wktLiteral ] ;
+    fran:areaM2 8.65 ;
+    fran:roomIndex 4 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_34,
+        inst:지하1층_대기공간추가_Wall_35,
+        inst:지하1층_대기공간추가_Wall_36,
+        inst:지하1층_대기공간추가_Wall_5 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_PIT_1 .
+
+inst:지하1층_대기공간추가_Room_계절창고_1 a bot:Space ;
+    rdfs:label "계절창고"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((204002 373690, 209617 373690, 209617 376375, 204002 376375, 204002 373690))"^^geo:wktLiteral ] ;
+    fran:areaM2 15.08 ;
+    fran:roomIndex 11 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_53,
+        inst:지하1층_대기공간추가_Wall_54,
+        inst:지하1층_대기공간추가_Wall_6 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_PIT_1 .
+
+inst:지하1층_대기공간추가_Wall_1 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(201871.5 391440, 201871.5 393785)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_10 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(207122 384820.0, 209377 384820.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_11 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(210217 384820.0, 212077 384820.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_12 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(205911 384920.0, 206811 384920.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_13 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209011 382645.0, 211511 382645.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_14 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206097 399380.0, 208072 399380.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_15 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(208241.5 399820, 208241.5 400720)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_16 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(212154.0 395785, 212154.0 398910)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_17 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209011 381540.0, 211511 381540.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_18 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(206966.5 385020, 206966.5 386920)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_19 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(208411 399470.0, 209611 399470.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_2 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202111 391280.0, 205811 391280.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_20 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(210111 399470.0, 212011 399470.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_21 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(187861.0 398220, 187861.0 399120)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_22 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191811 387770.0, 194311 387770.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_23 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209861.0 399820, 209861.0 400720)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_24 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191811 387670.0, 194311 387670.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_25 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(201911.0 389820, 201911.0 391120)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_3 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(195022.0 383060, 195022.0 384460)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_4 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191811 384790.0, 194311 384790.0)"^^geo:wktLiteral ] ;
+    fran:structural false .
+
+inst:지하1층_대기공간추가_Wall_5 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(213382.0 375925, 213382.0 376865)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_6 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209742.0 373690, 209742.0 376375)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_7 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(209867 379875.0, 211602 379875.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_8 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(216357 386810.0, 220392 386810.0)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Wall_9 a fran:Wall ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(203807.0 382770, 203807.0 384820)"^^geo:wktLiteral ] ;
+    fran:structural true .
+
+inst:지하1층_대기공간추가_Beam_30 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191441 394370, 191441 399140)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_33 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(205596 399040, 205596 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_40 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(203296 399140, 203296 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_48 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(195491 399140, 195491 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_49 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(194991 399140, 194991 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_5 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202586 388060, 202586 389560)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_53 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198071 389060, 198071 390995)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_58 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(199399 393770, 198571 391452)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_59 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198868 393770, 198055 391495)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_6 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202586 389560, 198571 389560)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_7 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198571 389560, 198571 391495)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Door_1 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(201872 392612)"^^geo:wktLiteral ] .
+
+inst:지하1층_대기공간추가_Door_10 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(201911 390470)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.01 .
+
+inst:지하1층_대기공간추가_Door_2 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(203961 391280)"^^geo:wktLiteral ] .
+
+inst:지하1층_대기공간추가_Door_3 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(210734 379875)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.23 .
+
+inst:지하1층_대기공간추가_Door_4 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(218374 386810)"^^geo:wktLiteral ] .
+
+inst:지하1층_대기공간추가_Door_5 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(212154 397348)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.01 .
+
+inst:지하1층_대기공간추가_Door_6 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(210261 381540)"^^geo:wktLiteral ] .
+
+inst:지하1층_대기공간추가_Door_7 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(187861 398670)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.01 .
+
+inst:지하1층_대기공간추가_Door_8 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(193061 387770)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.01 .
+
+inst:지하1층_대기공간추가_Door_9 a fran:Door ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POINT(193061 387670)"^^geo:wktLiteral ] ;
+    fran:clearWidthM 1.01 .
+
+inst:지하1층_대기공간추가_Room_AV_1 a bot:Space ;
+    rdfs:label "AV"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((185511 398220, 187811 398220, 187811 399120, 185511 399120, 185511 398220))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.07 ;
+    fran:roomIndex 22 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_7,
+        inst:지하1층_대기공간추가_Wall_21,
+        inst:지하1층_대기공간추가_Wall_58 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_키즈짐_1 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_50 .
+
+inst:지하1층_대기공간추가_Room_ELEV._2 a bot:Space ;
+    rdfs:label "ELEV."@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((207122 384820, 209377 384820, 209377 387025, 207122 387025, 207122 384820))"^^geo:wktLiteral ] ;
+    fran:areaM2 4.97 ;
+    fran:roomIndex 14 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_10,
+        inst:지하1층_대기공간추가_Wall_18 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_ELEV.홀_1,
+        inst:지하1층_대기공간추가_Room_TPS_1 .
+
+inst:지하1층_대기공간추가_Room_PIT_2 a bot:Space ;
+    rdfs:label "PIT"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((216357 387000, 220392 387000, 220392 395535, 216357 395535, 216357 387000))"^^geo:wktLiteral ] ;
+    fran:areaM2 34.44 ;
+    fran:roomIndex 3 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_4,
+        inst:지하1층_대기공간추가_Wall_31,
+        inst:지하1층_대기공간추가_Wall_32,
+        inst:지하1층_대기공간추가_Wall_33,
+        inst:지하1층_대기공간추가_Wall_8 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_계단_2 .
+
+inst:지하1층_대기공간추가_Room_TPS_1 a bot:Space ;
+    rdfs:label "/TPS"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((205911 385020, 206811 385020, 206811 386920, 205911 386920, 205911 385020))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.71 ;
+    fran:roomIndex 18 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_12,
+        inst:지하1층_대기공간추가_Wall_18 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_ELEV._2,
+        inst:지하1층_대기공간추가_Room_ELEV.홀_1 .
+
+inst:지하1층_대기공간추가_Room_계단_2 a bot:Space ;
+    rdfs:label "계단"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((216011 384320, 220411 384320, 220411 386620, 216011 386620, 216011 384320))"^^geo:wktLiteral ] ;
+    fran:areaM2 10.12 ;
+    fran:roomIndex 29 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_4,
+        inst:지하1층_대기공간추가_Wall_61,
+        inst:지하1층_대기공간추가_Wall_8 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_PIT_2 .
+
+inst:지하1층_대기공간추가_Room_동통신실_1 a bot:Space ;
+    rdfs:label "동통신실"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((191292 383060, 194897 383060, 194897 384460, 191292 384460, 191292 383060))"^^geo:wktLiteral ] ;
+    fran:areaM2 5.05 ;
+    fran:roomIndex 1 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_28,
+        inst:지하1층_대기공간추가_Wall_29,
+        inst:지하1층_대기공간추가_Wall_3,
+        inst:지하1층_대기공간추가_Wall_4 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_사우나_여_1,
+        inst:지하1층_대기공간추가_Room_제연휀룸_1 .
+
+inst:지하1층_대기공간추가_Room_배기DA_1 a bot:Space ;
+    rdfs:label "배기DA"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((210111 399820, 212411 399820, 212411 400720, 210111 400720, 210111 399820))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.07 ;
+    fran:roomIndex 21 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_20,
+        inst:지하1층_대기공간추가_Wall_23 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_급기DA_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Room_실외기실PD_1 a bot:Space ;
+    rdfs:label "실외기실PD"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((206097 399640, 208072 399640, 208072 400840, 206097 400840, 206097 399640))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.37 ;
+    fran:roomIndex 7 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_14,
+        inst:지하1층_대기공간추가_Wall_15,
+        inst:지하1층_대기공간추가_Wall_40,
+        inst:지하1층_대기공간추가_Wall_41 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_급기DA_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Room_제연휀룸_1 a bot:Space ;
+    rdfs:label "제연휀룸"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((195147 382770, 203682 382770, 203682 387005, 195147 387005, 195147 382770))"^^geo:wktLiteral ] ;
+    fran:areaM2 36.15 ;
+    fran:roomIndex 5 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_3,
+        inst:지하1층_대기공간추가_Wall_37,
+        inst:지하1층_대기공간추가_Wall_38,
+        inst:지하1층_대기공간추가_Wall_9 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_ELEV.홀_1,
+        inst:지하1층_대기공간추가_Room_동통신실_1 .
+
+inst:지하1층_대기공간추가_Room_창고_1 a bot:Space ;
+    rdfs:label "창고"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((212297 395785, 216567 395785, 216567 398910, 212297 398910, 212297 395785))"^^geo:wktLiteral ] ;
+    fran:areaM2 13.34 ;
+    fran:roomIndex 8 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_5,
+        inst:지하1층_대기공간추가_Wall_16,
+        inst:지하1층_대기공간추가_Wall_42,
+        inst:지하1층_대기공간추가_Wall_43,
+        inst:지하1층_대기공간추가_Wall_44 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Beam_11 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(199541 394370, 205596 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_12 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(199399 393770, 205596 393770)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_35 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(205596 393770, 205596 387720)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_41 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(203296 393770, 203296 388060)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_43 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(202796 393770, 202796 388060)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_44 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(199491 399140, 199491 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_45 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198991 399140, 198991 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Beam_8 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(198571 391495, 191141 391495)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Room_PS_1 a bot:Space ;
+    rdfs:label "PS"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((209011 381720, 211511 381720, 211511 382520, 209011 382520, 209011 381720))"^^geo:wktLiteral ] ;
+    fran:areaM2 2.0 ;
+    fran:roomIndex 19 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_6,
+        inst:지하1층_대기공간추가_Wall_13,
+        inst:지하1층_대기공간추가_Wall_17 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_ELEV.홀_1,
+        inst:지하1층_대기공간추가_Room_홀_1 .
+
+inst:지하1층_대기공간추가_Room_급기DA_1 a bot:Space ;
+    rdfs:label "급기DA"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((208411 399820, 209611 399820, 209611 400720, 208411 400720, 208411 399820))"^^geo:wktLiteral ] ;
+    fran:areaM2 1.08 ;
+    fran:roomIndex 20 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_15,
+        inst:지하1층_대기공간추가_Wall_19,
+        inst:지하1층_대기공간추가_Wall_23 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_배기DA_1,
+        inst:지하1층_대기공간추가_Room_실외기실PD_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+inst:지하1층_대기공간추가_Room_샤워실_여_1 a bot:Space ;
+    rdfs:label "샤워실(여)"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((191811 387820, 194811 387820, 194811 390820, 191811 390820, 191811 387820))"^^geo:wktLiteral ] ;
+    fran:areaM2 9.0 ;
+    fran:roomIndex 24 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_9,
+        inst:지하1층_대기공간추가_Wall_24,
+        inst:지하1층_대기공간추가_Wall_59 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_사우나_여_1 .
+
+inst:지하1층_대기공간추가_Beam_9 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191541 393770, 198868 393770)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Room_PIT_1 a bot:Space ;
+    rdfs:label "PIT"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((209867 373520, 213257 373520, 213257 379735, 209867 379735, 209867 373520))"^^geo:wktLiteral ] ;
+    fran:areaM2 21.07 ;
+    fran:roomIndex 2 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_3,
+        inst:지하1층_대기공간추가_Wall_30,
+        inst:지하1층_대기공간추가_Wall_5,
+        inst:지하1층_대기공간추가_Wall_6,
+        inst:지하1층_대기공간추가_Wall_7 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_PIT_3,
+        inst:지하1층_대기공간추가_Room_계절창고_1,
+        inst:지하1층_대기공간추가_Room_홀_1 .
+
+inst:지하1층_대기공간추가_Room_홀_1 a bot:Space ;
+    rdfs:label "홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((201157 380015, 211602 380015, 211602 381360, 201157 381360, 201157 380015))"^^geo:wktLiteral ] ;
+    fran:areaM2 14.05 ;
+    fran:doubleLoadedCorridor false ;
+    fran:roomIndex 12 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_3,
+        inst:지하1층_대기공간추가_Door_6,
+        inst:지하1층_대기공간추가_Wall_17,
+        inst:지하1층_대기공간추가_Wall_7 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_PIT_1,
+        inst:지하1층_대기공간추가_Room_PS_1 .
+
+inst:지하1층_대기공간추가_Beam_10 a fran:Beam ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> LINESTRING(191541 394370, 198941 394370)"^^geo:wktLiteral ] ;
+    fran:depthMM 900.0 .
+
+inst:지하1층_대기공간추가_Room_ELEV.홀_1 a bot:Space ;
+    rdfs:label "ELEV.홀"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((203932 382770, 214322 382770, 214322 384820, 203932 384820, 203932 382770))"^^geo:wktLiteral ] ;
+    fran:areaM2 21.3 ;
+    fran:doubleLoadedCorridor false ;
+    fran:roomIndex 6 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Wall_10,
+        inst:지하1층_대기공간추가_Wall_11,
+        inst:지하1층_대기공간추가_Wall_12,
+        inst:지하1층_대기공간추가_Wall_13,
+        inst:지하1층_대기공간추가_Wall_39,
+        inst:지하1층_대기공간추가_Wall_9 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_ELEV._2,
+        inst:지하1층_대기공간추가_Room_ELEV._3,
+        inst:지하1층_대기공간추가_Room_PS_1,
+        inst:지하1층_대기공간추가_Room_TPS_1,
+        inst:지하1층_대기공간추가_Room_제연휀룸_1 .
+
+inst:지하1층_대기공간추가_Room_대피공간_1 a bot:Space ;
+    rdfs:label "대피공간"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((202032 391440, 205992 391440, 205992 393785, 202032 393785, 202032 391440))"^^geo:wktLiteral ] ;
+    fran:areaM2 9.29 ;
+    fran:roomIndex 0 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_1,
+        inst:지하1층_대기공간추가_Door_2,
+        inst:지하1층_대기공간추가_Wall_1,
+        inst:지하1층_대기공간추가_Wall_2,
+        inst:지하1층_대기공간추가_Wall_26,
+        inst:지하1층_대기공간추가_Wall_27 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_라커_남_1,
+        inst:지하1층_대기공간추가_Room_샤워실_남_1 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_12,
+        inst:지하1층_대기공간추가_Beam_35,
+        inst:지하1층_대기공간추가_Beam_41,
+        inst:지하1층_대기공간추가_Beam_43 .
+
+inst:지하1층_대기공간추가_Room_라커_남_1 a bot:Space ;
+    rdfs:label "라커(남)"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((196511 389820, 201711 389820, 201711 396720, 196511 396720, 196511 389820))"^^geo:wktLiteral ] ;
+    fran:areaM2 35.88 ;
+    fran:roomIndex 26 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_1,
+        inst:지하1층_대기공간추가_Door_10,
+        inst:지하1층_대기공간추가_Wall_1,
+        inst:지하1층_대기공간추가_Wall_25 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_대피공간_1,
+        inst:지하1층_대기공간추가_Room_샤워실_남_1 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_10,
+        inst:지하1층_대기공간추가_Beam_11,
+        inst:지하1층_대기공간추가_Beam_12,
+        inst:지하1층_대기공간추가_Beam_44,
+        inst:지하1층_대기공간추가_Beam_45,
+        inst:지하1층_대기공간추가_Beam_53,
+        inst:지하1층_대기공간추가_Beam_58,
+        inst:지하1층_대기공간추가_Beam_59,
+        inst:지하1층_대기공간추가_Beam_7,
+        inst:지하1층_대기공간추가_Beam_8,
+        inst:지하1층_대기공간추가_Beam_9 .
+
+inst:지하1층_대기공간추가_Room_샤워실_남_1 a bot:Space ;
+    rdfs:label "샤워실(남)"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((202111 389020, 205811 389020, 205811 391120, 202111 391120, 202111 389020))"^^geo:wktLiteral ] ;
+    fran:areaM2 7.77 ;
+    fran:roomIndex 27 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_10,
+        inst:지하1층_대기공간추가_Door_2,
+        inst:지하1층_대기공간추가_Wall_2,
+        inst:지하1층_대기공간추가_Wall_25 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_대피공간_1,
+        inst:지하1층_대기공간추가_Room_라커_남_1 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_35,
+        inst:지하1층_대기공간추가_Beam_41,
+        inst:지하1층_대기공간추가_Beam_43,
+        inst:지하1층_대기공간추가_Beam_5,
+        inst:지하1층_대기공간추가_Beam_6 .
+
+inst:지하1층_대기공간추가_Room_사우나_여_1 a bot:Space ;
+    rdfs:label "사우나(여)"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((191811 385120, 194311 385120, 194311 387520, 191811 387520, 191811 385120))"^^geo:wktLiteral ] ;
+    fran:areaM2 6.0 ;
+    fran:roomIndex 23 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_8,
+        inst:지하1층_대기공간추가_Door_9,
+        inst:지하1층_대기공간추가_Wall_22,
+        inst:지하1층_대기공간추가_Wall_24,
+        inst:지하1층_대기공간추가_Wall_4 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_동통신실_1,
+        inst:지하1층_대기공간추가_Room_샤워실_여_1,
+        inst:지하1층_대기공간추가_Room_키즈짐_1 .
+
+fran:Fixture a owl:Class ;
+    rdfs:label "위생·주방·설비 기구"@ko ;
+    rdfs:subClassOf bot:Element .
+
+fran:Door a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+inst:지하1층_대기공간추가_Room_키즈짐_1 a bot:Space ;
+    rdfs:label "키즈짐"@ko ;
+    geo:hasGeometry [ a geo:Geometry ;
+            geo:asWKT "<https://example.org/fran/crs/local-mm> POLYGON((187911 388020, 212011 388020, 212011 399120, 187911 399120, 187911 388020))"^^geo:wktLiteral ] ;
+    fran:areaM2 267.51 ;
+    fran:roomIndex 17 ;
+    bot:adjacentElement inst:지하1층_대기공간추가_Door_5,
+        inst:지하1층_대기공간추가_Door_7,
+        inst:지하1층_대기공간추가_Door_8,
+        inst:지하1층_대기공간추가_Wall_14,
+        inst:지하1층_대기공간추가_Wall_16,
+        inst:지하1층_대기공간추가_Wall_19,
+        inst:지하1층_대기공간추가_Wall_20,
+        inst:지하1층_대기공간추가_Wall_21,
+        inst:지하1층_대기공간추가_Wall_22 ;
+    bot:adjacentZone inst:지하1층_대기공간추가_Room_AV_1,
+        inst:지하1층_대기공간추가_Room_급기DA_1,
+        inst:지하1층_대기공간추가_Room_배기DA_1,
+        inst:지하1층_대기공간추가_Room_사우나_여_1,
+        inst:지하1층_대기공간추가_Room_실외기실PD_1,
+        inst:지하1층_대기공간추가_Room_창고_1 ;
+    bot:containsElement inst:지하1층_대기공간추가_Fixture_1,
+        inst:지하1층_대기공간추가_Fixture_2,
+        inst:지하1층_대기공간추가_Fixture_4 ;
+    bot:intersectingElement inst:지하1층_대기공간추가_Beam_10,
+        inst:지하1층_대기공간추가_Beam_11,
+        inst:지하1층_대기공간추가_Beam_12,
+        inst:지하1층_대기공간추가_Beam_13,
+        inst:지하1층_대기공간추가_Beam_14,
+        inst:지하1층_대기공간추가_Beam_16,
+        inst:지하1층_대기공간추가_Beam_17,
+        inst:지하1층_대기공간추가_Beam_18,
+        inst:지하1층_대기공간추가_Beam_21,
+        inst:지하1층_대기공간추가_Beam_22,
+        inst:지하1층_대기공간추가_Beam_27,
+        inst:지하1층_대기공간추가_Beam_28,
+        inst:지하1층_대기공간추가_Beam_29,
+        inst:지하1층_대기공간추가_Beam_3,
+        inst:지하1층_대기공간추가_Beam_30,
+        inst:지하1층_대기공간추가_Beam_31,
+        inst:지하1층_대기공간추가_Beam_32,
+        inst:지하1층_대기공간추가_Beam_33,
+        inst:지하1층_대기공간추가_Beam_34,
+        inst:지하1층_대기공간추가_Beam_35,
+        inst:지하1층_대기공간추가_Beam_36,
+        inst:지하1층_대기공간추가_Beam_37,
+        inst:지하1층_대기공간추가_Beam_38,
+        inst:지하1층_대기공간추가_Beam_39,
+        inst:지하1층_대기공간추가_Beam_4,
+        inst:지하1층_대기공간추가_Beam_40,
+        inst:지하1층_대기공간추가_Beam_41,
+        inst:지하1층_대기공간추가_Beam_42,
+        inst:지하1층_대기공간추가_Beam_43,
+        inst:지하1층_대기공간추가_Beam_44,
+        inst:지하1층_대기공간추가_Beam_45,
+        inst:지하1층_대기공간추가_Beam_48,
+        inst:지하1층_대기공간추가_Beam_49,
+        inst:지하1층_대기공간추가_Beam_5,
+        inst:지하1층_대기공간추가_Beam_52,
+        inst:지하1층_대기공간추가_Beam_53,
+        inst:지하1층_대기공간추가_Beam_58,
+        inst:지하1층_대기공간추가_Beam_59,
+        inst:지하1층_대기공간추가_Beam_6,
+        inst:지하1층_대기공간추가_Beam_7,
+        inst:지하1층_대기공간추가_Beam_8,
+        inst:지하1층_대기공간추가_Beam_9 .
+
+fran:Wall a owl:Class ;
+    rdfs:subClassOf bot:Element .
+
+fran:Beam a owl:Class ;
+    rdfs:label "보(구조도 정합)"@ko ;
+    rdfs:subClassOf bot:Element .
+

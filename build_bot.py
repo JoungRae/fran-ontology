@@ -25,6 +25,7 @@ import collections
 import json
 import math
 import os
+import re
 import sys
 
 from rdflib import Graph, Namespace, Literal, URIRef, BNode
@@ -68,6 +69,12 @@ COMMON_KW = ["홀", "복도", "계단", "로비", "EPS", "TPS", "PS", "PIT",
              "피트", "파이프", "샤프트", "ELEV", "승강", "AD", "AV",
              # 지하층 시설 실 — 세대 아님 + 헤드 반경도 공용(2.3m) 기준
              "통신", "제연", "창고", "전기실", "기계실", "펌프실", "방재실", "주차"]
+
+
+def uri_name(s):
+    """도면 제목·베이스명을 IRI 로컬명으로. 공백·슬래시가 들어오면 rdflib 이
+    직렬화 단계에서 통째로 실패한다 (예: Title='55A/55AS(2~3층)')."""
+    return re.sub(r"[^\w.-]", "_", str(s), flags=re.UNICODE).strip("_") or "unnamed"
 
 
 def norm(t):
@@ -265,11 +272,18 @@ def point_wkt(x, y):
     return f"POINT({x} {y})"
 
 
+# 좌표계 — CAD 도면 로컬 좌표(mm). geo:wktLiteral 은 CRS URI 를 안 붙이면
+# CRS84(WGS84 경위도)로 읽히므로 188887 이 '동경 188887도' 가 된다. 로컬
+# 엔지니어링 좌표계임을 명시해야 geof: 공간 함수가 오작동하지 않는다.
+CRS_LOCAL_MM = "<https://example.org/fran/crs/local-mm>"
+
+
 def add_geom(g, subj, wkt):
     geom = BNode()
     g.add((subj, GEO.hasGeometry, geom))
     g.add((geom, RDF.type, GEO.Geometry))
-    g.add((geom, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+    g.add((geom, GEO.asWKT,
+           Literal(f"{CRS_LOCAL_MM} {wkt}", datatype=GEO.wktLiteral)))
 
 
 # --- 온톨로지 스키마(경량 TBox) -------------------------------------------
@@ -277,6 +291,16 @@ def add_schema(g):
     g.add((FRAN.DwellingUnit, RDF.type, OWL.Class))
     g.add((FRAN.DwellingUnit, RDFS.subClassOf, BOT.Space))
     g.add((FRAN.DwellingUnit, RDFS.label, Literal("세대(단위주호)", lang="ko")))
+    g.add((FRAN.RoomCluster, RDF.type, OWL.Class))
+    g.add((FRAN.RoomCluster, RDFS.subClassOf, BOT.Space))
+    g.add((FRAN.RoomCluster, RDFS.label,
+           Literal("문으로 이어진 공간군(세대 아님)", lang="ko")))
+    g.add((FRAN.dwellingCount, RDF.type, OWL.DatatypeProperty))
+    g.add((FRAN.dwellingCount, RDFS.domain, FRAN.DwellingUnit))
+    g.add((FRAN.dwellingCount, RDFS.range, XSD.integer))
+    g.add((FRAN.exterior, RDF.type, OWL.DatatypeProperty))
+    g.add((FRAN.exterior, RDFS.domain, FRAN.Wall))
+    g.add((FRAN.exterior, RDFS.range, XSD.boolean))
     for cls in ("Wall", "Door", "Window", "Column", "Stair", "Elevator"):
         u = FRAN[cls]
         g.add((u, RDF.type, OWL.Class))
@@ -285,6 +309,16 @@ def add_schema(g):
     g.add((FRAN.structural, RDFS.domain, FRAN.Wall))
     g.add((FRAN.structural, RDFS.range, XSD.boolean))
     g.add((FRAN.areaM2, RDF.type, OWL.DatatypeProperty))
+    g.add((FRAN.roomIndex, RDF.type, OWL.DatatypeProperty))
+    g.add((FRAN.roomIndex, RDFS.domain, BOT.Space))
+    g.add((FRAN.roomIndex, RDFS.range, XSD.integer))
+    g.add((FRAN.roomIndex, RDFS.label,
+           Literal("도면 내 방 순번(재인식 시 바뀔 수 있음)", lang="ko")))
+    g.add((FRAN.Beam, RDF.type, OWL.Class))
+    g.add((FRAN.Beam, RDFS.subClassOf, BOT.Element))
+    g.add((FRAN.Beam, RDFS.label, Literal("보(구조도 정합)", lang="ko")))
+    g.add((FRAN.depthMM, RDF.type, OWL.DatatypeProperty))
+    g.add((FRAN.depthMM, RDFS.domain, FRAN.Beam))
     g.add((FRAN.Fixture, RDF.type, OWL.Class))
     g.add((FRAN.Fixture, RDFS.subClassOf, BOT.Element))
     g.add((FRAN.Fixture, RDFS.label, Literal("위생·주방·설비 기구", lang="ko")))
@@ -318,11 +352,16 @@ def main():
     cats = json.load(open(cls_path, encoding="utf-8"))["categories"]
 
     g = new_graph()
-    site = INST["Site_5BL"]
-    building = INST[f"Building_{title}"]
-    storey = INST[f"Storey_{base}"]
+    # 단지 이름은 프로젝트마다 다르다 — 설정에서 온다(없으면 도면 Title).
+    site_name = "5BL 단지"
+    _prof = os.path.join(args.data_dir, "building_profile.json")
+    if os.path.exists(_prof):
+        site_name = json.load(open(_prof, encoding="utf-8")).get("이름", site_name)
+    site = INST[f"Site_{uri_name(site_name)}"]
+    building = INST[f"Building_{uri_name(title)}"]
+    storey = INST[f"Storey_{uri_name(base)}"]
     g.add((site, RDF.type, BOT.Site))
-    g.add((site, RDFS.label, Literal("5BL 단지", lang="ko")))
+    g.add((site, RDFS.label, Literal(site_name, lang="ko")))
     g.add((building, RDF.type, BOT.Building))
     g.add((building, RDFS.label, Literal(f"주동 {title}", lang="ko")))
     g.add((storey, RDF.type, BOT.Storey))
@@ -330,17 +369,149 @@ def main():
     g.add((site, BOT.hasBuilding, building))
     g.add((building, BOT.hasStorey, storey))
 
-    st = build_storey(g, storey, data["Entities"], rooms_data, cats)
+    # 개체 URI 에 도면 접두사를 붙인다. 방 번호는 도면별 리스트 순번이라
+    # 접두사가 없으면 지하1층_pit 의 Room_5(ELEV.홀)와 1층의 Room_5(욕실1)가
+    # 같은 URI 가 되어, 두 층 그래프를 함께 열면 서로 다른 방이 합쳐진다.
+    # (build_building.py 가 쓰는 접두사와 같은 규칙이라 다층 그래프와도 일치)
+    pfx = f"{uri_name(base)}_"
+    st = build_storey(g, storey, data["Entities"], rooms_data, cats, pfx=pfx,
+                      ids_path=os.path.join(args.out_dir,
+                                            f"{base}_room_ids.json"))
+
+    # 구조도 정합 보(align_beams.py 산출물) — 있으면 fran:Beam 으로 그래프에 편입
+    beams_path = os.path.join(args.out_dir, f"{base}_beams.json")
+    n_beam = 0
+    if os.path.exists(beams_path):
+        n_beam = add_beams(g, storey, json.load(open(beams_path, encoding="utf-8")),
+                           rooms_rect=st["rooms_rect"], room_uri=st["room_uri"],
+                           pfx=pfx)
 
     g.serialize(destination=ttl_out, format="turtle")
     print(f"입력 도면: {src}  (Title={title})")
     print(f"방(Space): {st['rooms']} · 세대(DwellingUnit): {st['units']} "
+          f"· 연결 공간군: {st['clusters']} "
           f"· 공용/순환방: {st['common']}")
+    if n_beam:
+        print(f"보(Beam): {n_beam}")
     print(f"인접(adjacentZone): {st['adj']}쌍")
     print(f"벽(Wall): 분리벽 {st['wall']} + 외벽 {st['ext']}")
     print(f"개구부(Interface): {st['iface']} · 파사드 창: {st['facwin']}")
     print(f"트리플 수: {len(g)}")
     print(f"출력: {ttl_out}")
+
+
+def add_beams(g, storey, beams, rooms_rect=None, room_uri=None, pfx=""):
+    """align_beams.py 산출 보(축선 segs + 거더 polys)를 fran:Beam 으로 추가.
+
+    rooms_rect/room_uri 를 주면 보가 지나가는 방에 bot:intersectingElement 로
+    잇는다 — "이 방을 제약하는 보" 질의가 기하 연산 없이 가능해진다.
+    (bot:intersectingElement = 구역 경계를 가로지르는 요소. BOT 은 이를
+    adjacentElement 와 서로소로 선언하므로 둘을 같이 걸지 않는다.)
+    """
+    depth = beams.get("depth_mm")
+
+    def hits(bx0, by0, bx1, by1):
+        """보 bbox 와 겹치는 방 목록 (bbox 근사 — 정밀 교차는 배치 엔진 담당)."""
+        out = []
+        for rid, (x0, y0, x1, y1) in (rooms_rect or {}).items():
+            if bx1 >= x0 and bx0 <= x1 and by1 >= y0 and by0 <= y1:
+                out.append(rid)
+        return out
+
+    def emit(n, wkt, xs, ys):
+        b = INST[f"{pfx}Beam_{n}"]
+        g.add((b, RDF.type, FRAN.Beam))
+        add_geom(g, b, wkt)
+        if depth:
+            g.add((b, FRAN.depthMM, Literal(depth, datatype=XSD.decimal)))
+        g.add((storey, BOT.containsElement, b))
+        for rid in hits(min(xs), min(ys), max(xs), max(ys)):
+            g.add(((room_uri or {})[rid], BOT.intersectingElement, b))
+
+    n = 0
+    for x0, y0, x1, y1 in beams.get("segs", []):
+        n += 1
+        emit(n, f"LINESTRING({x0} {y0}, {x1} {y1})", (x0, x1), (y0, y1))
+    for poly in beams.get("polys", []):
+        n += 1
+        ring = ", ".join(f"{p[0]} {p[1]}" for p in poly + poly[:1])
+        emit(n, f"POLYGON(({ring}))",
+             [p[0] for p in poly], [p[1] for p in poly])
+    return n
+
+
+def room_local_names(rooms, store_path=None):
+    """방 → 안정 로컬명. 리스트 순번이 아니라 실명 + 보존된 배정을 쓴다.
+
+    방 인식(plan_rooms_rect)을 다시 돌리면 방 순서·개수가 바뀐다. URI 가 순번이면
+    같은 이름이 다른 방을 가리키게 되고, 그래프에 저장된 판정·사람 확정이 엉뚱한
+    방에 붙는다. 이름만으로 계산하는 방식(이름+기하 순번)도 안전하지 않다 —
+    지하1층_b동의 PIT 19개는 중심 x 간격이 35mm 라 벽면 스냅 한 번에 순서가 뒤집힌다.
+
+    그래서 배정을 파일(<base>_room_ids.json)에 남기고 다음 빌드에서 재사용한다.
+    매칭은 (같은 실명, 가장 가까운 중심, 허용 2m). 못 찾으면 새 이름을 발급한다.
+    파일이 없으면 처음 배정하고 저장한다.
+    """
+    TOL = 2000.0
+
+    def cen(r):
+        x0, y0, x1, y1 = r["rect"]
+        return ((x0 + x1) / 2.0, (y0 + y1) / 2.0)
+
+    prev = {}
+    if store_path and os.path.exists(store_path):
+        try:
+            prev = json.load(open(store_path, encoding="utf-8")).get("배정", {})
+        except Exception as e:
+            print(f"방 id 파일 읽기 실패({e}) — 새로 배정", file=sys.stderr)
+
+    # 이름 slug 이 충돌하면(예: '/TPS' 와 'TPS') 조용히 한 방으로 합쳐진다.
+    slug_of = {}
+    for r in rooms:
+        slug_of.setdefault(uri_name(r["name"]), set()).add(r["name"])
+    for s, names in slug_of.items():
+        if len(names) > 1:
+            raise SystemExit(f"실명 slug 충돌: {sorted(names)} → '{s}'. "
+                             f"도면의 실명을 구분되게 고치십시오.")
+
+    taken, out = set(), {}
+    unused = {k: v for k, v in prev.items()}
+    # 1) 보존된 배정과 매칭 — 같은 실명 중 중심이 가장 가까운 것
+    for r in sorted(rooms, key=lambda r: r["id"]):
+        cx, cy = cen(r)
+        best, bestd = None, TOL
+        for name, info in unused.items():
+            if info.get("label") != r["name"]:
+                continue
+            d = math.dist((cx, cy), info.get("centroid", (1e18, 1e18)))
+            if d < bestd:
+                best, bestd = name, d
+        if best:
+            out[r["id"]] = best
+            taken.add(best)
+            del unused[best]
+    # 2) 못 찾은 방에 새 이름 — <slug>_<빈 번호>
+    for r in sorted(rooms, key=lambda r: r["id"]):
+        if r["id"] in out:
+            continue
+        s = uri_name(r["name"])
+        k = 1
+        while f"{s}_{k}" in taken or f"{s}_{k}" in prev:
+            k += 1
+        out[r["id"]] = f"{s}_{k}"
+        taken.add(f"{s}_{k}")
+
+    if store_path:
+        rec = {"설명": "방 URI 안정 배정. 도면을 다시 인식해도 같은 방이 같은 "
+                       "이름을 유지하도록 보존한다. 지우면 새로 배정된다.",
+               "배정": {out[r["id"]]: {"label": r["name"],
+                                      "centroid": [round(c, 1) for c in cen(r)]}
+                       for r in rooms}}
+        tmp = store_path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(rec, f, ensure_ascii=False, indent=1)
+        os.replace(tmp, store_path)
+    return out
 
 
 def new_graph():
@@ -355,10 +526,11 @@ def new_graph():
     return g
 
 
-def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
+def build_storey(g, storey, entities, rooms_data, cats, pfx="", ids_path=None):
     """한 층의 방/세대/요소/위상을 그래프 g 에 추가(storey 아래). 반환: 통계 dict.
 
     pfx: 개체 URI 접두사(층 구분용, 다중 층에서 충돌 방지). 예: '기준층_'.
+    ids_path: 방 URI 안정 배정 파일. 주면 재인식에도 같은 방이 같은 URI 를 유지.
     """
     def U(name):
         return INST[f"{pfx}{name}"]
@@ -372,6 +544,7 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
             "common": is_common(r["room"]),
             "shared_sides": set(),
         })
+    local = room_local_names(rooms, ids_path)
 
     vseg, hseg, open_grid, door_arcs = build_index(entities, cats)
 
@@ -401,11 +574,14 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
     # 방(Space) 개체
     room_uri = {}
     for r in rooms:
-        u = U(f"Room_{r['id']}")
+        u = U(f"Room_{local[r['id']]}")
         room_uri[r["id"]] = u
         g.add((u, RDF.type, BOT.Space))
         g.add((u, RDFS.label, Literal(r["name"], lang="ko")))
         g.add((u, FRAN.areaM2, Literal(r["area"], datatype=XSD.decimal)))
+        # 도면 내 순번 — 방 인식 산출물(rooms_rect.json)과 맞추는 용도.
+        # URI 와 달리 재인식 때 바뀔 수 있는 값이다.
+        g.add((u, FRAN.roomIndex, Literal(r["id"], datatype=XSD.integer)))
         add_geom(g, u, poly_wkt(r["rect"]))
 
     def cen(r):
@@ -452,7 +628,7 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
                     near.append(m)
         blocks = big
 
-    unit_count = 0
+    unit_count = dwelling_count = 0
     for comp in sorted(blocks, key=lambda b: cen(rooms[b[0]])):
         n_ent = sum(1 for m in comp if "현관" in rooms[m]["name"])
         members_resi = [m for m in comp if not rooms[m]["common"]]
@@ -461,10 +637,18 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
             for m in comp:
                 g.add((storey, BOT.hasSpace, room_uri[m]))
             continue
+        # 문으로 이어진 방 뭉치 ≠ 세대다. 현관이 없으면 그냥 '연결 뭉치'로
+        # 남긴다 — 부대시설 층(사우나·라커·샤워실)이 세대로 승격돼 세대 전용
+        # 규정(NFPC 608 §7 2.6m)을 끌어오는 것을 막는다.
         unit_count += 1
-        uu = U(f"Unit_{unit_count}")
-        g.add((uu, RDF.type, FRAN.DwellingUnit))
-        g.add((uu, RDFS.label, Literal(f"세대 {unit_count}", lang="ko")))
+        is_unit = n_ent > 0
+        if is_unit:
+            dwelling_count += 1
+        uu = U(f"Unit_{unit_count}" if is_unit else f"Cluster_{unit_count}")
+        g.add((uu, RDF.type, FRAN.DwellingUnit if is_unit else FRAN.RoomCluster))
+        g.add((uu, RDFS.label,
+               Literal(f"세대 {unit_count}" if is_unit
+                       else f"연결 공간군 {unit_count}", lang="ko")))
         g.add((storey, BOT.hasSpace, uu))
         if n_ent > 1:
             g.add((uu, FRAN.dwellingCount, Literal(n_ent, datatype=XSD.integer)))
@@ -473,6 +657,9 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
                 g.add((storey, BOT.hasSpace, room_uri[m]))
             else:
                 g.add((uu, BOT.hasSpace, room_uri[m]))
+                # 층에서 한 번에 닿게 — hasSpace 한 단계만 도는 질의가
+                # 세대·뭉치 안의 실을 통째로 놓치는 사고를 막는다.
+                g.add((storey, BOT.hasSpace, room_uri[m]))
 
     # 인접 + 분리벽 + 개구부(Interface)
     n_adj = n_wall = n_iface = 0
@@ -521,7 +708,12 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
                 el = U(f"Window_{win_id}")
                 g.add((el, RDF.type, FRAN.Window))
             add_geom(g, el, point_wkt(round(ox), round(oy)))
-            g.add((iface, BOT.hasElement, el))
+            # 개구부 요소는 interfaceOf 로 잇는다. bot:hasElement 는 domain 이
+            # bot:Zone 인데 bot:Interface 는 Zone 과 서로소(disjoint)로 선언돼
+            # 있어, Interface 에 hasElement 를 걸면 추론기가 그래프 전체를
+            # 불충족(unsatisfiable)으로 판정한다. interfaceOf 의 range 는
+            # Zone ∪ Element 라 요소도 정당한 끝점이다.
+            g.add((iface, BOT.interfaceOf, el))
             g.add((ui, BOT.adjacentElement, el))
             g.add((uj, BOT.adjacentElement, el))
             n_iface += 1
@@ -558,8 +750,9 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
                 el = U(f"Window_{win_id}")
                 g.add((el, RDF.type, FRAN.Window))
                 add_geom(g, el, point_wkt(round(ox), round(oy)))
+                # 외벽 창은 방 '안'에 있는 게 아니라 경계에 붙어 있다 —
+                # containsElement 가 아니라 adjacentElement 만 맞다.
                 g.add((room_uri[r["id"]], BOT.adjacentElement, el))
-                g.add((room_uri[r["id"]], BOT.containsElement, el))
                 n_facwin += 1
 
     # 층 전체 특수 요소(승강기/계단)
@@ -693,14 +886,20 @@ def build_storey(g, storey, entities, rooms_data, cats, pfx=""):
         fixtures[kind] += 1
 
     # 수직 연결용 코어 공간 목록(층간 bbox 매칭은 build_building 에서)
-    core_rooms = [{"id": r["id"], "name": r["name"], "rect": r["rect"]}
+    # uri 를 직접 실어 보낸다 — 소비자가 URI 를 문자열로 조립하면 URI 규칙이
+    # 바뀔 때마다 조용히 존재하지 않는 개체를 가리키게 된다.
+    core_rooms = [{"id": r["id"], "uri": str(room_uri[r["id"]]),
+                   "name": r["name"], "rect": r["rect"]}
                   for r in rooms if "계단" in r["name"] or "ELEV" in r["name"].upper()]
 
-    return {"corridors": corridors, "stair_travel": travel,
+    return {"rooms_rect": {r["id"]: r["rect"] for r in rooms},
+            "room_uri": room_uri,
+            "corridors": corridors, "stair_travel": travel,
             "stair_unreachable": n_unreach, "core_rooms": core_rooms,
             "door_widths": door_widths, "fixtures": dict(fixtures),
             "accessible_rooms": sorted(acc_rooms),
-            "rooms": len(rooms), "units": unit_count,
+            "rooms": len(rooms), "units": dwelling_count,
+            "clusters": unit_count - dwelling_count,
             "common": sum(1 for r in rooms if r["common"]),
             "adj": n_adj, "wall": n_wall, "ext": n_ext,
             "iface": n_iface, "facwin": n_facwin}

@@ -11,8 +11,10 @@
 ```
 CAD 도면(JSON) ──① AI 레이어 분류──▶ 벽·창·문·승강기·계단
               ──② 방 인식(flood-fill)──▶ 실(폴리곤)·무명실·PIT
-              ──③ BOT 온톨로지 그래프──▶ 층·세대·인접·문·보행거리 (RDF)
-                        │
+              ──③ BOT 온톨로지 그래프──▶ 층·세대·인접·문·보·보행거리 (RDF)
+                        │            ▲
+                        │            └─③' 법령 레이어: 실별 판정·근거 조문 (RDF)
+                        │                 ← 법령 DB 규칙 × 실명 매칭
                         ├─④ 소방 헤드 자동 배치 + 법적 판정 리포트
                         └─⑤ 피난 경로(보행거리) 자동 검토 리포트
 ```
@@ -28,6 +30,9 @@ CAD는 "선의 좌표 목록"일 뿐이고, 법령은 자연어 문장일 뿐입
   밀폐 공간도 "무명실"로 자동 승격
 - **BOT 온톨로지 그래프**: 인접·개구부(Interface)·세대 그룹핑·계단 보행거리·층간 수직
   연결을 기하 추론으로 자동 도출 (rdflib/Turtle, GeoSPARQL WKT)
+- **법령 레이어**: 법령 DB의 장소 규칙을 실명과 매칭해 실 노드에 판정(제외/공용/세대)과
+  근거 조문 URI를 부착 — "이 실은 왜 헤드가 없나"가 그래프에서 추적된다
+  ([README_LEGAL.md](README_LEGAL.md))
 - **스프링클러 헤드 자동 배치** (`fire_layout.py`)
   - 구역별 최대커버(Greedy Set Cover 근사) + 가시선(LoS) 판정
   - 구조도 정합 보(beam) 회피(0.6m 이격), Lloyd 재정렬로 간격 균등화
@@ -94,6 +99,9 @@ OpenAI API 키, PostgreSQL 법령 DB 접속이 필요합니다 — `.env.example
 plan_rooms_rect.py / plan_rooms_flood.py   방 인식(광선 캐스팅 + flood-fill)
 layer_classify.py                          GPT 레이어 분류
 build_bot.py / build_building.py           BOT 온톨로지 그래프 생성(단층/다층)
+match_rules_rooms.py                       법령 장소 규칙 × 실명 매칭(LLM + 캐시)
+annotate_legal.py                          매칭 판정 → 온톨로지 법령 레이어 TTL
+derive_head_params.py                      법령 수치 규칙 → 헤드 배치 파라미터
 derive_terms.py                            법령 평가용 표준 term 도출
 align_beams.py                             구조↔건축 도면 정합, 보 이식
 fire_field.py                              소방 배치 기하 엔진(거리장·greedy·재정렬)
@@ -106,7 +114,8 @@ data/  output/                             예시 도면 1개(지하1층 부대�
 
 ## 한계 (정직하게)
 
-- 자동 법적 판정은 헤드/피난 관련 핵심 항목 위주 — 조항↔값 매핑은 수동 배선
+- 장소 판정은 LLM 매칭 + 캐시 — 재현은 되지만 첫 판정은 비결정적. ⚠ 표시된 실은
+  사람이 확정해야 하며, 제외(헤드 미설치)는 이중 확신일 때만 적용된다
 - 천장고·반자 등 단면 데이터 미연계 (반사판-보 수직거리 표 등은 보류)
 - 100mm 래스터·직사각형 근사, 도면 라벨 품질에 의존
 - 검토 초안 도구이며 시공 설계·최종 승인을 대체하지 않습니다

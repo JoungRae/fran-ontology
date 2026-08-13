@@ -12,12 +12,21 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Claude Code 로컬 설정
+.claude/
+
 # ---- data/: 공개 데모(지하1층_pit)에 필요한 파일만 포함, 나머지 원본 CAD 도면 제외 ----
 data/*
 !data/지하1층_pit.json
 !data/지하1층_구조.json
 !data/지하1층_구조_MLINE버전.json
 !data/지하1층_대기공간추가.json
+# 법령 레이어: 판정 설정 + LLM 매칭 캐시 (DB·LLM 없이 데모 재현용)
+!data/building_profile.json
+!data/placement_policy.json
+!data/rule_place_triage.json
+!data/rule_room_cache.json
+!data/room_type_cache.json
 
 # ---- output/: 데모 리포트 재현에 필요한 산출물만 포함, 스크래치/디버그물 제외 ----
 output/*
@@ -35,3 +44,15 @@ output/*
 !output/head_law_checks.json
 !output/building.ttl
 !output/1층.ttl
+# 법령 레이어 파이프라인 산출물 (README_LEGAL.md 의 흐름 재현용)
+!output/head_params.json
+!output/지하1층_pit.ttl
+!output/지하1층_pit_legal.ttl
+!output/지하1층_pit_room_bindings.json
+!output/지하1층_pit_room_ids.json
+!output/지하1층_pit_fire_layout.html
+!output/지하1층_대기공간추가.ttl
+!output/지하1층_대기공간추가_legal.ttl
+!output/지하1층_대기공간추가_room_bindings.json
+!output/지하1층_대기공간추가_room_ids.json
+!output/지하1층_대기공간추가_fire_layout.html

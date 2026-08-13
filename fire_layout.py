@@ -34,39 +34,94 @@ import numpy as np
 import build_bot as BB
 import fire_field as FF
 
-R_UNIT = 2600.0    # 세대 내 헤드 수평거리 (NFPC 608 §7)
-R_COMMON = 2300.0  # 공용부(내화구조) 헤드 수평거리 (NFPC 103 §10)
-R_REPAIR = 2300.0  # 수리 헤드 반경 — 보수적으로 공용 기준 사용
-WIN_OFF = 600.0    # 창문 이격 (NFPC 608 §7)
-EXT_LIMIT = 20000.0
-OUTLET_R = 5000.0
+def load_legal_ttl(path):
+    """온톨로지 법령 레이어(_legal.ttl) → 실명별 판정 dict (bindings JSON 과 동형).
 
-# (제목, 출처, 조문 원문/요지, 본 시스템의 적용·검증 방식) — 조문과 적용을 분리 표기
-LEGAL = [
-    ("헤드 수평거리 — 세대 내 2.6m",
-     "공동주택의 화재안전성능기준(NFPC 608) 제7조 · NFTC 608 2.3.1.4 — 체크 15797·16089",
-     "아파트등의 세대 내 스프링클러헤드를 설치하는 경우 천장·반자·천장과 반자사이·덕트·"
-     "선반등의 각 부분으로부터 하나의 스프링클러헤드까지의 수평거리는 2.6미터 이하로 할 것.",
+    annotate_legal.py 가 만든 fran:verdict 트리플을 되읽는다. 동명 실(코어 대칭)의
+    판정은 실명 단위 매칭 결과라 동일하므로 실명당 하나로 접는다.
+    """
+    from rdflib import Graph, Namespace
+    from rdflib.namespace import RDF, RDFS
+    BOTNS = Namespace("https://w3id.org/bot#")
+    FR = Namespace("https://example.org/fran#")
+    g = Graph()
+    g.parse(path, format="turtle")
+    out = {}
+    for sp in g.subjects(RDF.type, BOTNS.Space):
+        name = next((str(o) for o in g.objects(sp, RDFS.label)), None)
+        v = next(iter(g.objects(sp, FR.verdict)), None)
+        if not name or v is None or name in out:
+            continue
+        basis = []
+        for bn in g.objects(v, FR.basis):
+            order = next((int(o) for o in g.objects(bn, FR.order)), 0)
+            ru = next(iter(g.objects(bn, FR.rule)), None)
+            src = next((str(o) for o in g.objects(ru if ru is not None else bn,
+                                                  RDFS.label)), "")
+            rid = None
+            if ru is not None:
+                tail = str(ru).rsplit("Rule_", 1)
+                rid = int(tail[1]) if len(tail) == 2 and tail[1].isdigit() else None
+            basis.append((order, {"출처": src, "rule_id": rid}))
+        def _s(p):
+            return next((str(o) for o in g.objects(v, p)), "")
+        out[name] = {
+            "결정규칙": sorted(
+                ({"출처": next((str(l) for l in g.objects(d, RDFS.label)), ""),
+                  "rule_id": int(str(d).rsplit("Rule_", 1)[1])}
+                 for d in g.objects(v, FR.appliedRule) if "Rule_" in str(d)),
+                key=lambda x: x["rule_id"]),
+            "기본동작": _s(FR.action), "출처": _s(FR.source),
+            "confidence": _s(FR.confidence), "노드": _s(FR.legalNode),
+            "이유": _s(FR.reason),
+            "확인필요": _s(FR.needsReview) == "true",
+            "근거": [b for _, b in sorted(basis, key=lambda t: t[0])],
+            "생략가능": sorted(
+                [{"출처": next((str(l) for l in g.objects(ru, RDFS.label)), ""),
+                  "rule_id": int(str(ru).rsplit("Rule_", 1)[1])}
+                 for ru in g.objects(v, FR.omittableRule)],
+                key=lambda d: d["rule_id"]) +
+                sorted(str(o) for o in g.objects(v, FR.omittableBasis)),
+        }
+    return out
+
+
+# 법정 수치는 head_params.json(법령DB 유래)에서 온다 — 아래는 그 파일이 없을
+# 때만 쓰는 폴백이고, 화면 파라미터 패널에 '하드코딩' 으로 표시된다.
+# main() 이 같은 이름의 지역변수로 덮어쓴다.
+FALLBACK = {
+    "r_unit": 2600.0,      # 세대 내 헤드 수평거리 (NFPC 608 §7)
+    "r_common": 2300.0,    # 공용부(내화구조) 헤드 수평거리 (NFPC 103 §10)
+    "window_band": 600.0,  # 창문 이격 (NFPC 608 §7)
+    "ext_limit": 20000.0,  # 소화기 보행거리 (NFPC 101 §4)
+    "outlet_r": 5000.0,    # 방수구·비상콘센트 계단 출입구 이격 (NFPC 608 §17·18)
+}
+
+# 법적 근거 표. 조문 출처·원문은 **법령DB에서 온다** — head_params.json 의
+# 파라미터마다 rule_id·근거·원문이 붙어 있으므로 그걸 읽는다. 코드에 남는 건
+# (제목, 파라미터 key, 이 엔진이 무엇을 했는가) 뿐이다. 적용·검증 서술은 법이
+# 아니라 우리 구현에 대한 설명이라 코드에 있는 게 맞다.
+#
+# LAW_SPEC: (제목, head_params key 또는 None, 적용·검증)
+# key 가 None 인 항목은 DB 수집 범위(NFPC/NFTC 103·608) 밖의 법령이거나
+# 엔진 서술이라 아래 LAW_FALLBACK 의 (출처, 조문)을 쓰고 출처를 명시한다.
+LAW_SPEC = [
+    ("헤드 수평거리 — 세대 내 2.6m", "r_unit",
      "주거실로 확인되는 실에만 2.6m 적용. 배치 직후 100mm 셀 전수 검증(수평거리+가시선)으로 "
      "미커버 0을 확인."),
-    ("헤드 — 외벽 창문 0.6m 이내",
-     "공동주택의 화재안전성능기준(NFPC 608) 제7조 — 체크 15798",
-     "외벽에 설치된 창문에서 0.6미터 이내에 스프링클러헤드를 배치하고, 배치된 헤드의 "
-     "수평거리 이내에 창문이 모두 포함되도록 할 것.",
+    ("헤드 — 외벽 창문 0.6m 이내", "window_band",
      "창 구간을 5.06m(=2√(2.6²−0.6²)) 이하로 분할해 각 구간 중앙 0.6m 안쪽에 배치. "
      "세대 실 전용 규정 — 창이 없는 층은 0개."),
-    ("헤드 수평거리 — 공용부 2.3m (내화구조)",
-     "스프링클러설비의 화재안전성능기준(NFPC 103) 제10조 — 체크 15742 (일반 2.1m: 체크 15739)",
-     "스프링클러헤드까지의 수평거리는 2.1미터 이하로 해야 한다. 내화구조로 된 "
-     "특정소방대상물의 경우에는 2.3미터 이하.",
+    ("헤드 수평거리 — 공용부 2.3m (내화구조)", "r_common",
      "본 건물 내화구조 → 2.3m 적용. 주거실로 확인되지 않는 모든 실(부대시설·무명실 포함)에 "
      "보수적으로 적용."),
-    ("살수장애물 이격 — 반경 0.6m / 폭 3배",
-     "공동주택의 화재안전성능기준(NFPC 608) 제7조 — 체크 15806·15807",
-     "헤드와 장애물 사이에 60센티미터 반경을 확보하거나 장애물 폭의 3배를 확보할 것. "
-     "소규모 공간 등 확보가 불가한 경우에는 살수방해가 최소화되는 위치에 설치할 수 있다. (요지)",
+    ("살수장애물 이격 — 반경 0.6m / 폭 3배", "clear_head",
      "구조도 정합 보·거더 축선 0.6m 대역을 설치 후보에서 제외. 기하적으로 회피 불가한 "
      "헤드만 ⚠ 표시 — 반사판 하향/차폐판 검토 대상."),
+]
+
+# DB 범위 밖 법령 + 엔진 서술 (제목, 출처, 조문, 적용·검증, 출처구분)
+LAW_EXTRA = [
     ("소화기 (소형)",
      "소화기구 및 자동소화장치의 화재안전성능기준(NFPC 101) 제4조 · NFTC 101 — 체크 15704·16144",
      "특정소방대상물의 각 부분으로부터 1개의 소화기까지의 보행거리가 소형소화기의 경우에는 "
@@ -89,6 +144,45 @@ LEGAL = [
      "예정. 발코니 분합창은 통행 가능으로 근사, 지오메트리는 100mm 래스터 근사."),
 ]
 
+# LAW_SPEC 의 key 를 DB 에서 못 찾았을 때 쓰는 조문(출처, 원문). 코드에 남은
+# 마지막 리터럴이라, 이게 쓰이면 화면에 '하드코딩' 으로 표시된다.
+LAW_FALLBACK = {
+    "r_unit": ("공동주택의 화재안전성능기준(NFPC 608) 제7조 · NFTC 608 2.3.1.4",
+               "아파트등의 세대 내 스프링클러헤드를 설치하는 경우 각 부분으로부터 하나의 "
+               "스프링클러헤드까지의 수평거리는 2.6미터 이하로 할 것."),
+    "window_band": ("공동주택의 화재안전성능기준(NFPC 608) 제7조",
+                    "외벽에 설치된 창문에서 0.6미터 이내에 스프링클러헤드를 배치할 것."),
+    "r_common": ("스프링클러설비의 화재안전성능기준(NFPC 103) 제10조",
+                 "스프링클러헤드까지의 수평거리는 2.1미터 이하로 해야 한다. 내화구조로 "
+                 "된 특정소방대상물의 경우에는 2.3미터 이하."),
+    "clear_head": ("공동주택의 화재안전성능기준(NFPC 608) 제7조",
+                   "헤드와 장애물 사이에 60센티미터 반경을 확보하거나 장애물 폭의 3배를 "
+                   "확보할 것."),
+}
+
+
+def build_legal(head_params):
+    """법적 근거 표를 만든다 → [(제목, 출처, 조문, 적용·검증, 출처구분)].
+
+    조문·출처는 법령DB(head_params) 우선. 못 찾으면 LAW_FALLBACK 리터럴을 쓰되
+    출처구분을 '하드코딩' 으로 남겨 화면에서 구분되게 한다.
+    """
+    byk = {p.get("key"): p for p in (head_params or {}).get("파라미터", [])}
+    rows = []
+    for title, key, applied in LAW_SPEC:
+        p = byk.get(key)
+        if p and p.get("근거") and p.get("원문"):
+            rows.append((title, p["근거"], p["원문"], applied, "법령DB"))
+        else:
+            cite, law = LAW_FALLBACK[key]
+            rows.append((title, cite, law, applied, "하드코딩"))
+    for title, cite, law, applied in LAW_EXTRA:
+        # 소화기·방수구·피난동선은 엄연히 법령이다 — 다만 규칙 추출 대상
+        # 문서(NFPC/NFTC 103·608) 밖이라 DB 에 없다. '엔진' 으로 표시하면 거짓말.
+        kind = "엔진" if title.startswith("한계") else "법령(DB 범위 밖)"
+        rows.append((title, cite, law, applied, kind))
+    return rows
+
 
 def main():
     argv = list(sys.argv[1:])
@@ -107,10 +201,53 @@ def main():
             return v * 1000.0 if v < 100 else v
         return default
 
-    R_UNIT = _optf("--r-unit", 2600.0)
-    R_COMMON = _optf("--r-common", 2300.0)
+    # 배치 파라미터는 derive_head_params.py 가 법령DB(legal_rule)에서 뽑아 둔
+    # output/head_params.json 을 우선한다. 건물 설정(내화 여부·용도)이 값을
+    # 정한다 — 내화면 2.3, 비내화면 2.1, 무대부면 1.7. 파일이 없으면 예전
+    # 하드코딩 기본값으로 물러나되, 화면 파라미터 패널에 '하드코딩' 으로 찍힌다.
+    _fo = os.path.dirname(os.path.abspath(__file__))
+    _pp = os.path.join(_fo, "output", "head_params.json")
+    HEAD_PARAMS = None
+    if os.path.exists(_pp):
+        try:
+            HEAD_PARAMS = json.load(open(_pp, encoding="utf-8"))
+        except Exception as e:
+            print(f"head_params.json 읽기 실패({e}) — 하드코딩 값으로 진행")
+
+    # 법적 근거 표 — 조문·출처는 법령DB(head_params)에서 온다
+    LEGAL = build_legal(HEAD_PARAMS)
+    _lit = [t for t, _, _, _, k in LEGAL if k == "하드코딩"]
+    if _lit:
+        print(f"조문을 법령DB에서 못 찾아 코드 리터럴 사용: {', '.join(_lit)}")
+
+    _fallback_used = []
+
+    def _law_mm(key, default=None):
+        if default is None:
+            default = FALLBACK[key]
+        if HEAD_PARAMS:
+            for prm in HEAD_PARAMS.get("파라미터", []):
+                if prm.get("key") == key and prm.get("값_mm"):
+                    return float(prm["값_mm"])
+        if key not in _fallback_used:
+            _fallback_used.append(key)
+        return default
+
+    R_UNIT = _optf("--r-unit", _law_mm("r_unit"))
+    R_COMMON = _optf("--r-common", _law_mm("r_common"))
     R_REPAIR = R_COMMON                     # 안전망은 공용 반경으로 보수적
-    r_custom = (R_UNIT != 2600.0) or (R_COMMON != 2300.0)
+    WIN_OFF = _law_mm("window_band")
+    EXT_LIMIT = _law_mm("ext_limit")
+    OUTLET_R = _law_mm("outlet_r")
+    r_custom = (R_UNIT != _law_mm("r_unit")) or (R_COMMON != _law_mm("r_common"))
+    if _fallback_used:
+        print(f"법령DB에 없어 폴백 상수 사용: {', '.join(_fallback_used)} "
+              f"(화면에 '하드코딩' 표시)")
+    if HEAD_PARAMS:
+        _prof = HEAD_PARAMS.get("프로필", {})
+        print(f"법령 파라미터 적용: {_prof.get('이름','')} · "
+              f"{_prof.get('용도','')} · {_prof.get('구조','')} → "
+              f"세대 {R_UNIT/1000:.1f}m / 공용 {R_COMMON/1000:.1f}m")
     if r_custom:
         print(f"수평거리 사용자 지정: 세대 {R_UNIT/1000:.2f}m · 공용 {R_COMMON/1000:.2f}m "
               f"(법정 기준 2.6/2.3 — 상회 시 성능 인정 헤드 사용 전제)")
@@ -125,10 +262,43 @@ def main():
     ents = json.load(open(os.path.join(FO, "data", f"{base}.json"),
                           encoding="utf-8"))["Entities"]
 
-    # 헤드 반경 판정: 주거실 화이트리스트(is_resi)만 세대 2.6m, 그 외(부대시설 등
-    # 미지의 실 포함)는 공용 2.3m 기본 — 모르는 실은 보수적(작은 반경)으로.
+    # 실 분류는 온톨로지 법령 레이어(_legal.ttl — annotate_legal.py)가 정본이다.
+    # 규칙×실 매칭(match_rules_rooms.py) 판정이 fran:verdict 로 실 노드에 달려
+    # 있고, 세대/공용/제외가 법령 근거와 함께 온다. TTL 이 없으면 예전 바인딩
+    # JSON, 그마저 없는 실만 옛 키워드(is_resi)로 물러나고 '하드코딩' 표시.
+    _lt = os.path.join(FO, "output", f"{base}_legal.ttl")
+    _bp = os.path.join(FO, "output", f"{base}_room_bindings.json")
+    BINDINGS = {}
+    if os.path.exists(_lt):
+        try:
+            BINDINGS = load_legal_ttl(_lt)
+            _bsrc = "온톨로지 법령 레이어"
+        except ImportError:   # rdflib 없는 환경 — 판정 자체는 JSON 으로 살린다
+            print("rdflib 없음 — 법령 TTL 대신 바인딩 JSON 사용 (pip install rdflib)")
+    if not BINDINGS and os.path.exists(_bp):
+        BINDINGS = json.load(open(_bp, encoding="utf-8")).get("바인딩", {})
+        _bsrc = "바인딩 JSON"
+    if BINDINGS:
+        print(f"실 바인딩 적용({_bsrc}): {len(BINDINGS)}개 실명 "
+              f"(확인필요 {sum(1 for b in BINDINGS.values() if b.get('확인필요'))})")
+
+    def room_class(name):
+        """(세대여부, 제외여부, 출처) — 바인딩 우선, 없으면 키워드 폴백."""
+        b = BINDINGS.get(name)
+        if b:
+            act = b.get("기본동작", "")
+            return (act == "세대 반경 2.6m", act == "제외",
+                    b.get("출처", "LLM"))
+        # 폴백 — 바인딩 없는 실. 세대 반경(2.6m)은 세대가 있는 층에서만 준다.
+        # 실명 키워드만 믿으면 지하 부대시설층의 '대피공간' 이 주거실로 잡혀
+        # 세대 기준이 켜진다(층에 세대가 없는데도).
+        floor_has_unit = (HEAD_PARAMS or {}).get("사실", {}).get("세대있음")
+        unit = BB.is_resi(name) and floor_has_unit is not False
+        return (unit, any(k in name.upper() for k in ("PIT", "피트")), "하드코딩")
+
     rooms = [{"id": i, "name": r["room"], "rect": r["rect"], "poly": r.get("poly"),
-              "common": not BB.is_resi(r["room"])} for i, r in enumerate(rooms_data)]
+              "common": not room_class(r["room"])[0]}
+             for i, r in enumerate(rooms_data)]
 
     def cen(r):
         x0, y0, x1, y1 = r["rect"]
@@ -195,13 +365,22 @@ def main():
                          carve_segs=carve + door_segs)
     # 실 내부 마스크 — '각 부분' 평가는 실 내부 셀 기준 (벽 공동·창호선 틈새 등
     # 도면상 가짜 공간을 통계·헤드 수리에서 배제).
-    # 헤드 제외: PIT·피트(체크 16254 파이프덕트·덕트피트) + 대피공간(체크 15805
-    # — 건축법 시행령 §46④ 대피공간에는 헤드를 설치하지 않을 수 있다).
-    EVAL_SKIP = ("PIT", "피트", "대피공간")
-    PIT_KW = ("PIT", "피트")             # 피트 부속공간 판정은 PIT 계열만
+    # 헤드 제외는 **법령 판정(바인딩)이 정한다**. 코드가 실명을 보고 최종 결정을
+    # 내리던 자리였는데(대피공간), 그러면 근거가 그래프에서 사라지고 "대피공간2"·
+    # "피난대기공간" 같은 표기 차이에 판정이 흔들린다.
+    #
+    # 바인딩 없는 실의 폴백은 **보수적으로** 설치 쪽이다. 법령 제외장소 원문에
+    # 실명이 나온다고 빼면 안 된다 — 2.12.1 은 "설치하지 않을 수 있다"(임의)이고,
+    # 실제로 뺄지는 정책(비출입 구획만)이 정하기 때문이다. 원문 매칭으로 빼 봤더니
+    # 계단·창고까지 제외돼 헤드가 74→68로 줄었다. 정책 판단 없이 뺄 수 있는 건
+    # 도면 관용 표기상 사람이 들어가지 않는 구획(PIT·피트)뿐이다.
+    PIT_KW = ("PIT", "피트")
 
     def eval_room(r):
-        return not any(k in r["name"].upper() for k in EVAL_SKIP)
+        b = BINDINGS.get(r["name"])
+        if b:
+            return b.get("기본동작") != "제외"
+        return not any(k in r["name"].upper() for k in PIT_KW)
 
     # 실 마스크: poly(실제 형상) 우선 — rect(외접 사각형)는 ㄷ자·코너 실에서 벽 너머
     # bbox 초과분까지 '커버해야 할 셀'로 요구해 과잉 설치를 만든다. poly 는 래스터
@@ -399,7 +578,13 @@ def main():
         if not eval_room(r):
             m0 = room_mask_of(r)
             skip_mask |= m0
-            if any(k in r["name"].upper() for k in PIT_KW):
+            # 피트 마스크는 **파이프덕트·피트류에만**. 예전에는 '제외로 판정된
+            # 모든 실'을 담아서, 대피공간처럼 피트가 아닌 제외실 옆의 무명실까지
+            # '피트 부속'으로 삼켜 버렸다.
+            _b = BINDINGS.get(r["name"])
+            _node = (_b or {}).get("노드", "") + " " + (_b or {}).get("이유", "")
+            if any(k in r["name"].upper() for k in PIT_KW) \
+                    or "파이프덕트" in _node or "덕트피트" in _node:
                 pit_mask |= m0
     unnamed, pit_annex = [], []
     unl = _open(grid["walkable"] & ~room_mask & ~skip_mask, 2)
@@ -833,6 +1018,83 @@ def main():
             "· 회피가 불가능한 좁은 곳만 ⚠ 표시 → 반사판 하향/차폐판 검토\n"
             "근거: 체크 15806(반경 0.6m) · 15807(폭 3배)".format(
                 f"{_bd:.0f}" if _bd else "?")))
+    # ── 적용 파라미터 카드 — 값마다 출처를 배지로 단다.
+    # 법령DB(초록) = legal_rule 에서 조건 매칭으로 나온 값. 규칙 번호·원문 첨부.
+    # 엔진(회색) = 알고리즘 상수. 법 아님을 명시.
+    # 하드코딩(주황) = DB에서 못 찾아 코드 기본값을 쓴 것 — 눈에 띄어야 고친다.
+    _plist = (HEAD_PARAMS.get("파라미터") if HEAD_PARAMS else
+              [{"이름": "헤드 수평거리(세대)", "값_mm": R_UNIT, "출처": "하드코딩"},
+               {"이름": "헤드 수평거리(공용)", "값_mm": R_COMMON, "출처": "하드코딩"}])
+    _prof = (HEAD_PARAMS or {}).get("프로필", {})
+    _pf_html = ""
+    if _prof:
+        fl = _prof.get("층", {})
+        _pf_html = (f'<div class="quote" style="margin-bottom:6px">'
+                    f'{html.escape(_prof.get("이름", ""))} · '
+                    f'{html.escape(_prof.get("지역", ""))} · '
+                    f'{html.escape(_prof.get("용도", ""))} '
+                    f'{_prof.get("층수_지상", "?")}층 {_prof.get("동수", "?")}개동 · '
+                    f'{html.escape(_prof.get("구조", ""))} · '
+                    f'층={html.escape(fl.get("이름", ""))}'
+                    f'{" (세대 없음)" if not fl.get("세대있음") else ""}</div>')
+    _rows = []
+    for prm in _plist:
+        src = prm.get("출처", "?")
+        cls = {"법령DB": "law", "엔진": "eng", "하드코딩": "hard"}.get(src, "eng")
+        v = prm.get("값_mm")
+        vtxt = (f"{v/1000:g} m" if v and v >= 1000 else
+                f"{v:g} mm" if v else "—")
+        tip = html.escape(" · ".join(
+            x for x in (prm.get("근거"), prm.get("조건") or prm.get("설명"))
+            if x))
+        law_txt = html.escape(prm.get("원문") or "")
+        if law_txt:
+            tip = (tip + "<br><i>" + law_txt + "</i>") if tip else f"<i>{law_txt}</i>"
+        _rows.append(
+            f'<details class="prm"><summary>'
+            f'<span class="src {cls}">{html.escape(src)}</span>'
+            f'<span class="pn">{html.escape(prm.get("이름", ""))}</span>'
+            f'<b>{vtxt}</b></summary>'
+            f'<div class="quote">{tip}</div></details>')
+    _beam = (HEAD_PARAMS or {}).get("보표_2_7_8", [])
+    if _beam:
+        _rows.append('<details class="prm"><summary>'
+                     '<span class="src law">법령DB</span>'
+                     '<span class="pn">보표 2.7.8 (전사)</span>'
+                     f'<b>{len(_beam)}구간</b></summary><div class="quote">'
+                     + "<br>".join(f'{html.escape(b["수평거리"])} → '
+                                   f'{html.escape(b["수직거리한계"])}'
+                                   for b in _beam) + "</div></details>")
+    params_html = _pf_html + "".join(_rows)
+
+    # ── 실 분류 카드 — 실명이 어느 법정 노드로 묶였고 그래서 뭘 했는지.
+    # 출처 배지: 별칭(결정적)=초록 · LLM=파랑 · 사람=초록 · 하드코딩=주황.
+    # ⚠확인필요(LLM confidence 낮음)는 사람이 캐시 파일에서 확정할 것.
+    _rc_rows = []
+    _seen_names = set()
+    for r in sorted(rooms, key=lambda x: x["name"]):
+        if r["name"] in _seen_names:      # 같은 실명(코어 대칭 등)은 한 줄로
+            continue
+        _seen_names.add(r["name"])
+        unit, excl, src = room_class(r["name"])
+        b = BINDINGS.get(r["name"], {})
+        node = b.get("노드", "—")
+        act = ("제외" if excl else "세대 2.6m" if unit else "공용")
+        chk = b.get("확인필요", src == "하드코딩")
+        cls = {"별칭": "law", "사람": "law", "LLM": "llm",
+               "하드코딩": "hard"}.get(src, "llm")
+        basis = " · ".join(g.get("출처", "") for g in b.get("근거", [])[:1])
+        tip = html.escape((b.get("이유") or "") + (" | " + basis if basis else ""))
+        _rc_rows.append(
+            f'<details class="prm"><summary>'
+            f'<span class="src {cls}">{html.escape(src)}</span>'
+            f'<span class="pn">{html.escape(r["name"])}'
+            f'{" ⚠" if chk else ""}</span>'
+            f'<b>{html.escape(act)}</b></summary>'
+            f'<div class="quote">노드: {html.escape(node)}'
+            f'{"<br>" + tip if tip else ""}</div></details>')
+    roomclass_html = "".join(_rc_rows)
+
     logic_html = "".join(
         f'<details{" open" if i == 0 else ""}><summary><span class="stepno">{i + 1}</span>'
         f'{html.escape(t)}</summary>'
@@ -952,37 +1214,44 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
     def _ev(ids, v, t, src, law, res):
         EV.append({"ids": ids, "v": v, "t": t, "src": src, "law": law, "res": res})
 
+    def _law(key):
+        """법적 근거 표에서 (출처, 조문) — 순서가 아니라 key 로 찾는다.
+        예전에는 LEGAL[2][1] 처럼 인덱스로 집어서, 표에 한 줄만 끼워 넣어도
+        엉뚱한 조문이 조용히 붙었다."""
+        i = next(i for i, (_, k, _) in enumerate(LAW_SPEC) if k == key)
+        return LEGAL[i][1], LEGAL[i][2]
+
     if heads_only:
         cov_ok = slack <= 0
         # 1) 세대 수평거리
         if not has_unit:
             _ev([15797, 16089], "해당없음", "세대 내 수평거리 ≤ 2.6m",
-                LEGAL[0][1], LEGAL[0][2], "이 층에 세대(주거) 실이 없음 — 적용 대상 아님.")
+                *_law("r_unit"), "이 층에 세대(주거) 실이 없음 — 적용 대상 아님.")
         else:
             _v = "적합" if (R_UNIT <= 2600 and cov_ok) else \
                  ("기준초과" if R_UNIT > 2600 else "부적합")
-            _ev([15797, 16089], _v, "세대 내 수평거리 ≤ 2.6m", LEGAL[0][1], LEGAL[0][2],
+            _ev([15797, 16089], _v, "세대 내 수평거리 ≤ 2.6m", *_law("r_unit"),
                 f"적용 반경 {R_UNIT/1000:.2f}m vs 법정 2.6m · 전셀 검증 여유 {-slack/1000:+.2f}m"
                 + ("\n⚠ 법정 기준 초과 — 확대살수형 등 성능 인정 헤드의 형식승인·설계 근거 "
                    "없이는 위반입니다." if R_UNIT > 2600 else ""))
         # 2) 공용부 수평거리
         _v = "적합" if (R_COMMON <= 2300 and cov_ok) else \
              ("기준초과" if R_COMMON > 2300 else "부적합")
-        _ev([15742, 15739], _v, "공용부 수평거리 ≤ 2.3m (내화구조)", LEGAL[2][1], LEGAL[2][2],
+        _ev([15742, 15739], _v, "공용부 수평거리 ≤ 2.3m (내화구조)", *_law("r_common"),
             f"적용 반경 {R_COMMON/1000:.2f}m vs 법정 2.3m(내화) · 전셀 검증 여유 {-slack/1000:+.2f}m"
             + ("\n⚠ 법정 기준 초과 — 성능 인정 헤드 근거 없이는 위반입니다."
                if R_COMMON > 2300 else ""))
         # 3) 외벽 창문 0.6m
         _ev([15798], ("적합" if n_win > 0 else "해당없음"), "외벽 창문 0.6m 이내 배치",
-            LEGAL[1][1], LEGAL[1][2],
+            *_law("window_band"),
             f"창문 헤드 {n_win}개" + ("" if n_win else " — 세대 외벽 창 없음(지하 부대시설)."))
         # 4) 살수장애물 이격
         if beams is None:
             _ev([15806, 15807], "미검증", "살수장애물(보) 이격 0.6m/폭 3배",
-                LEGAL[3][1], LEGAL[3][2], "구조도 미연계 — align_beams.py 로 보 위치 연계 필요.")
+                *_law("clear_head"), "구조도 미연계 — align_beams.py 로 보 위치 연계 필요.")
         else:
             _ev([15806, 15807], ("적합" if not beam_warn else "확인필요"),
-                "살수장애물(보) 이격 0.6m/폭 3배", LEGAL[3][1], LEGAL[3][2],
+                "살수장애물(보) 이격 0.6m/폭 3배", *_law("clear_head"),
                 f"보(춤 {beams.get('depth_mm') or '?'}mm) 0.6m 대역 회피 배치 · 미달 {len(beam_warn)}개"
                 + (f" — 최소 {min(beam_warn.values()):.0f}mm. 소규모 공간 단서 적용 검토"
                    f"(반사판 하향/차폐판)." if beam_warn else ""))
@@ -993,16 +1262,25 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
             "설치하지 않을 수 있다.",
             "PIT·피트 부속공간 제외 적용. 계단·승강로·화장실은 임의 제외 가능하나 "
             "본 배치는 설치(강화 적용) — 적법.")
-        # 5-1) 대피공간 헤드 제외
-        _daepi = [r["name"] for r in rooms if "대피공간" in r["name"]]
+        # 5-1) 대피공간 헤드 제외 — 실명 검색이 아니라 **실제 판정**에서 만든다.
+        # 예전에는 이름만 보고 "제외 적용"이라 적었는데, 제외 여부는 아래
+        # eval_room(바인딩+폴백)이 정하므로 둘이 어긋나면 리포트가 거짓말을 한다.
+        _daepi = [r for r in rooms if "대피공간" in r["name"]]
+        _dae_off = [r["name"] for r in _daepi if not eval_room(r)]
+        _dae_on = [r["name"] for r in _daepi if eval_room(r)]
+        _dae_law = next((x for x in (HEAD_PARAMS or {}).get("제외장소", [])
+                         if "대피공간" in x.get("원문", "")), None)
         _ev([15805], ("적합" if _daepi else "해당없음"),
             "대피공간 헤드 설치 예외",
-            "공동주택의 화재안전성능기준(NFPC 608) — 체크 15805",
-            "「건축법 시행령」 제46조제4항에 따라 설치된 대피공간에는 헤드를 설치하지 "
-            "않을 수 있다.",
-            (f"대피공간 {len(_daepi)}곳 인식 → 헤드 제외 적용(임의 규정). "
-             f"커버 대상·구역 분할에서도 제외됨." if _daepi
-             else "이 층에 대피공간 없음."))
+            (f"{_dae_law['doc']} {_dae_law['item']} — 규칙 #{_dae_law['rule_id']}"
+             if _dae_law else "공동주택의 화재안전성능기준(NFPC 608) — 체크 15805"),
+            (_dae_law["원문"] if _dae_law else
+             "「건축법 시행령」 제46조제4항에 따라 설치된 대피공간에는 헤드를 설치하지 "
+             "않을 수 있다."),
+            ("이 층에 대피공간 없음." if not _daepi else
+             (f"대피공간 {len(_daepi)}곳 · 제외 {len(_dae_off)}곳"
+              + (f", 설치 {len(_dae_on)}곳({', '.join(_dae_on)}) — 임의 규정이라 "
+                 f"설치도 적법(강화 적용)." if _dae_on else " — 임의 규정 적용."))))
         # 6) 벽-헤드 공간 10cm
         _ev([16228], ("적합" if (wall_min is None or wall_min >= 100) else "확인필요"),
             "벽과 헤드 간 공간 10cm 이상",
@@ -1086,11 +1364,13 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
         legal_extra = ""
         legal_html = "".join(
             f'<details><summary>{html.escape(t)}</summary>'
-            f'<div class="cite">{html.escape(c)}</div>'
+            f'<div class="cite"><span class="src '
+            f'{ {"법령DB": "law", "하드코딩": "hard"}.get(_k, "eng") }">'
+            f'{html.escape(_k)}</span> {html.escape(c)}</div>'
             f'<div class="law"><span class="lb">조문</span>{html.escape(law)}</div>'
             f'<div class="applied"><span class="lb aplb">적용·검증</span>{html.escape(ap_)}</div>'
             f'</details>'
-            for t, c, law, ap_ in LEGAL)
+            for t, c, law, ap_, _k in LEGAL)
 
     # ---- AI 어시스턴트 컨텍스트(결과 요약 JSON) + 챗 스크립트 ----
     rpt = {"도면": base,
@@ -1114,6 +1394,13 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
            "적용기준": ["NFPC608 §7 세대 2.6m", "NFPC103 §10 공용 2.3m(내화)",
                       "살수장애 0.6m/폭3배(체크 15806·15807)",
                       "PIT·덕트피트 헤드 제외(체크 16254)"],
+           "적용파라미터": (HEAD_PARAMS.get("파라미터") if HEAD_PARAMS else
+                        [{"key": "r_unit", "이름": "헤드 수평거리(세대)",
+                          "값_mm": R_UNIT, "출처": "하드코딩"},
+                         {"key": "r_common", "이름": "헤드 수평거리(공용)",
+                          "값_mm": R_COMMON, "출처": "하드코딩"}]),
+           "보표_법령": (HEAD_PARAMS or {}).get("보표_2_7_8", []),
+           "건물설정": (HEAD_PARAMS or {}).get("프로필", {}),
            "배치로직": [{"단계": f"{i + 1}. {t}", "내용": q}
                       for i, (t, q) in enumerate(LOGIC)],
            "법적검토": [{"항목": e["t"], "판정": e["v"], "출처": e["src"],
@@ -1279,6 +1566,17 @@ details.plain summary{{color:var(--acc);font-size:12px;font-weight:600}}
 #legend .lg-t{{font-size:10.5px;color:var(--mut);letter-spacing:.1em;font-weight:800;
 margin:4px 0 3px}}
 #legend .lg-grid{{display:grid;grid-template-columns:1fr 1fr;gap:2px 8px}}
+.prm summary{{display:flex;gap:7px;align-items:baseline;cursor:pointer;
+padding:3px 0;list-style:none}}
+.prm summary::-webkit-details-marker{{display:none}}
+.prm .pn{{flex:1;min-width:0}}
+.prm b{{font-variant-numeric:tabular-nums}}
+.src{{font-size:10px;font-weight:800;padding:1px 7px;border-radius:99px;
+letter-spacing:.04em;flex:0 0 auto}}
+.src.law{{background:#dcfce7;color:#15803d}}
+.src.eng{{background:#e2e8f0;color:#475569}}
+.src.hard{{background:#ffedd5;color:#c2410c}}
+.src.llm{{background:#dbeafe;color:#1d4ed8}}
 #legend label{{cursor:pointer;user-select:none;white-space:nowrap;font-size:12px}}
 #legend input{{vertical-align:-2px;margin-right:4px;accent-color:var(--acc)}}
 details{{margin:6px 0;border:1px solid var(--line);border-radius:9px;padding:6px 10px;
@@ -1417,6 +1715,10 @@ details.hot{{outline:2px solid #f6b900}}
  <section class="card"><h3>표시 항목</h3><div id="legend">{legend_html}</div></section>
 </aside>
 <aside id="right">
+ <section class="card"><h3>적용 파라미터 — 값의 출처</h3>
+  <div id="params">{params_html}</div></section>
+ <section class="card"><h3>실 분류 — 법정 노드 바인딩</h3>
+  <div id="roomclass">{roomclass_html}</div></section>
  <section class="card"><h3>배치 로직</h3><div id="logic">{logic_html}</div></section>
  <section class="card"><h3>{'법적 검토 — 결과 대조' if heads_only else '법적 근거'}</h3>
   <div id="legal">{legal_html}</div></section>

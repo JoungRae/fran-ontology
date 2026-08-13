@@ -30,8 +30,13 @@ UNIT_COLORS = ["#1e88e5", "#e53935", "#43a047", "#8e24aa",
                "#fb8c00", "#00acc1", "#c0ca33", "#6d4c41"]
 
 
-def rid(uri):
-    return int(str(uri).rsplit("Room_", 1)[1])
+def rid(uri, g=None):
+    """Space URI → 도면 내 방 순번. URI 는 안정 이름이라 번호를 담지 않으므로
+    그래프의 fran:roomIndex 를 읽는다(build_bot 이 실어 보낸다)."""
+    if g is not None:
+        for o in g.objects(uri, FRAN.roomIndex):
+            return int(o)
+    return None
 
 
 def main():
@@ -58,17 +63,20 @@ def main():
         for (s,) in g.query(
                 "SELECT ?s WHERE { ?u bot:hasSpace ?s . ?s a bot:Space }",
                 initNs=ns, initBindings={"u": u}):
-            unit_of[rid(s)] = k
+            unit_of[rid(s, g)] = k
 
     adj = set()
     for a, b in g.query(
             "SELECT ?a ?b WHERE { ?a bot:adjacentZone ?b FILTER(STR(?a)<STR(?b)) }",
             initNs=ns):
-        adj.add((rid(a), rid(b)))
+        adj.add((rid(a, g), rid(b, g)))
 
     ifaces = []   # (x, y, kind)
     for e, wkt in g.query(
-            """SELECT ?e ?w WHERE { ?i a bot:Interface ; bot:hasElement ?e .
+            # 개구부 요소는 interfaceOf 의 끝점 중 Door/Window 인 것
+            # (bot:hasElement 는 domain 이 Zone 이라 Interface 에 못 건다)
+            """SELECT ?e ?w WHERE { ?i a bot:Interface ; bot:interfaceOf ?e .
+               ?e a ?t . FILTER(?t IN (fran:Door, fran:Window))
                ?e geo:hasGeometry/geo:asWKT ?w }""",
             initNs={**ns, "geo": Namespace("http://www.opengis.net/ont/geosparql#")}):
         s = str(wkt)
