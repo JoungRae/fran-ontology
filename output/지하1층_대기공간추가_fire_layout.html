@@ -383,18 +383,14 @@ if(ex)ex.classList.toggle('on');};});
 
 (function(){
  var B="\uc9c0\ud5581\uce35_\ub300\uae30\uacf5\uac04\ucd94\uac00";
- // 재계산은 로컬 서버(fire_server.py)가 있어야 한다. 공개 데모(정적 호스팅)
- // 에서는 카드 자체를 숨긴다 — 동작 안 하는 버튼과 안내문은 소음이다.
+ // 재계산 버튼은 어디서나 보인다(예전 그대로). 서버가 없으면 누를 때
+ // "터미널에서 실행하라"는 안내로 물러난다 — res.ok 를 먼저 봐서
+ // 404 HTML 을 JSON 으로 읽다 새던 파싱 에러는 안 나온다.
  window.__IS_LOCAL=/^(localhost|127\.)/.test(location.hostname);
  window.__SRV_HINT=function(){
   return ('서버 미연결: 터미널에서 <code>python fire_server.py '+B+'</code> 를 '
           +'실행하면 브라우저가 자동으로 열리고, 이 버튼이 동작합니다.');
  };
- if(!window.__IS_LOCAL){
-  var c=document.getElementById('rr-card');
-  if(c)c.style.display='none';
-  return;
- }
  var go=document.getElementById('rr-go'),m=document.getElementById('rr-msg');
  if(!go)return;
  go.onclick=async function(){
