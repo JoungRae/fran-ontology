@@ -299,7 +299,11 @@ def main():
                            f'{html.escape(r["name"])}</text>')
     for nm, rmax, p in paths:
         d = " ".join(f"{round(x)},{fy(y)}" for x, y in p)
-        G["esc"].append(f'<polyline points="{d}"><title>{html.escape(nm)} 최원점 → '
+        # data-* 는 '검토 시작' 애니메이션이 쓴다 — 경로 점 순서가 최원점(구석)
+        # → 계단이라, 앞에서부터 그리면 그대로 피난 방향이 된다.
+        G["esc"].append(f'<polyline points="{d}" data-nm="{html.escape(nm)}" '
+                        f'data-m="{rmax/1000:.1f}">'
+                        f'<title>{html.escape(nm)} 최원점 → '
                         f'계단 {rmax/1000:.1f}m</title></polyline>')
     for x, y in exits:
         G["exit"].append(f'<rect x="{round(x)-260}" y="{fy(y)-260}" width="520" '
@@ -505,6 +509,62 @@ def main():
 })();
 """.replace("__RPT__", rpt_json).replace("__KEY__", json.dumps(api_key))
 
+    # '검토 시작' — 피난 동선을 구석→계단 방향으로 순차 드로잉 (보여주기용).
+    # polyline 점 순서가 최원점→계단이라 dashoffset 을 줄이면 그 방향으로 자란다.
+    # 가까운 실부터 그리고 최장(최악) 경로를 맨 끝에 — 완료 시 계단 출입구 펄스.
+    anim_js = r"""
+(function(){
+ var go=document.getElementById('ev-go'),stt=document.getElementById('ev-st');
+ if(!go)return;
+ var svg=document.getElementById('svg');
+ var lines=Array.prototype.slice.call(document.querySelectorAll('#g-esc polyline'));
+ if(!lines.length){go.disabled=true;stt.textContent='그릴 동선이 없습니다.';return;}
+ lines.sort(function(a,b){return parseFloat(a.dataset.m)-parseFloat(b.dataset.m);});
+ var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+ dot.setAttribute('r','420');dot.setAttribute('fill','#2e7d32');
+ dot.setAttribute('stroke','#fff');dot.setAttribute('stroke-width','130');
+ dot.style.display='none';svg.appendChild(dot);
+ var SPEED=20000, running=false;   // mm/s — 30m 경로 ≈ 1.5초
+ function drawOne(l,done){
+  var len=l.getTotalLength();
+  l.style.strokeDasharray=len+' '+len;
+  l.style.strokeDashoffset=len;
+  l.style.strokeWidth='3.4';
+  var dur=Math.max(300,len/SPEED*1000),t0=null;
+  function step(ts){
+   if(!t0)t0=ts;
+   var k=Math.min(1,(ts-t0)/dur),drawn=len*k;
+   l.style.strokeDashoffset=len-drawn;
+   var pt=l.getPointAtLength(drawn);
+   dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y);
+   stt.textContent=l.dataset.nm+' — '+(drawn/1000).toFixed(1)+' / '+l.dataset.m+' m';
+   if(k<1)requestAnimationFrame(step);else done();
+  }
+  requestAnimationFrame(step);
+ }
+ go.onclick=function(){
+  if(running)return; running=true;
+  var gE=document.getElementById('g-esc');if(gE)gE.style.display='';
+  var cb=document.querySelector('#legend input[data-g="g-esc"]');if(cb)cb.checked=true;
+  lines.forEach(function(l){var n=l.getTotalLength();
+   l.style.strokeDasharray=n+' '+n;l.style.strokeDashoffset=n;});
+  go.disabled=true;go.textContent='재생 중…';dot.style.display='';
+  var i=0;
+  (function next(){
+   if(i>=lines.length){
+    dot.style.display='none';
+    stt.textContent='완료 — '+lines.length+'개 실 전부 계단 도달 · 최장 '
+                    +lines[lines.length-1].dataset.m+'m ('+lines[lines.length-1].dataset.nm+')';
+    var ex=document.getElementById('g-exit');
+    if(ex){ex.classList.add('pulse');setTimeout(function(){ex.classList.remove('pulse');},2600);}
+    go.disabled=false;go.textContent='↺ 다시 보기';running=false;return;
+   }
+   drawOne(lines[i++],function(){setTimeout(next,110);});
+  })();
+ };
+})();
+"""
+
     _m = re.search(r"(지하\s*\d+층|기준층|옥탑|\d+층)", base)
     disp = _m.group(1) if _m else base
     legend = (
@@ -632,6 +692,11 @@ vector-effect:non-scaling-stroke}}
 #g-worst circle{{fill:none;stroke:#d84315;stroke-width:2.6;
 vector-effect:non-scaling-stroke}}
 #g-worst .gmax{{stroke-width:4}}
+#ev-go{{width:100%;border:none;background:var(--acc);color:#fff;border-radius:9px;
+padding:9px 0;font-size:13px;font-weight:700;cursor:pointer}}
+#ev-go:disabled{{background:#94a3b8;cursor:wait}}
+#g-exit.pulse rect{{animation:evp .6s ease-in-out 4}}
+@keyframes evp{{50%{{fill:#22c55e}}}}
 </style></head><body>
 <header id="hd">
  <span class="brand">🚪 FRAN 피난경로 검토<small>보행거리 · {html.escape(disp)}</small></span>
@@ -642,6 +707,12 @@ vector-effect:non-scaling-stroke}}
 {groups_svg}
 </svg></div>
 <aside id="left">
+ <section class="card"><h3>피난 시뮬레이션</h3>
+  <button id="ev-go">▶ 검토 시작 — 피난 동선 재생</button>
+  <div id="ev-st" class="meta" style="margin-top:7px;min-height:17px;
+   color:var(--mut);font-size:12px;line-height:1.5">각 실의 가장 먼 구석에서
+   계단까지, 실제 문을 지나는 최단 동선을 가까운 실부터 차례로 그립니다.</div>
+ </section>
  <section class="card"><h3>실별 보행거리 — 계단까지</h3>{tbl}
   <div class="meta" style="color:var(--mut);font-size:11.5px;margin-top:6px">
   {'판정: ≤30m 적합 · 30~' + f'{limit_eff:.0f}' + 'm 적합(완화·내화구조) · 도달불가 미도달'
@@ -683,6 +754,7 @@ cb.onchange=function(){{var g=document.getElementById(cb.dataset.g);
 if(g)g.style.display=cb.checked?'':'none';}};}});
 }})();
 {chat_js}
+{anim_js}
 </script></body></html>"""
 
     op = os.path.join(FO, "output", f"{base}_evac_layout.html")
