@@ -625,7 +625,8 @@ bfP.onclick=function(e){{if(e.target===bfP)bfP.hidden=true}};}}
   if(i>=0){var d=G('dt-'+i); if(d)d.hidden=false;}
   ALL.forEach(function(g){var el=G(g);if(el)el.style.display='none';});
   if(i>=0){(SHOW[CK[i].id]||[]).forEach(function(g){
-   var el=G(g);if(el)el.style.display='';});}
+   // CSS 기본이 display:none 이라 '' 로 지우면 도로 숨는다 — 'inline' 로 켠다
+   var el=G(g);if(el)el.style.display='inline';});}
   if(i>=0&&!quiet&&(CK[i].id==='esc'||CK[i].id==='stairs')){
    var sg=G('g-stairs');if(sg){sg.classList.add('pulse');
     setTimeout(function(){sg.classList.remove('pulse');},2600);}
@@ -683,7 +684,7 @@ bfP.onclick=function(e){{if(e.target===bfP)bfP.hidden=true}};}}
    // ② 방화구획
    setTimeout(function(){
     select(1,true);
-    var gc=G('g-comp'); gc.style.opacity=0; gc.style.display='';
+    var gc=G('g-comp'); gc.style.opacity=0; gc.style.display='inline';
     var t0=null;
     function fade(ts){
      if(!t0)t0=ts; var k=Math.min(1,(ts-t0)/900);
