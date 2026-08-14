@@ -300,6 +300,21 @@ def main():
         return round(maxy - y)
 
     def cen(r):
+        # 라벨 자리. 폴리곤이 있으면 **면적 중심(centroid)** — bbox·rect 중심은
+        # ㄷ자 실(키즈짐이 라커(남)을 감싼다)에서 구멍 위(옆 실 라벨 위)에
+        # 떨어져 글자가 겹쳐 보였다. 면적 중심은 살이 있는 쪽으로 치우친다.
+        pts = r.get("poly")
+        if pts and len(pts) >= 3:
+            a = cx = cy = 0.0
+            for i in range(len(pts)):
+                x0, y0 = pts[i][0], pts[i][1]
+                x1, y1 = pts[(i + 1) % len(pts)][0], pts[(i + 1) % len(pts)][1]
+                cr = x0 * y1 - x1 * y0
+                a += cr
+                cx += (x0 + x1) * cr
+                cy += (y0 + y1) * cr
+            if abs(a) > 1e-6:
+                return cx / (3 * a), cy / (3 * a)
         x0, y0, x1, y1 = r["rect"]
         return ((x0 + x1) / 2, (y0 + y1) / 2)
 
@@ -518,10 +533,10 @@ vector-effect:non-scaling-stroke}}
 stroke-width:2;vector-effect:non-scaling-stroke}}
 #g-comp text{{font-size:1400px;font-weight:800;fill:#15803d;text-anchor:middle;
 paint-order:stroke;stroke:#fff;stroke-width:260px}}
-#g-labels text{{font-size:700px;font-weight:600;fill:#475569;text-anchor:middle;
-dominant-baseline:middle;paint-order:stroke;stroke:#fff;stroke-width:130px}}
-#g-labels text.stair{{fill:#fff;font-size:780px;font-weight:800;
-stroke:#1e5cb3;stroke-width:220px}}
+#g-labels text{{font-size:520px;font-weight:600;fill:#475569;text-anchor:middle;
+dominant-baseline:middle;paint-order:stroke;stroke:#fff;stroke-width:110px}}
+#g-labels text.stair{{fill:#fff;font-size:600px;font-weight:800;
+stroke:#1e5cb3;stroke-width:180px}}
 #g-esc{{display:none}}
 #g-esc polyline{{fill:none;stroke:#2e7d32;stroke-width:2.4;stroke-dasharray:10 6;
 vector-effect:non-scaling-stroke}}
