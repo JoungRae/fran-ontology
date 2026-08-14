@@ -30,6 +30,9 @@ import numpy as np
 
 import fire_field as FF
 
+# §34 한도의 폴백 상수 — 정본은 derive_head_params 가 DB 에서 수확해
+# head_params.json "피난한도" 로 실어 온다(원칙·완화 메뉴·적용 선택+사유,
+# rule_id·원문 포함). 이 상수는 그 파일이 없을 때만 쓰이고 '하드코딩' 표시.
 LIMIT_M = 30.0          # 건축법 시행령 §34 원칙 30m
 LIMIT_FIRE_M = 50.0     # 주요구조부 내화·불연 완화 50m (공동주택 16층↑ 40m)
 EVAL_SKIP = ("PIT", "피트", "대피공간")   # 사람 비상주/피난 목적지 공간
@@ -40,17 +43,49 @@ SHAFT_SKIP = ("ELEV.", "DA", "AV", "PS", "PD", "EPS", "TPS", "실외기")
 
 def main():
     argv = list(sys.argv[1:])
-    # --fire-resist: 주요구조부 내화구조·불연재료 확인됨 → 완화 기준 50m 로 판정
-    # (16층 이상 공동주택 지상부는 --limit 40 으로 별도 지정 가능)
+    # 한도 결정 순서: --limit(수동) > 건물 사실 자동 완화(head_params 피난한도)
+    # > --fire-resist(강제) > 원칙. 완화는 이제 플래그가 아니라 건물 사실
+    # (내화구조 — 설계 가정)에서 자동으로 온다. 플래그는 남겨 두되 덮개다.
     fire_resist = "--fire-resist" in argv
-    limit_eff = LIMIT_FIRE_M if fire_resist else LIMIT_M
+    manual_limit = None
     if "--limit" in argv:
         i = argv.index("--limit")
-        limit_eff = float(argv[i + 1])
+        manual_limit = float(argv[i + 1])
         del argv[i:i + 2]
-        fire_resist = True
     base = next((a for a in argv if not a.startswith("--")), "지하1층_pit")
     FO = os.path.dirname(os.path.abspath(__file__))
+
+    hp_evac = {}
+    try:
+        hp_evac = json.load(open(os.path.join(FO, "output", "head_params.json"),
+                                 encoding="utf-8")).get("피난한도") or {}
+    except Exception:
+        pass
+    law_src = "법령DB" if hp_evac.get("원칙") else "하드코딩"
+    principle_m = (hp_evac.get("원칙") or {}).get("한도_m", LIMIT_M)
+    # '완화 검토 가능' 상한 — 메뉴에서 공장 아닌 완화의 최대값 (폴백 50)
+    chk_m = max((r["한도_m"] for r in hp_evac.get("완화메뉴", [])
+                 if "공장" not in (r.get("조건원문", "") + r.get("규칙원문", ""))),
+                default=LIMIT_FIRE_M)
+    relax_row = hp_evac.get("적용")
+    relax_note = ""
+    if manual_limit is not None:
+        limit_eff, fire_resist = manual_limit, True
+        relax_note = "사용자 지정(--limit)"
+    elif relax_row:
+        limit_eff, fire_resist = relax_row["한도_m"], True
+        relax_note = (f"#{relax_row['rule_id']} 자동 적용 — "
+                      + hp_evac.get("적용사유", ""))
+    elif fire_resist:
+        limit_eff = chk_m
+        relax_note = "사용자 지정(--fire-resist)"
+    else:
+        limit_eff = principle_m
+    if law_src == "하드코딩":
+        print("피난한도: head_params.json 에 없어 폴백 상수 사용 (화면에 '하드코딩' 표시)")
+    else:
+        print(f"피난한도(§34① {law_src}): 원칙 {principle_m:.0f}m"
+              + (f" → {limit_eff:.0f}m ({relax_note})" if fire_resist else ""))
     rooms_data = json.load(open(os.path.join(FO, "output", f"{base}_rooms_rect.json"),
                                 encoding="utf-8"))["rooms"]
     cats = json.load(open(os.path.join(FO, "output",
@@ -208,11 +243,11 @@ def main():
             p = FF.descend_path(grid, dist, *wxy)
             if p:
                 paths.append((r["name"], rmax, p))
-            if rmax <= LIMIT_M * 1000:
+            if rmax <= principle_m * 1000:
                 v = "적합"
             elif rmax <= limit_eff * 1000:
                 v = "적합(완화)" if fire_resist else "확인필요"
-            elif rmax <= LIMIT_FIRE_M * 1000 and not fire_resist:
+            elif rmax <= chk_m * 1000 and not fire_resist:
                 v = "확인필요"
             else:
                 v = "부적합"
@@ -295,7 +330,10 @@ def main():
              + _chip(f"{limit_eff:.0f}m 기준 {'✓' if wmax <= limit_eff*1000 else '⚠'}",
                      "ok" if wmax <= limit_eff * 1000 else "warn"))
     if fire_resist:
-        chips += _chip(f"내화구조 완화 적용({limit_eff:.0f}m)")
+        chips += _chip(f"내화구조 완화 {limit_eff:.0f}m"
+                       + (f" · #{relax_row['rule_id']} (건물 사실·가정)"
+                          if relax_row and manual_limit is None else " (수동)"))
+    chips += _chip(f"§34 {law_src}", "" if law_src == "법령DB" else "warn")
     if n_unreach_rooms:
         chips += _chip(f"미도달 실 ⚠ {n_unreach_rooms}", "warn")
 
@@ -322,10 +360,15 @@ def main():
          "라벨 없는 통로·개방 공간도 자동 포함."),
         ("실별 최원점 판정 — {}실".format(len(rows)),
          "각 실에서 계단까지 가장 먼 지점의 보행거리로 판정:\n"
-         "· ≤ 30m → 적합 (건축법 시행령 §34 원칙)\n"
-         + ("· 30~{:.0f}m → 적합(완화) — 내화구조 확인됨(사용자 지정)\n".format(limit_eff)
+         "· ≤ {:.0f}m → 적합 (건축법 시행령 §34 원칙{})\n".format(
+             principle_m,
+             f" — #{hp_evac['원칙']['rule_id']}" if hp_evac.get("원칙") else "")
+         + ("· {:.0f}~{:.0f}m → 적합(완화) — {}\n".format(
+                principle_m, limit_eff,
+                relax_note or "내화구조(사용자 지정)")
             if fire_resist else
-            "· 30~50m → 확인필요 (주요구조부 내화·불연 완화 검토)\n")
+            "· {:.0f}~{:.0f}m → 확인필요 (주요구조부 내화·불연 완화 검토)\n"
+            .format(principle_m, chk_m))
          + "· 도달 불가 → 미도달(피난 불능 — 최우선 확인)"),
         ("피난 동선 — 경사 하강",
          "각 실 최원점에서 거리장이 줄어드는 방향으로 내려가면\n"
@@ -339,23 +382,33 @@ def main():
 
     n_over = sum(1 for x in rows if x[4] in ("부적합",))
     n_chk = sum(1 for x in rows if x[4] == "확인필요")
+    # 법령 원문·출처는 DB 수확분(피난한도)이 있으면 그걸 그대로 — 규칙 id 포함.
+    _p = hp_evac.get("원칙")
+    _law_txt = ((_p["규칙원문"] + ("\n" + relax_row["규칙원문"] if relax_row else ""))
+                if _p else
+                "거실의 각 부분으로부터 계단(직통계단)에 이르는 보행거리가 30미터 "
+                "이하가 되도록 설치할 것. 주요구조부가 내화구조 또는 불연재료인 "
+                "건축물은 50미터(16층 이상 공동주택의 16층 이상 층은 40미터) 이하.")
+    _src_txt = ("건축법 시행령 제34조① — "
+                + (f"규칙 #{_p['rule_id']}"
+                   + (f" · 완화 #{relax_row['rule_id']}(relax)" if relax_row else "")
+                   if _p else "체크 11388 (하드코딩)"))
     EV = [
-        {"v": ("적합" if wmax <= LIMIT_M * 1000 else
+        {"v": ("적합" if wmax <= principle_m * 1000 else
                ("적합(완화)" if (fire_resist and wmax <= limit_eff * 1000) else
-                ("확인필요" if wmax <= LIMIT_FIRE_M * 1000 else "부적합"))),
+                ("확인필요" if wmax <= chk_m * 1000 else "부적합"))),
          "t": f"직통계단 보행거리 ≤ {limit_eff:.0f}m"
               + (" (내화 완화)" if fire_resist else ""),
-         "src": "건축법 시행령 제34조 — 체크 11388",
-         "law": "거실의 각 부분으로부터 계단(직통계단)에 이르는 보행거리가 30미터 이하가 "
-                "되도록 설치할 것. 주요구조부가 내화구조 또는 불연재료인 건축물은 50미터"
-                "(16층 이상 공동주택은 40미터) 이하.",
-         "res": f"최악 보행거리 {wmax/1000:.1f}m (전 실 셀 단위 전수) · 30m 초과 실 "
+         "src": _src_txt,
+         "law": _law_txt,
+         "res": f"최악 보행거리 {wmax/1000:.1f}m (전 실 셀 단위 전수) · "
+                f"{principle_m:.0f}m 초과 실 "
                 f"{n_over + n_chk + sum(1 for x in rows if x[4] == '적합(완화)')}곳"
-                + (f"\n내화구조 완화 적용(사용자 지정) → 기준 {limit_eff:.0f}m 로 판정."
+                + (f"\n완화 {limit_eff:.0f}m 적용 — {relax_note}."
                    if fire_resist else
-                   ("" if wmax <= LIMIT_M * 1000 else
-                    "\n내화구조 완화(50m) 적용 가능 여부 확인 필요 — 확인되면 "
-                    "--fire-resist 옵션으로 재판정."))},
+                   ("" if wmax <= principle_m * 1000 else
+                    f"\n내화구조 완화({chk_m:.0f}m) 적용 가능 여부 확인 필요 — "
+                    "건물 사실(구조)을 building_profile.json 에 적으면 자동 적용."))},
         {"v": ("적합" if n_unreach_rooms == 0 else "부적합"),
          "t": "전 실 피난 도달성",
          "src": "피난 경로 성립 전제 (보행거리 판정의 선행 조건)",

@@ -187,6 +187,71 @@ def cite(rule: dict) -> str:
     return f"{rule['doc']} {where} — 규칙 #{rule['id']}({rule['key']})"
 
 
+# ── 피난 보행거리 한도 — 건축법 시행령 §34① (evac_report 가 소비) ──────────
+def derive_evac_limits(cur, profile: dict) -> dict:
+    """원칙(의무)과 완화(단서) 한도를 주소 닻으로 수확하고, 건물 사실로
+    어느 완화가 적용되는지까지 고른다. 수치는 전부 DB 에서 온다 —
+    evac_report 의 30/50 상수는 이 결과가 없을 때의 폴백일 뿐이다.
+
+    적용 선택은 단서의 문면 조건을 사실과 대조한다(공장/내화·불연/16층).
+    낱말 대조라 거친 편이지만, 선택 '메뉴' 전체(rule_id·원문)를 함께 실어
+    화면이 근거를 보여 주고 사람이 검증할 수 있게 한다.
+    """
+    cur.execute("""
+      SELECT r.id, r.local_key, r.deontic, COALESCE(r.raw_text, r.statement),
+             q.value, q.unit, q.raw_text
+      FROM legal_rule r
+      JOIN documents d ON d.id = r.document_id
+      JOIN rule_requirement q ON q.rule_id = r.id AND q.measure = 'distance'
+      WHERE d.title = '건축법 시행령' AND r.article_no = '제34조'
+        AND r.para = '①' AND q.value ~ '^[0-9.]+$'
+      ORDER BY r.id, q.value::numeric""")
+    principle, menu = None, []
+    for rid, key, de, raw, val, unit, qraw in cur.fetchall():
+        m = mm(val, unit)
+        if m is None:
+            continue
+        row = {"rule_id": rid, "key": key, "한도_m": m / 1000,
+               "조건원문": (qraw or "")[:160], "규칙원문": (raw or "")[:260]}
+        if de == "obligation":
+            if principle is None or row["한도_m"] < principle["한도_m"]:
+                principle = row
+        else:
+            menu.append(row)
+    if principle is None:
+        return {}
+
+    # 건물 사실로 적용 완화를 고른다
+    use = profile.get("용도") or ""
+    fire = any(w in (profile.get("구조") or "") for w in ("내화", "불연"))
+    apt16 = (any(w in use for w in ("아파트", "공동주택"))
+             and (profile.get("층수_지상") or 0) >= 16)
+    fl_name = (profile.get("층") or {}).get("이름") or ""
+    _m = re.search(r"(\d+)\s*층", fl_name)
+    fl_16up = ("지하" not in fl_name) and _m is not None and int(_m.group(1)) >= 16
+
+    picked, why = None, []
+    for row in menu:
+        t = row["조건원문"] + row["규칙원문"]
+        if "공장" in t:
+            continue                      # 용도가 공장일 때만 — 아파트면 비적용
+        if "내화" in t or "불연" in t or "16층" in t:
+            if not fire:
+                continue
+            if "16층" in row["조건원문"] and not (apt16 and fl_16up):
+                continue                  # 40m 는 16층 이상 '층'에만
+            if picked is None or row["한도_m"] < picked["한도_m"]:
+                picked = row              # 적용 가능한 것 중 엄격한 값
+    if picked:
+        why.append(f"주요구조부 {profile.get('구조', '')}(건물 사실·설계 가정)")
+        if "16층" in picked["조건원문"]:
+            why.append(f"{use} 지상 {profile.get('층수_지상')}층 · 현재 층 16층 이상")
+        elif apt16:
+            why.append(f"현재 층({fl_name})은 16층 이상 층이 아니라 40m 대신 50m")
+    return {"원칙": principle, "완화메뉴": menu,
+            "적용": picked, "적용사유": " · ".join(why)}
+
+
 # ── 파라미터 뽑기 — 닻(doc·조·수치 모양)으로 찾고, 없으면 하드코딩 표시 ────
 def mm(value, unit) -> float | None:
     v = _num(value)
@@ -456,6 +521,7 @@ def main():
     with connect() as cn, cn.cursor() as cur:
         facts = build_facts(profile, cur, bindings)
         rules = load_rules(cur)
+        evac = derive_evac_limits(cur, profile)
     print(f"층 깃발 출처: {facts['깃발출처']} → {facts['flags']}"
           f" · 세대 {'있음' if facts['세대있음'] else '없음'}")
     params, beams, excl, verdicts, notes = derive(rules, facts, profile)
@@ -467,6 +533,7 @@ def main():
                     "세대있음": facts.get("세대있음"),
                     "구조": facts["structure"], "지상층수": facts["storeys"]},
            "파라미터": params, "보표_2_7_8": beams, "제외장소": excl,
+           "피난한도": evac,
            "판정요약": dict(vc), "적용규칙": verdicts, "비고": notes}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT + ".tmp", "w", encoding="utf-8") as f:   # 원자적 교체
@@ -481,6 +548,11 @@ def main():
         extra = p.get("조건") or p.get("설명") or ""
         print(f"  [{src:4}] {p['이름']:20} {v:8} {extra[:52]}")
     print(f"\n보표 2.7.8: {len(beams)}행 · 제외장소 {len(excl)}곳")
+    if evac:
+        _ap = evac.get("적용")
+        print(f"피난한도(§34①): 원칙 {evac['원칙']['한도_m']:.0f}m"
+              + (f" → 완화 {_ap['한도_m']:.0f}m 적용 (#{_ap['rule_id']}, "
+                 f"{evac['적용사유']})" if _ap else " (완화 비적용)"))
     print(f"→ {OUT}")
 
 
