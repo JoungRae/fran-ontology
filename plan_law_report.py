@@ -299,22 +299,50 @@ def main():
     def fy(y):
         return round(maxy - y)
 
+    def _inside(px, py, pts):
+        hit = False
+        for i in range(len(pts)):
+            x0, y0 = pts[i][0], pts[i][1]
+            x1, y1 = pts[(i + 1) % len(pts)][0], pts[(i + 1) % len(pts)][1]
+            if (y0 > py) != (y1 > py) and \
+                    px < (x1 - x0) * (py - y0) / (y1 - y0) + x0:
+                hit = not hit
+        return hit
+
+    def _edge_d(px, py, pts):
+        best = float("inf")
+        for i in range(len(pts)):
+            x0, y0 = pts[i][0], pts[i][1]
+            x1, y1 = pts[(i + 1) % len(pts)][0], pts[(i + 1) % len(pts)][1]
+            dx, dy = x1 - x0, y1 - y0
+            L2 = dx * dx + dy * dy
+            t = 0 if L2 == 0 else max(0, min(1, ((px - x0) * dx + (py - y0) * dy) / L2))
+            best = min(best, math.hypot(px - (x0 + t * dx), py - (y0 + t * dy)))
+        return best
+
     def cen(r):
-        # 라벨 자리. 폴리곤이 있으면 **면적 중심(centroid)** — bbox·rect 중심은
-        # ㄷ자 실(키즈짐이 라커(남)을 감싼다)에서 구멍 위(옆 실 라벨 위)에
-        # 떨어져 글자가 겹쳐 보였다. 면적 중심은 살이 있는 쪽으로 치우친다.
+        # 라벨 자리. 오목한 실(키즈짐이 라커(남)을 ㄷ자로 감싼다)에서는
+        # rect·bbox·면적중심 전부 구멍 근처에 떨어져 옆 실 라벨과 겹쳤다.
+        # 격자 표본으로 **경계에서 가장 먼 내부 점**(내접 최대점 근사)을 찾는다
+        # — 방의 가장 트인 곳에 라벨이 앉는다.
         pts = r.get("poly")
         if pts and len(pts) >= 3:
-            a = cx = cy = 0.0
-            for i in range(len(pts)):
-                x0, y0 = pts[i][0], pts[i][1]
-                x1, y1 = pts[(i + 1) % len(pts)][0], pts[(i + 1) % len(pts)][1]
-                cr = x0 * y1 - x1 * y0
-                a += cr
-                cx += (x0 + x1) * cr
-                cy += (y0 + y1) * cr
-            if abs(a) > 1e-6:
-                return cx / (3 * a), cy / (3 * a)
+            xs = [p[0] for p in pts]
+            ys = [p[1] for p in pts]
+            bx0, bx1, by0, by1 = min(xs), max(xs), min(ys), max(ys)
+            best, bp = -1.0, None
+            N = 24
+            for i in range(1, N):
+                for j in range(1, N):
+                    px = bx0 + (bx1 - bx0) * i / N
+                    py = by0 + (by1 - by0) * j / N
+                    if not _inside(px, py, pts):
+                        continue
+                    d = _edge_d(px, py, pts)
+                    if d > best:
+                        best, bp = d, (px, py)
+            if bp:
+                return bp
         x0, y0, x1, y1 = r["rect"]
         return ((x0 + x1) / 2, (y0 + y1) / 2)
 
