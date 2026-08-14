@@ -1542,6 +1542,18 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
     rerun_js = r"""
 (function(){
  var B=__BASE__;
+ // 재계산은 로컬 서버(fire_server.py)가 있어야 한다. 공개 데모(정적 호스팅)
+ // 에서는 카드 자체를 숨긴다 — 동작 안 하는 버튼과 안내문은 소음이다.
+ window.__IS_LOCAL=/^(localhost|127\.)/.test(location.hostname);
+ window.__SRV_HINT=function(){
+  return ('서버 미연결: 터미널에서 <code>python fire_server.py '+B+'</code> 를 '
+          +'실행하면 브라우저가 자동으로 열리고, 이 버튼이 동작합니다.');
+ };
+ if(!window.__IS_LOCAL){
+  var c=document.getElementById('rr-card');
+  if(c)c.style.display='none';
+  return;
+ }
  var go=document.getElementById('rr-go'),m=document.getElementById('rr-msg');
  if(!go)return;
  go.onclick=async function(){
@@ -1553,13 +1565,13 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
    var res=await fetch('/rerun',{method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({base:B,r_unit:ru,r_common:rc})});
+   if(!res.ok)throw new Error('서버 응답 '+res.status);
    var j=await res.json();
    if(j.ok){location.reload();}
    else{throw new Error(j.error||'배치 엔진 실행 실패');}
   }catch(e){
    go.disabled=false; go.textContent='⟳ 재실행 — 헤드 재배치';
-   m.innerHTML='서버 미연결: 터미널에서 <code>python fire_server.py '+B+'</code> 를 '
-    +'실행하면 브라우저가 자동으로 열리고, 이 버튼으로 재계산할 수 있습니다.'
+   m.innerHTML=window.__SRV_HINT()
     +' <span style="color:#94a3b8">('+e.message+')</span>';
   }
  };
@@ -1567,9 +1579,8 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
 """.replace("__BASE__", json.dumps(base))
 
     # ── '확인필요 확정' 카드 — ⚠ 실을 판단 성격별로 묶어 사람이 확정한다.
-    # 셀렉트 대신 세그먼트 버튼: 선택지가 3개뿐이고 현재 선택이 색으로 보여야
-    # 한다(제외=주황·설치=초록). 그룹이 곧 안내다 — "지금 제외된 것"과
-    # "면제가 걸려 뺄 수 있는 것"은 사람이 볼 때 다른 질문이다.
+    # 재계산 카드와 함께 **로컬 서버에서만** 보인다(공개 데모에서는 JS 가
+    # 숨김 — 서버 없는 정적 페이지에서 동작 안 하는 UI 는 소음이다).
     def _dc_grp(b):
         if b.get("기본동작") == "제외":
             return 0
@@ -1606,7 +1617,7 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
     decide_card = ""
     if _dc_html:
         decide_card = (
-            '<section class="card"><h3>⚠ 확인필요 — 사람 확정</h3>'
+            '<section class="card" id="dc-card"><h3>⚠ 확인필요 — 사람 확정</h3>'
             '<div class="meta">판정 확신이 낮은 실입니다. 실명에 마우스를 올리면 '
             'LLM의 판정 이유가 보입니다. 확정하면 출처가 \'사람\'(초록 배지)이 '
             f'되고 ⚠가 꺼집니다. — 확정 {_n_decided} · 대기 '
@@ -1618,13 +1629,18 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
     decide_js = r"""
 (function(){
  var B=__BASE__;
- // 건물 사실(설계 가정) 패널 토글 — 확정 카드가 없는 리포트에서도 살아야
- // 하므로 아래 go 가드보다 먼저 단다.
+ // 건물 사실(설계 가정) 패널 토글 — 어디서든(공개 데모 포함) 동작한다.
  var bfB=document.getElementById('bf-btn'),bfP=document.getElementById('bf-pop');
  if(bfB&&bfP){
   bfB.onclick=function(){bfP.hidden=false;};
   document.getElementById('bf-x').onclick=function(){bfP.hidden=true;};
   bfP.onclick=function(e){if(e.target===bfP)bfP.hidden=true;};
+ }
+ // 확정 카드는 로컬 서버에서만 — 공개 데모(정적)에서는 숨긴다.
+ if(window.__IS_LOCAL===false){
+  var dc=document.getElementById('dc-card');
+  if(dc)dc.style.display='none';
+  return;
  }
  var go=document.getElementById('dc-go'),m=document.getElementById('dc-msg');
  if(!go)return;
@@ -1638,8 +1654,7 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
    r.classList.toggle('chg',chg); if(chg)n++;
   });
   go.disabled=(n===0);
-  go.textContent=n?('✓ 변경 '+n+'건 저장 후 재실행')
-                  :'변경 없음';
+  go.textContent=n?('✓ 변경 '+n+'건 저장 후 재실행'):'변경 없음';
  }
  rows.forEach(function(r){
   Array.prototype.forEach.call(r.querySelectorAll('.seg button'),function(b){
@@ -1662,13 +1677,13 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
    var res=await fetch('/decide',{method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({base:B,decisions:d,r_unit:ru,r_common:rc})});
+   if(!res.ok)throw new Error('서버 응답 '+res.status);
    var j=await res.json();
    if(j.ok){location.reload();}
    else{throw new Error(j.error||'저장 실패');}
   }catch(e){
    go.disabled=false; refresh();
-   m.innerHTML='서버 미연결: 터미널에서 <code>python fire_server.py '+B+'</code> 를 '
-    +'실행한 뒤 이 버튼을 다시 누르십시오.'
+   m.innerHTML=(window.__SRV_HINT?window.__SRV_HINT():'서버 미연결')
     +' <span style="color:#94a3b8">('+e.message+')</span>';
   }
  };
@@ -1905,7 +1920,7 @@ details.hot{{outline:2px solid #f6b900}}
 </svg></div>
 <aside id="left">
  {replay_card}
- <section class="card"><h3>재계산 — 헤드 수평거리</h3>
+ <section class="card" id="rr-card"><h3>재계산 — 헤드 수평거리</h3>
   <div class="rr-row">세대 실 r
    <input id="rr-ru" type="number" step="0.1" min="1.5" max="5.0"
     value="{R_UNIT / 1000:.1f}"/> m <span class="std">기준 2.6</span></div>
