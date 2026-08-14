@@ -295,7 +295,9 @@ def main():
             G["rooms"].append(f'<rect x="{x0}" y="{fy(y1)}" width="{x1-x0}" '
                               f'height="{y1-y0}"/>')
         cx, cy = cen(r)
-        G["labels"].append(f'<text x="{round(cx)}" y="{fy(cy)}">'
+        # 계단은 피난의 목적지 — 다른 실명과 같은 회색이면 도면에서 안 보인다.
+        _st = ' class="stair"' if "계단" in r["name"] else ""
+        G["labels"].append(f'<text{_st} x="{round(cx)}" y="{fy(cy)}">'
                            f'{html.escape(r["name"])}</text>')
     for nm, rmax, p in paths:
         d = " ".join(f"{round(x)},{fy(y)}" for x, y in p)
@@ -709,6 +711,8 @@ svg{{width:100%;height:100%;display:block}}
 vector-effect:non-scaling-stroke}}
 #g-labels text{{font-size:380px;fill:#5a6578;text-anchor:middle;
 dominant-baseline:middle;paint-order:stroke;stroke:#fff;stroke-width:70px}}
+#g-labels text.stair{{fill:#fff;font-size:430px;font-weight:800;
+stroke:#1e5cb3;stroke-width:150px}}
 #g-esc polyline{{fill:none;stroke:#2e7d32;stroke-width:2.4;stroke-dasharray:10 6;
 vector-effect:non-scaling-stroke}}
 #g-exit rect{{fill:#1e5cb3}}
