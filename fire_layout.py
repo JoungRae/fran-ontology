@@ -1553,6 +1553,13 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
  var go=document.getElementById('rr-go'),m=document.getElementById('rr-msg');
  if(!go)return;
  go.onclick=async function(){
+  if(!window.__IS_LOCAL){
+   // 공개 데모: 서버 재계산 대신 배치 과정 재생(헤드가 놓인 순서대로)
+   var rp=document.getElementById('rp-start');
+   if(rp){m.textContent='배치 과정을 재생합니다 — 헤드가 놓인 순서대로.';rp.click();}
+   else{m.innerHTML=window.__SRV_HINT();}
+   return;
+  }
   var ru=parseFloat(document.getElementById('rr-ru').value)||2.6;
   var rc=parseFloat(document.getElementById('rr-rc').value)||2.3;
   go.disabled=true; go.textContent='계산 중… (30초~1분)';
