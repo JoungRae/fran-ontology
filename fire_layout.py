@@ -865,7 +865,8 @@ def main():
             x0, y0, x1, y1 = r["rect"]
             G["rooms"].append(f'<rect x="{x0}" y="{fy(y1)}" '
                               f'width="{x1-x0}" height="{y1-y0}"/>')
-        cx, cy = cen(r)
+        from plan_label import label_spot
+        cx, cy = label_spot(r)           # 오목한 실에서도 트인 자리에 (plan_label)
         _also = rooms_data[r["id"]].get("also") if r["id"] < len(rooms_data) else None
         _tt = (f'<title>개방 병합(벽 없음): {html.escape(", ".join(_also))}</title>'
                if _also else "")
@@ -1877,7 +1878,7 @@ vector-effect:non-scaling-stroke}}
 vector-effect:non-scaling-stroke}}
 #g-rooms polygon,#g-rooms rect{{fill:none;stroke:#94a3b8;stroke-width:1;
 vector-effect:non-scaling-stroke}}
-#g-labels text{{font-size:380px;fill:#5a6578;text-anchor:middle;
+#g-labels text{{font-size:520px;font-weight:600;fill:#5a6578;text-anchor:middle;
 dominant-baseline:middle;paint-order:stroke;stroke:#fff;stroke-width:70px}}
 #g-cov circle{{fill-opacity:.055;stroke-width:.9;vector-effect:non-scaling-stroke;
 stroke-opacity:.55}}

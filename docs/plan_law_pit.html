@@ -115,6 +115,10 @@ stroke-width:2.6;vector-effect:non-scaling-stroke}
 vector-effect:non-scaling-stroke;stroke-dasharray:14 8}
 #g-stairs .sno{font-size:750px;font-weight:800;fill:#1e5cb3;text-anchor:middle;
 paint-order:stroke;stroke:#fff;stroke-width:160px}
+/* 포커스 모드 — 항목 선택 시 관련 요소만 도드라지고 바탕은 흐려진다 */
+svg.dim #g-walls,svg.dim #g-rooms{opacity:.3}
+svg.dim #g-labels{opacity:.22}
+svg.dim #g-labels text.stair{opacity:1}
 #g-exit.pulse rect,#g-stairs.pulse rect{animation:pp .6s ease-in-out 4}
 @keyframes pp{50%{fill:#22c55e;stroke:#22c55e}}
 #bf-pop{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:99;
@@ -197,6 +201,7 @@ bfP.onclick=function(e){if(e.target===bfP)bfP.hidden=true};}
            esc:['g-stairs','g-living'],stairs:['g-stairs','g-living']};
  var ALL=['g-esc','g-comp','g-stairs','g-living'];
  function select(i,quiet){
+  svg.classList.toggle('dim', i>=0);   // 포커스: 바탕 흐림, 관련 레이어만 선명
   cards.forEach(function(c,k){c.classList.toggle('on',k===i);});
   document.querySelectorAll('.dt').forEach(function(d){d.hidden=true;});
   var none=G('dt-none'); if(none)none.hidden=(i>=0);

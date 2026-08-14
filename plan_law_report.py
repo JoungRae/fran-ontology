@@ -299,52 +299,7 @@ def main():
     def fy(y):
         return round(maxy - y)
 
-    def _inside(px, py, pts):
-        hit = False
-        for i in range(len(pts)):
-            x0, y0 = pts[i][0], pts[i][1]
-            x1, y1 = pts[(i + 1) % len(pts)][0], pts[(i + 1) % len(pts)][1]
-            if (y0 > py) != (y1 > py) and \
-                    px < (x1 - x0) * (py - y0) / (y1 - y0) + x0:
-                hit = not hit
-        return hit
-
-    def _edge_d(px, py, pts):
-        best = float("inf")
-        for i in range(len(pts)):
-            x0, y0 = pts[i][0], pts[i][1]
-            x1, y1 = pts[(i + 1) % len(pts)][0], pts[(i + 1) % len(pts)][1]
-            dx, dy = x1 - x0, y1 - y0
-            L2 = dx * dx + dy * dy
-            t = 0 if L2 == 0 else max(0, min(1, ((px - x0) * dx + (py - y0) * dy) / L2))
-            best = min(best, math.hypot(px - (x0 + t * dx), py - (y0 + t * dy)))
-        return best
-
-    def cen(r):
-        # 라벨 자리. 오목한 실(키즈짐이 라커(남)을 ㄷ자로 감싼다)에서는
-        # rect·bbox·면적중심 전부 구멍 근처에 떨어져 옆 실 라벨과 겹쳤다.
-        # 격자 표본으로 **경계에서 가장 먼 내부 점**(내접 최대점 근사)을 찾는다
-        # — 방의 가장 트인 곳에 라벨이 앉는다.
-        pts = r.get("poly")
-        if pts and len(pts) >= 3:
-            xs = [p[0] for p in pts]
-            ys = [p[1] for p in pts]
-            bx0, bx1, by0, by1 = min(xs), max(xs), min(ys), max(ys)
-            best, bp = -1.0, None
-            N = 24
-            for i in range(1, N):
-                for j in range(1, N):
-                    px = bx0 + (bx1 - bx0) * i / N
-                    py = by0 + (by1 - by0) * j / N
-                    if not _inside(px, py, pts):
-                        continue
-                    d = _edge_d(px, py, pts)
-                    if d > best:
-                        best, bp = d, (px, py)
-            if bp:
-                return bp
-        x0, y0, x1, y1 = r["rect"]
-        return ((x0 + x1) / 2, (y0 + y1) / 2)
+    from plan_label import label_spot as cen   # 내접 최대점 라벨 (공용 모듈)
 
     G = {k: [] for k in ("walls", "rooms", "comp", "living", "labels", "esc",
                          "exit", "stairs")}
@@ -582,6 +537,10 @@ stroke-width:2.6;vector-effect:non-scaling-stroke}}
 vector-effect:non-scaling-stroke;stroke-dasharray:14 8}}
 #g-stairs .sno{{font-size:750px;font-weight:800;fill:#1e5cb3;text-anchor:middle;
 paint-order:stroke;stroke:#fff;stroke-width:160px}}
+/* 포커스 모드 — 항목 선택 시 관련 요소만 도드라지고 바탕은 흐려진다 */
+svg.dim #g-walls,svg.dim #g-rooms{{opacity:.3}}
+svg.dim #g-labels{{opacity:.22}}
+svg.dim #g-labels text.stair{{opacity:1}}
 #g-exit.pulse rect,#g-stairs.pulse rect{{animation:pp .6s ease-in-out 4}}
 @keyframes pp{{50%{{fill:#22c55e;stroke:#22c55e}}}}
 #bf-pop{{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:99;
@@ -659,6 +618,7 @@ bfP.onclick=function(e){{if(e.target===bfP)bfP.hidden=true}};}}
            esc:['g-stairs','g-living'],stairs:['g-stairs','g-living']};
  var ALL=['g-esc','g-comp','g-stairs','g-living'];
  function select(i,quiet){
+  svg.classList.toggle('dim', i>=0);   // 포커스: 바탕 흐림, 관련 레이어만 선명
   cards.forEach(function(c,k){c.classList.toggle('on',k===i);});
   document.querySelectorAll('.dt').forEach(function(d){d.hidden=true;});
   var none=G('dt-none'); if(none)none.hidden=(i>=0);
