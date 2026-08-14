@@ -282,6 +282,34 @@ def main():
         print(f"실 바인딩 적용({_bsrc}): {len(BINDINGS)}개 실명 "
               f"(확인필요 {sum(1 for b in BINDINGS.values() if b.get('확인필요'))})")
 
+    # ── 사람 확정 — ⚠확인필요를 리포트의 "확정" 카드에서 사람이 제외/설치로
+    # 결정한 것(output/<base>_room_decisions.json, fire_server /decide 가 씀).
+    # LLM 판정 위에 덮는 마지막 층이다: 확정된 실은 ⚠ 가 꺼지고 출처가
+    # '사람'(초록 배지)이 된다. 바인딩·TTL 은 건드리지 않는다 — LLM 판정과
+    # 사람 결정을 한 파일에 섞으면 재매칭 때 사람 결정이 지워진다.
+    _dp = os.path.join(FO, "output", f"{base}_room_decisions.json")
+    DECISIONS = {}
+    if os.path.exists(_dp):
+        DECISIONS = {k: v for k, v in
+                     json.load(open(_dp, encoding="utf-8")).items()
+                     if v in ("제외", "설치")}
+    # 확정 카드에 실을 목록: 지금 ⚠확인필요인 실 + 이미 결정된 실(번복 가능하게)
+    PENDING = sorted({n for n, b in BINDINGS.items() if b.get("확인필요")}
+                     | set(DECISIONS))
+    for _n, _act in DECISIONS.items():
+        _b = BINDINGS.setdefault(_n, {})
+        if _act == "제외":
+            _b["기본동작"] = "제외"
+            _b["반경_mm"] = None
+        elif _b.get("기본동작") in (None, "", "제외"):
+            _b["기본동작"] = "일반(공용 반경)"
+        _b["확인필요"] = False
+        _b["출처"] = "사람"
+    if DECISIONS:
+        print(f"사람 확정 적용: {len(DECISIONS)}건 "
+              f"(제외 {sum(1 for v in DECISIONS.values() if v == '제외')}"
+              f" · 설치 {sum(1 for v in DECISIONS.values() if v == '설치')})")
+
     def room_class(name):
         """(세대여부, 제외여부, 출처) — 바인딩 우선, 없으면 키워드 폴백."""
         b = BINDINGS.get(name)
@@ -978,6 +1006,37 @@ def main():
                        + _chip(f"소화기 최악 {emax / 1000:.1f}m",
                                "ok" if ext_ok else "warn"))
 
+    # ── 건물 사실(설계 가정) 버튼 + 패널 — 매칭·배치가 전제한 값을 숨기지
+    # 않는다. 이 가정이 규칙×실 매칭 문맥에 실리므로(내화구조 → 2.3m 확신),
+    # 사람이 보고 틀렸으면 파일을 고쳐 재매칭할 수 있어야 한다.
+    _bprof = {}
+    try:
+        _bprof = json.load(open(os.path.join(FO, "data", "building_profile.json"),
+                                encoding="utf-8"))
+    except Exception:
+        pass
+    facts_html = ""
+    if _bprof:
+        _frow = [(k, str(v)) for k, v in _bprof.items()
+                 if isinstance(v, (str, int)) and not isinstance(v, bool)]
+        _frow += [(f"층 · {k.replace('_', ' ')}", "예" if v else "아니오")
+                  for k, v in _bprof.get("층", {}).items()
+                  if isinstance(v, bool)]
+        facts_html = (
+            '<div id="bf-pop" hidden><div id="bf-box">'
+            '<h4>🏢 건물 사실 — 설계 가정</h4>'
+            '<div class="meta" style="margin-bottom:8px">아래 값은 확인된 사실이 '
+            '아니라 <b>가정</b>이며, 규칙×실 매칭과 배치 판정의 전제로 쓰였습니다. '
+            '<code>data/building_profile.json</code> 을 고친 뒤 재매칭하면 '
+            '반영됩니다.</div><table class="tbl">'
+            + "".join(f'<tr><td style="color:var(--mut);white-space:nowrap">'
+                      f'{html.escape(str(k))}</td>'
+                      f'<td><b>{html.escape(str(v))}</b></td></tr>'
+                      for k, v in _frow)
+            + '</table><button id="bf-x">닫기</button></div></div>')
+        chips_html += ('<button id="bf-btn" class="chip" type="button">'
+                      '🏢 건물 사실</button>')
+
     # 배치 로직 패널 — 짧고 읽기 쉬운 단계 설명 (줄바꿈은 pre-wrap 으로 유지)
     LOGIC = [
         ("반경 결정",
@@ -1507,6 +1566,115 @@ document.getElementById('rp-reset').onclick=function(){cancel=true; running=fals
 })();
 """.replace("__BASE__", json.dumps(base))
 
+    # ── '확인필요 확정' 카드 — ⚠ 실을 판단 성격별로 묶어 사람이 확정한다.
+    # 셀렉트 대신 세그먼트 버튼: 선택지가 3개뿐이고 현재 선택이 색으로 보여야
+    # 한다(제외=주황·설치=초록). 그룹이 곧 안내다 — "지금 제외된 것"과
+    # "면제가 걸려 뺄 수 있는 것"은 사람이 볼 때 다른 질문이다.
+    def _dc_grp(b):
+        if b.get("기본동작") == "제외":
+            return 0
+        return 1 if b.get("생략가능") else 2
+    _GRP_T = ["현재 제외 — 맞는지 확인", "면제 걸림 · 정책상 설치 — 뺄 수 있음",
+              "그 외 확인필요"]
+    _dc_html, _n_decided = [], 0
+    for _gi, _gt in enumerate(_GRP_T):
+        _rows = []
+        for _n in PENDING:
+            _b = BINDINGS.get(_n, {})
+            if _dc_grp(_b) != _gi:
+                continue
+            _cur = _b.get("기본동작", "—")
+            _d = DECISIONS.get(_n, "")
+            _n_decided += bool(_d)
+            _short = (_cur.replace("반경 ", "").replace("세대 반경 ", "세대 ")
+                          .replace("일반(공용 반경)", "설치"))
+            _chip = (f'<span class="dc-cur ex">제외</span>' if _cur == "제외" else
+                     f'<span class="dc-cur in">{html.escape(_short)}</span>')
+            _tip = html.escape((_b.get("이유") or "판정 이유 없음")[:400])
+            _seg = "".join(
+                f'<button type="button" data-v="{v}"'
+                f'{" class=on" if _d == v else ""}>{t}</button>'
+                for v, t in [("", "판정대로"), ("제외", "제외"), ("설치", "설치")])
+            _rows.append(
+                f'<div class="dc-row" data-room="{html.escape(_n)}"'
+                f' data-init="{html.escape(_d)}" title="{_tip}">'
+                f'<span class="dc-name">{html.escape(_n)}</span>{_chip}'
+                f'<span class="seg">{_seg}</span></div>')
+        if _rows:
+            _dc_html.append(f'<div class="dc-grp">{_gt} · {len(_rows)}</div>'
+                            + "".join(_rows))
+    decide_card = ""
+    if _dc_html:
+        decide_card = (
+            '<section class="card"><h3>⚠ 확인필요 — 사람 확정</h3>'
+            '<div class="meta">판정 확신이 낮은 실입니다. 실명에 마우스를 올리면 '
+            'LLM의 판정 이유가 보입니다. 확정하면 출처가 \'사람\'(초록 배지)이 '
+            f'되고 ⚠가 꺼집니다. — 확정 {_n_decided} · 대기 '
+            f'{len(PENDING) - _n_decided}</div>'
+            '<div id="dc-list">' + "".join(_dc_html) + '</div>'
+            '<button id="dc-go" disabled>변경 없음</button>'
+            '<div id="dc-msg" class="meta"></div></section>')
+
+    decide_js = r"""
+(function(){
+ var B=__BASE__;
+ // 건물 사실(설계 가정) 패널 토글 — 확정 카드가 없는 리포트에서도 살아야
+ // 하므로 아래 go 가드보다 먼저 단다.
+ var bfB=document.getElementById('bf-btn'),bfP=document.getElementById('bf-pop');
+ if(bfB&&bfP){
+  bfB.onclick=function(){bfP.hidden=false;};
+  document.getElementById('bf-x').onclick=function(){bfP.hidden=true;};
+  bfP.onclick=function(e){if(e.target===bfP)bfP.hidden=true;};
+ }
+ var go=document.getElementById('dc-go'),m=document.getElementById('dc-msg');
+ if(!go)return;
+ var rows=Array.prototype.slice.call(document.querySelectorAll('.dc-row'));
+ function val(r){var b=r.querySelector('.seg button.on');
+                 return b?b.getAttribute('data-v'):'';}
+ function refresh(){
+  var n=0;
+  rows.forEach(function(r){
+   var chg=val(r)!==r.getAttribute('data-init');
+   r.classList.toggle('chg',chg); if(chg)n++;
+  });
+  go.disabled=(n===0);
+  go.textContent=n?('✓ 변경 '+n+'건 저장 후 재실행')
+                  :'변경 없음';
+ }
+ rows.forEach(function(r){
+  Array.prototype.forEach.call(r.querySelectorAll('.seg button'),function(b){
+   b.onclick=function(){
+    Array.prototype.forEach.call(r.querySelectorAll('.seg button'),
+      function(x){x.classList.remove('on');});
+    b.classList.add('on'); refresh();
+   };
+  });
+ });
+ refresh();
+ go.onclick=async function(){
+  var d={};
+  rows.forEach(function(r){ d[r.dataset.room]=val(r); }); // ''=판정대로(철회)
+  var ru=parseFloat((document.getElementById('rr-ru')||{}).value)||2.6;
+  var rc=parseFloat((document.getElementById('rr-rc')||{}).value)||2.3;
+  go.disabled=true; go.textContent='저장 후 재계산 중… (30초~1분)';
+  m.textContent='결정 저장 → 배치 엔진 재실행 — 완료되면 자동 새로고침됩니다.';
+  try{
+   var res=await fetch('/decide',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({base:B,decisions:d,r_unit:ru,r_common:rc})});
+   var j=await res.json();
+   if(j.ok){location.reload();}
+   else{throw new Error(j.error||'저장 실패');}
+  }catch(e){
+   go.disabled=false; refresh();
+   m.innerHTML='서버 미연결: 터미널에서 <code>python fire_server.py '+B+'</code> 를 '
+    +'실행한 뒤 이 버튼을 다시 누르십시오.'
+    +' <span style="color:#94a3b8">('+e.message+')</span>';
+  }
+ };
+})();
+""".replace("__BASE__", json.dumps(base))
+
     replay_card = (f'<section class="card">{replay_html}</section>'
                    if replay_html else "")
     # 헤더 표시명: 파일 베이스에서 층 이름만 추출 (예: 510_지하1층_pit → 지하1층)
@@ -1556,6 +1724,42 @@ font-family:Consolas,monospace;font-size:11px}}
 .rr-row input{{width:70px;border:1px solid var(--line);border-radius:7px;
 padding:5px 8px;font-size:12.5px;text-align:right}}
 .rr-row .std{{color:var(--mut);font-size:11px;margin-left:auto}}
+#dc-list{{max-height:250px;overflow-y:auto;margin:4px 0 8px;scrollbar-width:thin}}
+.dc-grp{{font-size:10px;font-weight:800;color:var(--mut);letter-spacing:.08em;
+margin:8px 0 3px;display:flex;align-items:center;gap:6px;white-space:nowrap}}
+.dc-grp::after{{content:"";flex:1;height:1px;background:var(--line)}}
+.dc-row{{display:flex;align-items:center;gap:6px;padding:4px 6px;margin:1px 0;
+border-radius:8px;font-size:12px}}
+.dc-row:hover{{background:#f8fafc}}
+.dc-row.chg{{background:#eff6ff;box-shadow:inset 2px 0 0 var(--acc)}}
+.dc-name{{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;
+white-space:nowrap;font-weight:600;cursor:help}}
+.dc-cur{{font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:99px;
+white-space:nowrap}}
+.dc-cur.ex{{background:#ffedd5;color:#c2410c}}
+.dc-cur.in{{background:#dbeafe;color:#1d4ed8}}
+.seg{{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+flex-shrink:0}}
+.seg button{{border:none;background:#fff;font-size:10px;padding:4px 6px;
+cursor:pointer;color:var(--mut);border-left:1px solid var(--line);line-height:1.2}}
+.seg button:first-child{{border-left:none}}
+.seg button.on{{color:#fff;font-weight:700}}
+.seg button.on[data-v=""]{{background:#64748b}}
+.seg button.on[data-v="제외"]{{background:#c2410c}}
+.seg button.on[data-v="설치"]{{background:#16803c}}
+#dc-go{{width:100%;border:none;background:var(--acc);color:#fff;border-radius:9px;
+padding:8px 0;font-size:12.5px;font-weight:700;cursor:pointer}}
+#dc-go:disabled{{background:#cbd5e1;cursor:default}}
+#bf-btn{{cursor:pointer}}
+#bf-pop{{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:99;
+display:flex;align-items:flex-start;justify-content:center;padding-top:70px}}
+#bf-pop[hidden]{{display:none}}
+#bf-box{{background:var(--panel);border-radius:14px;padding:16px 18px;width:370px;
+max-height:72vh;overflow-y:auto;box-shadow:0 20px 50px rgba(15,29,51,.35);
+font-size:12.5px;color:var(--ink)}}
+#bf-box h4{{margin:0 0 8px;font-size:13px}}
+#bf-x{{margin-top:10px;width:100%;border:1px solid var(--line);background:#f8fafc;
+border-radius:8px;padding:6px 0;cursor:pointer;font-size:12px}}
 #rr-go{{width:100%;margin-top:7px;border:none;background:var(--acc);color:#fff;
 border-radius:9px;padding:8px 0;font-size:13px;font-weight:700;cursor:pointer}}
 #rr-go:disabled{{background:#94a3b8;cursor:wait}}
@@ -1695,6 +1899,7 @@ details.hot{{outline:2px solid #f6b900}}
  <span class="sp"></span>
  {chips_html}
 </header>
+{facts_html}
 <div id="stage"><svg id="svg" viewBox="{vb}" xmlns="http://www.w3.org/2000/svg">
 {groups_svg}
 </svg></div>
@@ -1711,6 +1916,7 @@ details.hot{{outline:2px solid #f6b900}}
   <div id="rr-msg" class="meta">기준(2.6/2.3m) 상회분은 성능 인정 헤드(확대살수형 등)
    사용 전제. 변경 후 재실행하면 배치·검증·표가 전부 갱신됩니다.</div>
  </section>
+ {decide_card}
  <section class="card"><h3>헤드 현황</h3>{head_tbl}{room_tbl}</section>
  <section class="card"><h3>표시 항목</h3><div id="legend">{legend_html}</div></section>
 </aside>
@@ -1761,6 +1967,7 @@ if(ex)ex.classList.toggle('on');}};}});
 {replay_js}
 {chat_js}
 {rerun_js}
+{decide_js}
 </script></body></html>"""
 
     name = f"{base}_head_layout.html" if heads_only else f"{base}_fire_layout.html"

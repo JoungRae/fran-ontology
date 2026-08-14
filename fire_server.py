@@ -32,7 +32,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*a, directory=OUT, **kw)
 
     def do_POST(self):
-        if self.path != "/rerun":
+        if self.path not in ("/rerun", "/decide"):
             self.send_error(404)
             return
         n = int(self.headers.get("Content-Length", 0) or 0)
@@ -45,6 +45,29 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             rc = float(req.get("r_common", 2.3))
             if not (1.0 <= ru <= 6.0 and 1.0 <= rc <= 6.0):
                 raise ValueError("반경은 1.0~6.0m 범위여야 합니다")
+            if self.path == "/decide":
+                # ⚠확인필요 실의 제외/설치 사람 확정 저장. 실명은 파일 경로에
+                # 쓰이지 않고 JSON 열쇠로만 쓰인다. '' = 판정대로(결정 철회).
+                dec_in = req.get("decisions") or {}
+                if not isinstance(dec_in, dict):
+                    raise ValueError("decisions 는 {실명: 제외|설치|''} 여야 합니다")
+                dp = os.path.join(OUT, f"{base}_room_decisions.json")
+                cur = {}
+                if os.path.exists(dp):
+                    cur = json.load(open(dp, encoding="utf-8"))
+                for name, v in dec_in.items():
+                    name = str(name)[:80]
+                    if v == "":
+                        cur.pop(name, None)
+                    elif v in ("제외", "설치"):
+                        cur[name] = v
+                    else:
+                        raise ValueError(f"알 수 없는 결정 값: {v!r}")
+                tmp = dp + ".tmp"
+                with open(tmp, "w", encoding="utf-8") as f:
+                    json.dump(cur, f, ensure_ascii=False, indent=1)
+                os.replace(tmp, dp)
+                print(f"[확정] {base} 결정 {len(cur)}건 저장 → 재배치")
             cmd = [PY, os.path.join(FO, "fire_layout.py"), base, "--heads",
                    "--r-unit", f"{ru}", "--r-common", f"{rc}"]
             print(f"[재실행] {base} r_unit={ru} r_common={rc}")

@@ -9,10 +9,14 @@
      구획된 구멍에 한한다")와 단서가 판단 재료다. 낱말 목록만 줬을 때
      EPS/TPS 를 놓친 게 그 교훈. (rule_id, 실명) 단위 캐시라 다음 도면에서
      같은 실명은 재질의 없음.
-  3. 결과(rule_id × 실)를 컴파일 — 효과는 규칙 자신의 구조에서 나온다:
-     · permission "설치하지 않을 수 있다" → 제외 후보
+  3. 결과(rule_id × 실)를 컴파일 — 효과는 규칙 구조 + **면제 연결**(rule_override,
+     2단계 산출물)에서 나온다:
+     · permission 중 exempt 연결이 있는 것만 → 제외 후보. 연결 없는 permission
+       은 택일("~로 설치할 수 있다")이라 아무 의무도 안 끈다.
        (실제 제외는 정책: 사람이 출입하지 않는 구획만. data/placement_policy.json)
-     · obligation + distance 사양       → 그 실의 반경
+     · obligation + distance 사양 → 그 실의 반경. 단 이 실에 함께 걸린 규칙이
+       replace/relax 로 덮은 의무는 후보 탈락.
+     rule_override 가 빈 DB 면 옛 방식(permission 전부 후보)으로 폴백.
      출력은 fire_layout 이 이미 읽는 <base>_room_bindings.json 모양.
 
 실행: cons_law venv
@@ -34,7 +38,10 @@ from cons_law.llm import chat_json, usage_line   # noqa: E402
 FO = os.path.dirname(os.path.abspath(__file__))
 TRIAGE = os.path.join(FO, "data", "rule_place_triage.json")   # 1단계 캐시 (영구)
 MATCH = os.path.join(FO, "data", "rule_room_cache.json")      # 2단계 캐시 (실명 단위)
-MATCH_PROMPT_V = "match-2026-08-09a"   # 질의 형식(context 포함)이 바뀌면 올린다
+MATCH_PROMPT_V = "match-2026-08-14b"   # 질의 형식(context 포함)이 바뀌면 올린다
+# 14a: ctx 에 건물 사실(내화구조 등 설계 가정) 추가 — 건물 조건 규칙이
+#      실마다 low confidence 를 받아 ⚠가 전 실에 번지던 문제의 근치
+# 14b: ctx 를 낱말 나열 텍스트에서 JSON 으로 (사용자 지시 — 모델 가독성)
 POLICY = os.path.join(FO, "data", "placement_policy.json")
 ROOMTYPE = os.path.join(FO, "data", "room_type_cache.json")   # 실/샤프트 (전역)
 DOCS = "NFPC 103|NFTC 103|NFPC 608|NFTC 608"
@@ -70,13 +77,27 @@ def load_rules():
           FROM legal_rule r JOIN documents d ON d.id=r.document_id
           LEFT JOIN nodes n ON n.id = r.subject_node_id
           WHERE d.title ~ '{DOCS}'""")
-        return [{"id": i, "doc": doc, "wh": wh, "deontic": de, "stmt": st,
-                 "raw": raw, "context": ctx_,
-                 # 반경 사양은 규칙의 **대상이 헤드**일 때만 뜻이 있다.
-                 # 송수구·방수구 5m 같은 distance 가 실 반경을 오염시켰다.
-                 "dist": dist if "헤드" in subj else None,
-                 "subj": subj}
-                for i, doc, wh, de, st, raw, dist, subj, ctx_ in cu.fetchall()]
+        rules = [{"id": i, "doc": doc, "wh": wh, "deontic": de, "stmt": st,
+                  "raw": raw, "context": ctx_,
+                  # 반경 사양은 규칙의 **대상이 헤드**일 때만 뜻이 있다.
+                  # 송수구·방수구 5m 같은 distance 가 실 반경을 오염시켰다.
+                  "dist": dist if "헤드" in subj else None,
+                  "subj": subj}
+                 for i, doc, wh, de, st, raw, dist, subj, ctx_ in cu.fetchall()]
+        # 면제 연결(2단계 산출물). 규칙마다 "내가 끄거나 바꾸는 의무" 목록.
+        # under 가 NULL 인 행은 수집 범위 밖 법령을 끄는 것 — 면제성은 같다.
+        ids = [r["id"] for r in rules]
+        cu.execute("""SELECT over_rule_id, under_rule_id, effect
+                      FROM rule_override WHERE over_rule_id = ANY(%s)""", (ids,))
+        links: dict[int, list] = {}
+        for over, under, eff in cu.fetchall():
+            links.setdefault(over, []).append({"under": under, "effect": eff})
+        for r in rules:
+            r["links"] = links.get(r["id"], [])
+        if not links:
+            print("경고: rule_override 가 비어 있음 — 면제/택일 구분 없이 "
+                  "모든 permission 을 제외 후보로 봄(옛 방식)", flush=True)
+        return rules
 
 
 # ── 1단계: 장소 규칙 선별 (규칙 단위 영구 캐시) ──────────────────────────
@@ -239,6 +260,8 @@ def room_types(names, ctx):
 # ── 3단계: 컴파일 — 효과는 규칙 구조에서 ─────────────────────────────────
 def compile_bindings(place_rules, cache, names, policy, rtypes):
     by_rule = {str(r["id"]): r for r in place_rules}
+    # 면제 연결이 하나라도 로드됐는가 — 없으면(2단계 안 돈 DB) 옛 방식 폴백.
+    have_links = any(r.get("links") for r in place_rules)
     rooms: dict[str, dict] = {n: {"적용규칙": [], "확인필요": False} for n in names}
     for rid, d in cache.items():
         r = by_rule.get(rid)
@@ -250,6 +273,7 @@ def compile_bindings(place_rules, cache, names, policy, rtypes):
             rooms[n]["적용규칙"].append({
                 "rule_id": r["id"], "근거": f"{r['doc']} {r['wh']}",
                 "deontic": r["deontic"], "dist": r["dist"],
+                "links": r.get("links", []),
                 "occupied": h.get("occupied"),
                 "confidence": h.get("confidence", "low"),
                 "이유": h.get("이유", "")})
@@ -259,9 +283,17 @@ def compile_bindings(place_rules, cache, names, policy, rtypes):
         # rule_id 로 정렬한다. 원래 순서는 스레드 완료 순서라 같은 입력을
         # 다시 돌리면 근거 목록과 대표 노드가 바뀐다(그게 그대로 RDF 에 새겨진다).
         applied = sorted(info["적용규칙"], key=lambda a: a["rule_id"])
-        # 제외 — permission 규칙에 해당 + 정책(비출입 구획만 실제 제외)
+        # 제외 후보 — permission 중 **면제성**(exempt 연결이 있는 것)만.
+        # permission 이라고 다 면제가 아니다: "합성수지배관으로 설치할 수 있다"
+        # 는 새 선택지를 줄 뿐 아무 의무도 끄지 않는다(택일). 전에는 이 구분을
+        # 못 해 택일 규칙까지 생략가능 근거로 실렸다. 면제 연결(rule_override)
+        # 이 있으면 그 판정을 쓰고, 없는 DB 면 옛 방식(전부 후보) 폴백.
+        def _exemptive(a):
+            if not have_links:
+                return True
+            return any(l["effect"] == "exempt" for l in a["links"])
         exempt = [a for a in applied if a["deontic"] == "permission"
-                  and a["dist"] is None]
+                  and a["dist"] is None and _exemptive(a)]
         # 헤드를 잘못 빼는 쪽이 잘못 더 놓는 쪽보다 위험하다. 제외 조건 셋:
         # 생략가능 규칙에 확신 있게 매칭 + 이 실이 물리적으로 샤프트.
         rt = rtypes.get(n, {})
@@ -277,10 +309,18 @@ def compile_bindings(place_rules, cache, names, policy, rtypes):
                         + ([a for a in exempt if is_shaft
                             and a["confidence"] != "high"] if not excl else []))
         # 반경 — distance 사양이 붙은 의무 규칙 중 이 실에 해당하는 것.
-        # 여러 개면 규칙 구조상 더 구체(장소 조건이 붙은 쪽)가 override 라
-        # 그 값을 쓴다. 같은 급이면 작은 값(보수적).
+        # 이 실에 함께 걸린 규칙이 replace/relax/exempt 로 덮은 의무는 후보에서
+        # 뺀다(면제 연결이 결정) — 예: 완화 특칙이 걸린 실에서 원 기준 탈락.
+        # 남은 게 여럿이면 작은 값(보수적). 연결이 없는 DB 면 이 단계는 통과.
+        overridden = {l["under"]
+                      for a in applied for l in a.get("links", [])
+                      if l["under"] is not None}
         dist_rules = sorted((float(a["dist"]), a) for a in applied
-                            if a["deontic"] == "obligation" and a["dist"])
+                            if a["deontic"] == "obligation" and a["dist"]
+                            and a["rule_id"] not in overridden)
+        if not dist_rules:      # 전부 덮였으면(드묾) 덮인 것이라도 — 반경 공백 방지
+            dist_rules = sorted((float(a["dist"]), a) for a in applied
+                                if a["deontic"] == "obligation" and a["dist"])
         dists = [d for d, _ in dist_rules]
         low = []
         if excl and excl["confidence"] != "high":
@@ -314,7 +354,12 @@ def compile_bindings(place_rules, cache, names, policy, rtypes):
                      for a in applied],
             # 같은 조문 라벨의 규칙이 여럿이라 rule_id 를 함께 남긴다
             # (온톨로지 레이어에서 규칙별 URI 로 구분하기 위함).
-            "생략가능": [{"출처": a["근거"], "rule_id": a["rule_id"]}
+            # 끄는의무 = 이 면제가 끄는 의무 규칙 id(면제 연결에서) — 판정
+            # 추적용. 빈 배열이면 끄는 대상이 수집 범위 밖 법령이라는 뜻.
+            "생략가능": [{"출처": a["근거"], "rule_id": a["rule_id"],
+                      "끄는의무": sorted({l["under"] for l in a.get("links", [])
+                                      if l["effect"] == "exempt"
+                                      and l["under"] is not None})}
                      for a in exempt if not excl],
         }
     return bindings
@@ -327,8 +372,26 @@ def run(base):
         sys.exit(f"실 목록 없음: {rooms_p}")
     profile = jload(os.path.join(FO, "data", "building_profile.json"), {})
     floor = profile.get("층", {})
-    ctx = (f"{profile.get('용도','건물')} {floor.get('이름','')} "
-           + ("(세대 있는 층)" if floor.get("세대있음") else "(부대시설 층, 세대 없음)"))
+    # 건물 사실(설계 가정)을 매칭 문맥에 싣는다. 안 실으면 "내화구조로 된
+    # 경우 2.3m" 같은 건물 조건 규칙이 실마다 "내화구조 여부 확인 필요"로
+    # confidence low 를 받아 — 반경 결정자라서 — 25개 실 전부에 ⚠가 전염된다.
+    # 이미 building_profile 이 답을 갖고 있는 것을 모델에게 숨긴 결과였다.
+    # 형태는 JSON 이다(모델이 답하는 형식과 같음) — 열쇠 이름을 코드에 박지
+    # 않고 프로필의 스칼라·불리언을 그대로 펴므로, 프로필에 항목을 더하면
+    # 코드 수정 없이 다음 재매칭 프롬프트에 실린다. bool 은 (str,int) 필터에
+    # 걸리므로(파이썬에서 bool ⊂ int) 명시적으로 갈라 둔다.
+    ctx = json.dumps({
+        "용도": profile.get("용도", "건물"),
+        "층": floor.get("이름", ""),
+        "세대있음": bool(floor.get("세대있음")),
+        "건물사실": {
+            "_설명": "설계 가정 — 확인된 값으로 간주하고 판정할 것",
+            **{k: v for k, v in profile.items()
+               if isinstance(v, (str, int)) and not isinstance(v, bool)
+               and k != "이름"},
+            **{k: bool(v) for k, v in floor.items() if isinstance(v, bool)},
+        },
+    }, ensure_ascii=False)
     policy = jload(POLICY, None)
     if policy is None:
         # 법이 안 정해 주는 것 — "생략 가능" 을 실제로 생략할지는 설계 정책이다.

@@ -56,3 +56,5 @@ output/*
 !output/지하1층_대기공간추가_room_bindings.json
 !output/지하1층_대기공간추가_room_ids.json
 !output/지하1층_대기공간추가_fire_layout.html
+# 사람 확정(확인필요 실의 제외/설치 결정) — 커밋된 리포트가 이걸 반영한 배치다
+!output/지하1층_pit_room_decisions.json
