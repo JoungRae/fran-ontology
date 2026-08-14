@@ -187,6 +187,60 @@ def cite(rule: dict) -> str:
     return f"{rule['doc']} {where} — 규칙 #{rule['id']}({rule['key']})"
 
 
+# ── 평면도 법률 검토 조문 묶음 (plan_law_report 가 소비) ─────────────────
+def derive_plan_review(cur) -> dict:
+    """방화구획(§14①1.)·지하층 비상탈출구(§25①1.)·직통계단 2개소(§34②)를
+    주소 닻으로 수확한다. 규칙·조건·요건·면제 연결을 그대로 나르고, 어느
+    값이 적용되는지는 소비자(plan_law_report)가 도면 측정값·건물 사실로
+    정한다 — 수치는 전부 DB 에서 온다(1,000/3,000㎡ · 50㎡ · 200㎡ · 2개소)."""
+    ANCHORS = [
+        ("방화구획", "%피난%방화구조%", "제14조", "①", "1."),
+        ("비상탈출구", "%피난%방화구조%", "제25조", "①", "1."),
+        ("직통계단수", "건축법 시행령", "제34조", "②", None),
+    ]
+    out = {}
+    for key, pat, art, para, item in ANCHORS:
+        cur.execute("""
+          SELECT r.id, d.title, r.para, r.item, r.local_key, r.deontic,
+                 left(COALESCE(r.raw_text, r.statement), 320)
+          FROM legal_rule r JOIN documents d ON d.id=r.document_id
+          WHERE d.title LIKE %s AND r.article_no=%s AND r.para=%s
+            AND (%s::text IS NULL OR r.item=%s)
+          ORDER BY r.id""", (pat, art, para, item, item))
+        rules = {}
+        doc_title = ""
+        for rid, dt, p, it, k, de, raw in cur.fetchall():
+            doc_title = dt
+            rules[rid] = {"id": rid, "para": p, "item": it, "key": k,
+                          "deontic": de, "원문": raw,
+                          "조건": [], "요건": [], "끄는의무": []}
+        ids = list(rules)
+        if not ids:
+            out[key] = {}
+            continue
+        cur.execute("""SELECT rule_id, group_no, node_raw, measure, op, value,
+                              unit, left(raw_text, 120)
+                       FROM rule_condition WHERE rule_id = ANY(%s)""", (ids,))
+        for rid, g, node, me, op, v, u, raw in cur.fetchall():
+            rules[rid]["조건"].append({"group": g, "node": node, "measure": me,
+                                     "op": op, "value": v, "unit": u, "원문": raw})
+        cur.execute("""SELECT rule_id, node_raw, measure, op, value, unit,
+                              left(raw_text, 120)
+                       FROM rule_requirement WHERE rule_id = ANY(%s)""", (ids,))
+        for rid, node, me, op, v, u, raw in cur.fetchall():
+            rules[rid]["요건"].append({"node": node, "measure": me, "op": op,
+                                     "value": v, "unit": u, "원문": raw})
+        cur.execute("""SELECT over_rule_id, under_rule_id, effect
+                       FROM rule_override WHERE over_rule_id = ANY(%s)
+                         AND under_rule_id IS NOT NULL""", (ids,))
+        for over, under, eff in cur.fetchall():
+            rules[over]["끄는의무"].append({"under": under, "effect": eff})
+        out[key] = {"조문": f"{doc_title} {art}{para}"
+                          + (f" {item}호" if item else ""),
+                    "규칙": list(rules.values())}
+    return out
+
+
 # ── 피난 보행거리 한도 — 건축법 시행령 §34① (evac_report 가 소비) ──────────
 def derive_evac_limits(cur, profile: dict) -> dict:
     """원칙(의무)과 완화(단서) 한도를 주소 닻으로 수확하고, 건물 사실로
@@ -522,6 +576,7 @@ def main():
         facts = build_facts(profile, cur, bindings)
         rules = load_rules(cur)
         evac = derive_evac_limits(cur, profile)
+        plan = derive_plan_review(cur)
     print(f"층 깃발 출처: {facts['깃발출처']} → {facts['flags']}"
           f" · 세대 {'있음' if facts['세대있음'] else '없음'}")
     params, beams, excl, verdicts, notes = derive(rules, facts, profile)
@@ -533,7 +588,7 @@ def main():
                     "세대있음": facts.get("세대있음"),
                     "구조": facts["structure"], "지상층수": facts["storeys"]},
            "파라미터": params, "보표_2_7_8": beams, "제외장소": excl,
-           "피난한도": evac,
+           "피난한도": evac, "평면검토": plan,
            "판정요약": dict(vc), "적용규칙": verdicts, "비고": notes}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT + ".tmp", "w", encoding="utf-8") as f:   # 원자적 교체
@@ -548,6 +603,8 @@ def main():
         extra = p.get("조건") or p.get("설명") or ""
         print(f"  [{src:4}] {p['이름']:20} {v:8} {extra[:52]}")
     print(f"\n보표 2.7.8: {len(beams)}행 · 제외장소 {len(excl)}곳")
+    print("평면검토 수확: " + " · ".join(
+        f"{k} {len(v.get('규칙', []))}규칙" for k, v in plan.items()))
     if evac:
         _ap = evac.get("적용")
         print(f"피난한도(§34①): 원칙 {evac['원칙']['한도_m']:.0f}m"

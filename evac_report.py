@@ -788,6 +788,30 @@ if(g)g.style.display=cb.checked?'':'none';}};}});
     open(op, "w", encoding="utf-8").write(page)
     print(f"출력: {op}")
 
+    # 요약 JSON — 평면도 법률 검토(plan_law_report)가 피난거리 항목의 재료로
+    # 읽는다. 계산을 두 번 하지 않으려고 결과를 파일로 나른다(파이프라인 관례).
+    summary = {
+        "최악_m": round(wmax / 1000, 1),
+        "한도_m": limit_eff, "원칙_m": principle_m,
+        "완화적용": fire_resist, "완화사유": relax_note,
+        "원칙규칙": (hp_evac.get("원칙") or {}).get("rule_id"),
+        "완화규칙": (relax_row or {}).get("rule_id"),
+        "실": [{"이름": nm, "면적": round(ar, 1),
+               "거리_m": round(rmax / 1000, 1) if rmax else None, "판정": v}
+              for nm, ar, rmax, unreach, v, _ in rows],
+        "출입구": [[round(x), round(y)] for x, y in exits],
+        "동선": [{"실": nm, "m": round(r / 1000, 1),
+                 "pts": [[round(x), round(y)] for x, y in p]}
+                for nm, r, p in paths],
+        "계단실": sorted({r["name"] for r in stair_rooms}),
+        "bounds": [round(v) for v in bounds],
+    }
+    sp = os.path.join(FO, "output", f"{base}_evac_summary.json")
+    with open(sp + ".tmp", "w", encoding="utf-8") as f:
+        json.dump(summary, f, ensure_ascii=False, indent=1)
+    os.replace(sp + ".tmp", sp)
+    print(f"요약: {sp}")
+
 
 if __name__ == "__main__":
     main()
