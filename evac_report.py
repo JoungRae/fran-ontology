@@ -510,35 +510,59 @@ def main():
 """.replace("__RPT__", rpt_json).replace("__KEY__", json.dumps(api_key))
 
     # '검토 시작' — 피난 동선을 구석→계단 방향으로 순차 드로잉 (보여주기용).
-    # polyline 점 순서가 최원점→계단이라 dashoffset 을 줄이면 그 방향으로 자란다.
-    # 가까운 실부터 그리고 최장(최악) 경로를 맨 끝에 — 완료 시 계단 출입구 펄스.
+    # polyline 점 순서가 최원점→계단이라 그 방향으로 자란다.
+    #
+    # 점선을 유지하려고 **마스크로 걷는다**: 원본 선은 CSS 점선 그대로 두고,
+    # 마스크 속 흰 실선 복제본의 dashoffset 을 줄이면 걷힌 만큼 점선이
+    # 나타난다. 원본에 직접 dashoffset 을 걸면 ① 그린 뒤 실선으로 굳고
+    # ② vector-effect(화면공간 대시) 탓에 배율 따라 진행이 어긋난다 —
+    # 마스크 복제본은 vector-effect 없이 사용자 좌표라 배율 무관.
     anim_js = r"""
 (function(){
  var go=document.getElementById('ev-go'),stt=document.getElementById('ev-st');
  if(!go)return;
+ var NS='http://www.w3.org/2000/svg';
  var svg=document.getElementById('svg');
  var lines=Array.prototype.slice.call(document.querySelectorAll('#g-esc polyline'));
  if(!lines.length){go.disabled=true;stt.textContent='그릴 동선이 없습니다.';return;}
  lines.sort(function(a,b){return parseFloat(a.dataset.m)-parseFloat(b.dataset.m);});
- var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+ var defs=svg.querySelector('defs');
+ if(!defs){defs=document.createElementNS(NS,'defs');svg.insertBefore(defs,svg.firstChild);}
+ var dot=document.createElementNS(NS,'circle');
  dot.setAttribute('r','420');dot.setAttribute('fill','#2e7d32');
  dot.setAttribute('stroke','#fff');dot.setAttribute('stroke-width','130');
  dot.style.display='none';svg.appendChild(dot);
- var SPEED=20000, running=false;   // mm/s — 30m 경로 ≈ 1.5초
- function drawOne(l,done){
-  var len=l.getTotalLength();
-  l.style.strokeDasharray=len+' '+len;
-  l.style.strokeDashoffset=len;
-  l.style.strokeWidth='3.4';
-  var dur=Math.max(300,len/SPEED*1000),t0=null;
+ var SPEED=20000, running=false, idc=0;   // mm/s — 30m 경로 ≈ 1.5초
+ function maskFor(l){
+  var len=l.getTotalLength(), bb=l.getBBox(), pad=2500;
+  var mk=document.createElementNS(NS,'mask');
+  mk.setAttribute('id','evm'+(++idc));
+  mk.setAttribute('maskUnits','userSpaceOnUse');
+  mk.setAttribute('x',bb.x-pad);mk.setAttribute('y',bb.y-pad);
+  mk.setAttribute('width',bb.width+2*pad);mk.setAttribute('height',bb.height+2*pad);
+  var c=document.createElementNS(NS,'polyline');
+  c.setAttribute('points',l.getAttribute('points'));
+  c.setAttribute('fill','none');c.setAttribute('stroke','#fff');
+  c.setAttribute('stroke-width','2600');c.setAttribute('stroke-linecap','round');
+  c.style.strokeDasharray=len+' '+len;
+  c.style.strokeDashoffset=len;              // 시작: 전부 가림
+  mk.appendChild(c);defs.appendChild(mk);
+  l.setAttribute('mask','url(#'+mk.id+')');
+  return {mk:mk,c:c,len:len,l:l};
+ }
+ function unmask(m){m.l.removeAttribute('mask');
+  if(m.mk.parentNode)defs.removeChild(m.mk);}
+ function drawOne(m,done){
+  var dur=Math.max(300,m.len/SPEED*1000),t0=null;
   function step(ts){
    if(!t0)t0=ts;
-   var k=Math.min(1,(ts-t0)/dur),drawn=len*k;
-   l.style.strokeDashoffset=len-drawn;
-   var pt=l.getPointAtLength(drawn);
+   var k=Math.min(1,(ts-t0)/dur),drawn=m.len*k;
+   m.c.style.strokeDashoffset=m.len-drawn;
+   var pt=m.l.getPointAtLength(drawn);
    dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y);
-   stt.textContent=l.dataset.nm+' — '+(drawn/1000).toFixed(1)+' / '+l.dataset.m+' m';
-   if(k<1)requestAnimationFrame(step);else done();
+   stt.textContent=m.l.dataset.nm+' — '+(drawn/1000).toFixed(1)+' / '+m.l.dataset.m+' m';
+   if(k<1)requestAnimationFrame(step);
+   else{unmask(m);done();}                   // 끝나면 마스크 제거 → CSS 점선 그대로
   }
   requestAnimationFrame(step);
  }
@@ -546,12 +570,11 @@ def main():
   if(running)return; running=true;
   var gE=document.getElementById('g-esc');if(gE)gE.style.display='';
   var cb=document.querySelector('#legend input[data-g="g-esc"]');if(cb)cb.checked=true;
-  lines.forEach(function(l){var n=l.getTotalLength();
-   l.style.strokeDasharray=n+' '+n;l.style.strokeDashoffset=n;});
+  var ms=lines.map(maskFor);                 // 전부 가리고 시작
   go.disabled=true;go.textContent='재생 중…';dot.style.display='';
   var i=0;
   (function next(){
-   if(i>=lines.length){
+   if(i>=ms.length){
     dot.style.display='none';
     stt.textContent='완료 — '+lines.length+'개 실 전부 계단 도달 · 최장 '
                     +lines[lines.length-1].dataset.m+'m ('+lines[lines.length-1].dataset.nm+')';
@@ -559,7 +582,7 @@ def main():
     if(ex){ex.classList.add('pulse');setTimeout(function(){ex.classList.remove('pulse');},2600);}
     go.disabled=false;go.textContent='↺ 다시 보기';running=false;return;
    }
-   drawOne(lines[i++],function(){setTimeout(next,110);});
+   drawOne(ms[i++],function(){setTimeout(next,110);});
   })();
  };
 })();
