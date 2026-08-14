@@ -130,29 +130,37 @@ def main():
 
     checks = []
 
-    # ① 피난 보행거리
+    # ① 피난 보행거리 — rule_id 는 화면에 안 쓴다(툴팁으로만). 출처는 법령명.
     wmax, lim, pri = ev["최악_m"], ev["한도_m"], ev["원칙_m"]
+    cite1 = (hp.get("피난한도") or {}).get("조문") or "건축법 시행령 제34조 제1항"
+    worst = max(ev["동선"], key=lambda p: p["m"])
     v1 = ("적합" if wmax <= pri else
           "적합(완화)" if ev["완화적용"] and wmax <= lim else
           "부적합" if wmax > lim else "적합(완화)")
     checks.append({
         "id": "evac", "no": "①", "title": "피난 보행거리", "v": v1,
         "one": f"최악 {wmax}m ≤ 완화 한도 {lim:.0f}m (원칙 {pri:.0f}m)",
-        "law": [f"#{ev['원칙규칙']} 거실의 각 부분으로부터 직통계단까지 보행거리 "
-                f"{pri:.0f}m 이하 (건축법 시행령 §34①)",
-                f"#{ev['완화규칙']} 주요구조부 내화·불연이면 {lim:.0f}m 이하로 완화"],
-        "meas": [f"실 {len(ev['실'])}곳 최원점 보행거리 전수 — 최악 {wmax}m "
-                 f"({max(ev['동선'], key=lambda p: p['m'])['실']})",
+        "law": [{"src": cite1, "rid": ev["원칙규칙"],
+                 "txt": f"피난층 외의 층에서는 거실의 각 부분으로부터 직통계단에 "
+                        f"이르는 보행거리가 {pri:.0f}m 이하가 되도록 설치해야 한다"},
+                {"src": f"{cite1} 단서", "rid": ev["완화규칙"],
+                 "txt": f"주요구조부가 내화구조 또는 불연재료로 된 건축물은 "
+                        f"{lim:.0f}m 이하로 할 수 있다"}],
+        "meas": [f"실 {len(ev['실'])}곳의 가장 먼 지점에서 계단까지 전수 측정 — "
+                 f"최악 {wmax}m, {worst['실']} (도면의 굵은 빨간 동선)",
                  f"계단 출입구 {len(ev['출입구'])}개 자동 인식"],
-        "table": [(f"보행거리 ≤ {pri:.0f}m (원칙)", f"{wmax}m",
-                   "✗ 초과" if wmax > pri else "✓"),
-                  (f"보행거리 ≤ {lim:.0f}m (완화)", f"{wmax}m",
-                   "✓" if wmax <= lim else "✗")],
-        "chain": (f'<div class="ch"><div class="ch-r">의무 #{ev["원칙규칙"]} — '
-                  f'보행거리 {pri:.0f}m 이하</div>'
-                  f'<div class="ch-a">▲ relax</div>'
-                  f'<div class="ch-e">완화 #{ev["완화규칙"]} — 내화구조면 '
-                  f'{lim:.0f}m 이하로 할 수 있다</div></div>'),
+        "steps": [
+            {"k": "기준", "law": "보행거리 한도 (원칙)", "src": cite1,
+             "need": f"≤ {pri:.0f}m", "got": f"{wmax}m",
+             "res": "✓ 충족" if wmax <= pri else "✗ 초과",
+             "cls": "ok" if wmax <= pri else "bad"},
+            {"pre": "↓ 단서 적용 — 주요구조부 내화구조 (가정)",
+             "k": "완화", "law": "내화구조·불연재료 건물의 완화 한도",
+             "src": f"{cite1} 단서",
+             "need": f"≤ {lim:.0f}m", "got": f"{wmax}m",
+             "res": "✓ 충족" if wmax <= lim else "✗ 초과",
+             "cls": "ok" if wmax <= lim else "bad"},
+        ],
         "asm": ["주요구조부 내화구조 — 건물 사실(설계 가정)"],
         "link": f"{base}_evac_layout.html|피난 경로 상세 리포트",
     })
@@ -164,22 +172,30 @@ def main():
         one2 = (f"층 면적 {total_area:.0f}㎡ ≤ 원칙 {comp_p:.0f}㎡ — 층 전체 한 구획 가능"
                 if total_area <= comp_p else
                 f"층 면적 {total_area:.0f}㎡ ≤ {comp_r:.0f}㎡ (스프링클러 가정 시 완화)")
+        cite2 = cite_of("방화구획") or "건축물의 피난ㆍ방화구조 등의 기준에 관한 규칙 제14조"
         checks.append({
             "id": "comp", "no": "②", "title": "방화구획 면적", "v": v2, "one": one2,
-            "law": [f"#{comp_rule['id']} 10층 이하의 층은 바닥면적 {comp_p:.0f}㎡"
-                    f"(스프링클러 등 자동식 소화설비 설치 시 {comp_r:.0f}㎡) "
-                    f"이내마다 방화구획 ({cite_of('방화구획')})"],
+            "law": [{"src": cite2, "rid": comp_rule["id"],
+                     "txt": f"10층 이하의 층은 바닥면적 {comp_p:.0f}㎡"
+                            f"(스프링클러 등 자동식 소화설비를 설치한 경우 "
+                            f"{comp_r:.0f}㎡) 이내마다 방화구획해야 한다"}],
             "meas": [f"인식된 실 {len(rooms_data)}개 면적 합계 {total_area:.0f}㎡ "
-                     "(라벨 없는 통로 제외 — 하한값)"],
-            "table": [("층수 10층 이하", floor_name, "✓"),
-                      (f"바닥면적 ≤ {comp_p:.0f}㎡ (원칙)", f"{total_area:.0f}㎡",
-                       "✓" if total_area <= comp_p else "✗ 초과"),
-                      (f"바닥면적 ≤ {comp_r:.0f}㎡ (완화)", f"{total_area:.0f}㎡",
-                       "✓" if total_area <= comp_r else "✗")],
-            "chain": (f'<div class="ch"><div class="ch-r">원칙 — {comp_p:.0f}㎡ '
-                      f'이내마다 구획</div><div class="ch-a">▲ 완화 조건</div>'
-                      f'<div class="ch-e">스프링클러 등 자동식 소화설비 설치 시 '
-                      f'{comp_r:.0f}㎡ (가정)</div></div>'),
+                     "(라벨 없는 통로 제외 — 하한값, 도면의 초록 채움)"],
+            "steps": [
+                {"k": "조건", "law": "층수", "src": cite2,
+                 "need": "10층 이하의 층", "got": floor_name,
+                 "res": "✓ 해당", "cls": "ok"},
+                {"k": "기준", "law": "구획 단위 면적 (원칙)", "src": cite2,
+                 "need": f"≤ {comp_p:.0f}㎡", "got": f"{total_area:.0f}㎡",
+                 "res": "✓ 층 전체 한 구획 가능" if total_area <= comp_p else "✗ 초과",
+                 "cls": "ok" if total_area <= comp_p else "bad"},
+                {"pre": "↓ 참고 — 스프링클러 설치 시 (가정)",
+                 "k": "완화", "law": "자동식 소화설비 설치 시 완화",
+                 "src": cite2,
+                 "need": f"≤ {comp_r:.0f}㎡", "got": f"{total_area:.0f}㎡",
+                 "res": "✓ 여유" if total_area <= comp_r else "✗",
+                 "cls": "ok" if total_area <= comp_r else "bad"},
+            ],
             "asm": ["스프링클러 등 자동식 소화설비 설치 — 가정",
                     "면적은 인식된 실 합계(하한) — 실제 바닥면적은 이보다 큼"],
             "link": f"{base}_head_layout.html|스프링클러 헤드 배치 리포트",
@@ -192,27 +208,32 @@ def main():
         v3 = ("불요(면제)" if duty_on and exempt_on else
               "적합" if not duty_on else
               "부적합" if not exempt_on else "자료 없음")
+        cite3 = cite_of("비상탈출구") or "건축물의 피난ㆍ방화구조 등의 기준에 관한 규칙 제25조"
         checks.append({
             "id": "esc", "no": "③", "title": "지하층 비상탈출구", "v": v3,
             "one": (f"의무 발동(거실 {living_area:.0f}㎡ ≥ {esc_thr:.0f}㎡) → "
                     f"직통계단 {n_stairs}개소로 면제"),
-            "law": [f"#{esc_duty['id']} 거실 바닥면적 {esc_thr:.0f}㎡ 이상인 "
-                    f"지하층에는 직통계단 외에 비상탈출구·환기통을 설치할 것 "
-                    f"({cite_of('비상탈출구')})",
-                    f"#{esc_ex['id']} 다만, 기준에 적합한 직통계단이 "
-                    f"{esc_nst:.0f}개소 이상이면 그러하지 아니하다"],
-            "meas": [f"거실 면적 합계 {living_area:.0f}㎡ "
-                     "(샤프트·계단·PIT 제외)",
-                     f"직통계단 {n_stairs}개소 — 도면에서 자동 인식"],
-            "table": [(f"거실 면적 ≥ {esc_thr:.0f}㎡ (의무 발동)",
-                       f"{living_area:.0f}㎡", "✓ 발동"),
-                      (f"직통계단 ≥ {esc_nst:.0f}개소 (면제)",
-                       f"{n_stairs}개소", "✓ 성립" if exempt_on else "✗")],
-            "chain": (f'<div class="ch"><div class="ch-r">의무 #{esc_duty["id"]} — '
-                      f'비상탈출구 설치 (발동: 거실 {living_area:.0f}㎡)</div>'
-                      f'<div class="ch-a">▲ exempt (면제 연결)</div>'
-                      f'<div class="ch-e">면제 #{esc_ex["id"]} — 직통계단 '
-                      f'{n_stairs}개소 확인 → 의무 꺼짐</div></div>'),
+            "law": [{"src": cite3, "rid": esc_duty["id"],
+                     "txt": f"거실 바닥면적이 {esc_thr:.0f}㎡ 이상인 지하층에는 "
+                            f"직통계단 외에 비상탈출구와 환기통을 설치해야 한다"},
+                    {"src": f"{cite3} 단서", "rid": esc_ex["id"],
+                     "txt": f"다만, 기준에 적합한 직통계단이 {esc_nst:.0f}개소 "
+                            f"이상 설치되어 있으면 그러하지 아니하다"}],
+            "meas": [f"거실 면적 합계 {living_area:.0f}㎡ — 샤프트·계단·PIT 제외 "
+                     "(도면의 주황 채움)",
+                     f"직통계단 {n_stairs}개소 자동 인식 (파란 점선 테두리)"],
+            "steps": [
+                {"k": "의무", "law": "지하층 거실 면적이 문턱 이상이면 "
+                                    "비상탈출구 설치", "src": cite3,
+                 "need": f"≥ {esc_thr:.0f}㎡", "got": f"{living_area:.0f}㎡",
+                 "res": "⚡ 의무 발동", "cls": "warn"},
+                {"pre": "↓ 다만 — 면제 조항 (면제 연결 그래프)",
+                 "k": "면제", "law": "기준에 적합한 직통계단 수",
+                 "src": f"{cite3} 단서",
+                 "need": f"≥ {esc_nst:.0f}개소", "got": f"{n_stairs}개소",
+                 "res": "✓ 면제 성립 → 의무 꺼짐" if exempt_on else "✗ 부족",
+                 "cls": "exm" if exempt_on else "bad"},
+            ],
             "asm": ["직통계단이 규칙 제8조② 구조 기준에 적합 — 가정"
                     " (계단 구조 상세는 단면·상세도 소관)"],
             "link": "",
@@ -222,21 +243,32 @@ def main():
     if st_rule and st_thr and st_need:
         duty4 = is_basement and living_area >= st_thr
         v4 = ("적합" if (not duty4 or n_stairs >= st_need) else "부적합")
+        cite4 = cite_of("직통계단수") or "건축법 시행령 제34조 제2항"
         checks.append({
             "id": "stairs", "no": "④", "title": "직통계단 2개소", "v": v4,
             "one": (f"지하층 거실 {living_area:.0f}㎡ ≥ {st_thr:.0f}㎡ → "
                     f"{st_need:.0f}개소 의무 → {n_stairs}개소 확인"),
-            "law": [f"#{st_rule['id']} 지하층으로서 그 층 거실 바닥면적 합계가 "
-                    f"{st_thr:.0f}㎡ 이상이면 직통계단을 {st_need:.0f}개소 이상 "
-                    f"설치할 것 ({cite_of('직통계단수')})"],
-            "meas": [f"거실 면적 합계 {living_area:.0f}㎡",
-                     f"직통계단 {n_stairs}개소 ({', '.join(sorted({r['room'] for r in stair_rooms}))})"],
-            "table": [("지하층", floor_name, "✓"),
-                      (f"거실 면적 ≥ {st_thr:.0f}㎡ (의무 발동)",
-                       f"{living_area:.0f}㎡", "✓ 발동" if duty4 else "—"),
-                      (f"직통계단 ≥ {st_need:.0f}개소", f"{n_stairs}개소",
-                       "✓" if n_stairs >= st_need else "✗ 부족")],
-            "chain": "",
+            "law": [{"src": cite4, "rid": st_rule["id"],
+                     "txt": f"지하층으로서 그 층 거실의 바닥면적 합계가 "
+                            f"{st_thr:.0f}㎡ 이상이면 직통계단을 {st_need:.0f}개소 "
+                            f"이상 설치해야 한다"}],
+            "meas": [f"거실 면적 합계 {living_area:.0f}㎡ (도면의 주황 채움)",
+                     f"직통계단 {n_stairs}개소 — "
+                     f"{', '.join(sorted({r['room'] for r in stair_rooms}))} "
+                     "(파란 점선 테두리)"],
+            "steps": [
+                {"k": "조건", "law": "층 구분", "src": cite4,
+                 "need": "지하층", "got": floor_name, "res": "✓ 해당", "cls": "ok"},
+                {"k": "의무", "law": "거실 바닥면적 합계", "src": cite4,
+                 "need": f"≥ {st_thr:.0f}㎡ → {st_need:.0f}개소 의무",
+                 "got": f"{living_area:.0f}㎡",
+                 "res": "⚡ 의무 발동" if duty4 else "— 미발동",
+                 "cls": "warn" if duty4 else "ok"},
+                {"k": "기준", "law": "직통계단 개수", "src": cite4,
+                 "need": f"≥ {st_need:.0f}개소", "got": f"{n_stairs}개소",
+                 "res": "✓ 충족" if n_stairs >= st_need else "✗ 부족",
+                 "cls": "ok" if n_stairs >= st_need else "bad"},
+            ],
             "asm": [],
             "link": "",
         })
@@ -278,8 +310,8 @@ def main():
         x0, y0, x1, y1 = r["rect"]
         return ((x0 + x1) / 2, (y0 + y1) / 2)
 
-    G = {k: [] for k in ("walls", "rooms", "comp", "labels", "esc", "exit",
-                         "stairs")}
+    G = {k: [] for k in ("walls", "rooms", "comp", "living", "labels", "esc",
+                         "exit", "stairs")}
     G["walls"].append('<path d="' + "".join(
         f"M{round(a)} {fy(b)}L{round(c)} {fy(d)}" for a, b, c, d in walls) + '"/>')
     for r in rooms_data:
@@ -291,6 +323,8 @@ def main():
                  f'height="{r["rect"][3]-r["rect"][1]}"/>')
         G["rooms"].append(shape)
         G["comp"].append(shape)          # 방화구획 하이라이트용 복제(채움)
+        if is_living(r["room"]):
+            G["living"].append(shape)    # ③④의 거실 면적 대상 하이라이트
         cx, cy = cen(r)
         st = ' class="stair"' if "계단" in r["room"] else ""
         G["labels"].append(f'<text{st} x="{round(cx)}" y="{fy(cy)}">'
@@ -299,10 +333,15 @@ def main():
             x0, y0, x1, y1 = r["rect"]
             G["stairs"].append(f'<rect x="{x0-200}" y="{fy(y1)-200}" '
                                f'width="{x1-x0+400}" height="{y1-y0+400}"/>')
+    worst_nm = max(ev["동선"], key=lambda p: p["m"])["실"] if ev["동선"] else None
     for p in ev["동선"]:
         d = " ".join(f"{x},{fy(y)}" for x, y in p["pts"])
-        G["esc"].append(f'<polyline points="{d}" data-nm="{html.escape(p["실"])}" '
+        w = ' class="worst"' if p["실"] == worst_nm else ""
+        G["esc"].append(f'<polyline{w} points="{d}" data-nm="{html.escape(p["실"])}" '
                         f'data-m="{p["m"]}"/>')
+        if p["실"] == worst_nm and p["pts"]:
+            wx, wy = p["pts"][0]         # 동선의 시작점 = 최원점
+            G["esc"].append(f'<circle class="wpt" cx="{wx}" cy="{fy(wy)}" r="420"/>')
     for x, y in ev["출입구"]:
         G["exit"].append(f'<rect x="{x-260}" y="{fy(y)-260}" width="520" '
                          f'height="520"/>')
@@ -326,16 +365,29 @@ def main():
             f'<div class="ck-h"><span class="ck-no">{c["no"]}</span>'
             f'<span class="ck-t">{html.escape(c["title"])}</span>{badge(c["v"])}</div>'
             f'<div class="ck-one">{html.escape(c["one"])}</div></div>')
-        law_h = "".join(f'<div class="law">{src("법", html.escape(t))}</div>'
-                        for t in c["law"])
-        meas_h = "".join(f'<div class="law">{src("측", html.escape(t))}</div>'
+        # 관련 조문 — 법령명을 앞세우고, rule_id 는 화면엔 없이 툴팁으로만.
+        law_h = "".join(
+            f'<div class="law" title="규칙 #{l["rid"]} — DB 추적용">'
+            f'<span class="law-src">{html.escape(l["src"])}</span>'
+            f'{html.escape(l["txt"])}</div>' for l in c["law"])
+        meas_h = "".join(f'<div class="law meas">{html.escape(t)}</div>'
                          for t in c["meas"])
-        tbl_h = ('<table class="tbl"><thead><tr><th>조건</th><th>측정</th>'
-                 '<th>대조</th></tr></thead><tbody>'
-                 + "".join(f'<tr><td>{html.escape(a)}</td><td>{html.escape(b)}</td>'
-                           f'<td>{html.escape(x)}</td></tr>'
-                           for a, b, x in c["table"]) + '</tbody></table>')
-        asm_h = "".join(f'<div class="law">{src("가", html.escape(t))}</div>'
+        # 판정 과정 — 기준→(단서)→결과의 단계 흐름. 표+사슬을 하나로 합쳤다.
+        st_h = ""
+        for s in c["steps"]:
+            if s.get("pre"):
+                st_h += f'<div class="st-a">{html.escape(s["pre"])}</div>'
+            st_h += (
+                f'<div class="st"><span class="st-k k-{s["k"]}">{s["k"]}</span>'
+                f'<div class="st-b"><div class="st-law">{html.escape(s["law"])}'
+                f'<small>{html.escape(s["src"])}</small></div>'
+                f'<div class="st-cmp"><b class="need">{html.escape(s["need"])}</b>'
+                f'<span class="vs">실측</span><b class="got">{html.escape(s["got"])}</b>'
+                f'<span class="res {s["cls"]}">{html.escape(s["res"])}</span>'
+                f'</div></div></div>')
+        st_h += (f'<div class="st-fin">판정 {badge(c["v"])} '
+                 f'<span class="meta">{html.escape(c["one"])}</span></div>')
+        asm_h = "".join(f'<div class="law asm">{html.escape(t)}</div>'
                         for t in c["asm"]) or '<div class="meta">없음</div>'
         link_h = ""
         if c["link"]:
@@ -351,11 +403,10 @@ def main():
         details.append(
             f'<div class="dt" id="dt-{i}" hidden>'
             f'<h4>{c["no"]} {html.escape(c["title"])} {badge(c["v"])}</h4>'
-            f'<div class="sec">조문 (법령 DB)</div>{law_h}'
-            f'<div class="sec">도면 측정값</div>{meas_h}'
-            f'<div class="sec">조건 대조</div>{tbl_h}'
-            + (f'<div class="sec">면제·완화 사슬</div>{c["chain"]}' if c["chain"] else "")
-            + f'<div class="sec">전제 (가정)</div>{asm_h}{link_h}</div>')
+            f'<div class="sec">1. 관련 조문</div>{law_h}'
+            f'<div class="sec">2. 도면 측정값</div>{meas_h}'
+            f'<div class="sec">3. 판정 과정</div>{st_h}'
+            f'<div class="sec">4. 전제 (가정)</div>{asm_h}{link_h}</div>')
 
     # 건물 사실 모달 (fire_layout 과 같은 무늬)
     _frow = [(k, str(v)) for k, v in profile.items()
@@ -423,22 +474,42 @@ margin-right:6px;white-space:nowrap}}
 .src.law{{background:#dcfce7;color:#15803d}}
 .src.meas{{background:#dbeafe;color:#1d4ed8}}
 .src.asm{{background:#ffedd5;color:#c2410c}}
-.dt h4{{margin:0 0 6px;font-size:14px}}
-.sec{{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--mut);
-margin:10px 0 4px}}
-.law{{color:#3d4a5c;font-size:12px;background:#f3f6fa;border-left:3px solid #94a3b8;
-padding:6px 9px;border-radius:4px;margin-bottom:4px;line-height:1.6}}
+.dt h4{{margin:0 0 6px;font-size:14.5px}}
+.sec{{font-size:13px;font-weight:800;color:var(--ink);margin:14px 0 6px;
+padding-bottom:3px;border-bottom:2px solid var(--line)}}
+.law{{color:#3d4a5c;font-size:12.5px;background:#f3f6fa;border-left:3px solid #16803c;
+padding:7px 10px;border-radius:4px;margin-bottom:5px;line-height:1.65}}
+.law-src{{display:block;font-weight:800;color:var(--ink);font-size:12.5px;
+margin-bottom:2px}}
+.law.meas{{border-left-color:#1d4ed8}}
+.law.asm{{border-left-color:#c2410c;background:#fff7ed}}
 .tbl{{width:100%;border-collapse:collapse;font-size:12px}}
-.tbl th{{text-align:left;color:var(--mut);font-weight:600;font-size:10.5px;
-border-bottom:1px solid var(--line);padding:3px 4px}}
 .tbl td{{padding:4px;border-bottom:1px solid #f1f5f9}}
 .meta{{color:var(--mut);font-size:11.5px}}
-.ch{{margin:4px 0}}
-.ch-r{{background:#fef9c3;border:1px solid #fde68a;border-radius:8px;
-padding:6px 9px;font-size:12px}}
-.ch-a{{color:var(--acc);font-weight:800;font-size:11px;margin:2px 0 2px 14px}}
-.ch-e{{background:#dbeafe;border:1px solid #bfdbfe;border-radius:8px;
-padding:6px 9px;font-size:12px}}
+.st{{display:flex;gap:8px;margin:7px 0;align-items:flex-start}}
+.st-k{{flex-shrink:0;font-size:10.5px;font-weight:800;border-radius:99px;
+padding:2px 9px;margin-top:2px}}
+.k-기준,.k-조건{{background:#e2e8f0;color:#334155}}
+.k-완화,.k-면제{{background:#dbeafe;color:#1d4ed8}}
+.k-의무{{background:#fef9c3;color:#a16207}}
+.st-b{{flex:1;min-width:0}}
+.st-law{{font-size:12.5px;line-height:1.5}}
+.st-law small{{display:block;color:var(--mut);font-size:10.5px;margin-top:1px}}
+.st-cmp{{display:flex;align-items:baseline;gap:8px;margin-top:4px;
+background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:6px 10px}}
+.st-cmp .need{{font-size:14px}}
+.st-cmp .vs{{color:var(--mut);font-size:10.5px}}
+.st-cmp .got{{font-size:15.5px}}
+.res{{margin-left:auto;font-size:11px;font-weight:800;border-radius:6px;
+padding:1px 8px;white-space:nowrap}}
+.res.ok{{background:#dcfce7;color:#15803d}}
+.res.bad{{background:#fee2e2;color:#b91c1c}}
+.res.exm{{background:#dbeafe;color:#1d4ed8}}
+.res.warn{{background:#fef9c3;color:#a16207}}
+.st-a{{color:var(--acc);font-weight:800;font-size:11.5px;margin:4px 0 4px 8px}}
+.st-fin{{margin-top:10px;padding:8px 11px;border:1px dashed #94a3b8;
+border-radius:10px;font-weight:700;font-size:13px;display:flex;
+align-items:center;gap:8px;flex-wrap:wrap}}
 #stage{{position:fixed;inset:52px 0 0 0;background:#fff;cursor:grab}}
 svg{{width:100%;height:100%;display:block}}
 #g-walls path{{stroke:#c9cfda;fill:none;stroke-width:1;vector-effect:non-scaling-stroke}}
@@ -456,6 +527,12 @@ stroke:#1e5cb3;stroke-width:150px}}
 #g-esc{{display:none}}
 #g-esc polyline{{fill:none;stroke:#2e7d32;stroke-width:2.4;stroke-dasharray:10 6;
 vector-effect:non-scaling-stroke}}
+#g-esc polyline.worst{{stroke:#d84315;stroke-width:4.4}}
+#g-esc .wpt{{fill:none;stroke:#d84315;stroke-width:3.4;
+vector-effect:non-scaling-stroke}}
+#g-living{{display:none}}
+#g-living polygon,#g-living rect{{fill:#f59e0b;fill-opacity:.15;stroke:#d97706;
+stroke-width:2;vector-effect:non-scaling-stroke}}
 #g-exit rect{{fill:#1e5cb3}}
 #g-stairs{{display:none}}
 #g-stairs rect{{fill:none;stroke:#1e5cb3;stroke-width:4;
@@ -511,7 +588,7 @@ window.addEventListener('mousemove',function(e){{if(!d)return;var r=s.getBoundin
 vb.x-=(e.clientX-lx)/r.width*vb.w;vb.y-=(e.clientY-ly)/r.height*vb.h;lx=e.clientX;ly=e.clientY;ap()}});
 window.addEventListener('mouseup',function(){{d=false}});
 // 상세 링크 — 로컬 서버가 아니면 공개 데모 파일명(data-demo)으로 바꿔 단다
-if(!/^(localhost|127\.)/.test(location.hostname)){{
+if(!/^(localhost|127[.])/.test(location.hostname)){{
  document.querySelectorAll('a.xlink').forEach(function(a){{
   var d=a.getAttribute('data-demo');
   if(d)a.setAttribute('href',d);
@@ -533,8 +610,9 @@ bfP.onclick=function(e){{if(e.target===bfP)bfP.hidden=true}};}}
  var go=document.getElementById('rp-go'),st=document.getElementById('rp-st');
  var G=function(id){return document.getElementById(id);};
  // 항목별로 켤 도면 레이어
- var SHOW={evac:['g-esc'],comp:['g-comp'],esc:['g-stairs'],stairs:['g-stairs']};
- var ALL=['g-esc','g-comp','g-stairs'];
+ var SHOW={evac:['g-esc'],comp:['g-comp'],
+           esc:['g-stairs','g-living'],stairs:['g-stairs','g-living']};
+ var ALL=['g-esc','g-comp','g-stairs','g-living'];
  function select(i,quiet){
   cards.forEach(function(c,k){c.classList.toggle('on',k===i);});
   document.querySelectorAll('.dt').forEach(function(d){d.hidden=true;});

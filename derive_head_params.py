@@ -302,7 +302,8 @@ def derive_evac_limits(cur, profile: dict) -> dict:
             why.append(f"{use} 지상 {profile.get('층수_지상')}층 · 현재 층 16층 이상")
         elif apt16:
             why.append(f"현재 층({fl_name})은 16층 이상 층이 아니라 40m 대신 50m")
-    return {"원칙": principle, "완화메뉴": menu,
+    return {"조문": "건축법 시행령 제34조 제1항",   # 수확 닻 그대로 — 표시용
+            "원칙": principle, "완화메뉴": menu,
             "적용": picked, "적용사유": " · ".join(why)}
 
 
