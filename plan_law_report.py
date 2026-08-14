@@ -163,6 +163,17 @@ def main():
              "cls": "ok" if wmax <= lim else "bad"},
         ],
         "asm": ["주요구조부 내화구조 — 건물 사실(설계 가정)"],
+        "sum": [
+            f"{cite1}은 피난층 외의 층을 가진 건축물에 대해 거실의 각 부분으로부터 "
+            f"직통계단까지의 보행거리를 {pri:.0f}m 이하로 하도록 의무를 두며, "
+            f"주요구조부가 내화구조·불연재료인 건축물에는 {lim:.0f}m까지 완화를 "
+            f"허용한다.",
+            f"본 건물의 {floor_name}은 피난층이 아닌 층으로서 거실(부대시설 "
+            f"{living_area:.0f}㎡)을 두고 있으므로, 이 조항에 대한 검토 대상이다.",
+            f"본 건물은 주요구조부가 내화구조(설계 가정)여서 완화 한도 "
+            f"{lim:.0f}m가 적용되고, 전수 측정한 최악 보행거리가 {wmax}m"
+            f"({worst['실']})로 한도 이내이므로 법령 조건을 충족한다.",
+        ],
         "link": f"{base}_evac_layout.html|피난 경로 상세 리포트",
     })
 
@@ -197,6 +208,21 @@ def main():
             ],
             "asm": ["스프링클러 등 자동식 소화설비 설치 — 가정",
                     "면적은 인식된 실 합계(하한) — 실제 바닥면적은 이보다 큼"],
+            "sum": [
+                f"{cite2}는 10층 이하의 층에 대해 바닥면적 {comp_p:.0f}㎡"
+                f"(스프링클러 등 자동식 소화설비를 설치한 경우 {comp_r:.0f}㎡) "
+                f"이내마다 방화구획할 의무를 둔다.",
+                f"본 건물의 {floor_name}은 10층 이하의 층에 해당하므로, 이 조항에 "
+                f"대한 검토 대상이다.",
+                (f"본 층의 바닥면적은 {total_area:.0f}㎡로 원칙 한도 "
+                 f"{comp_p:.0f}㎡ 이내여서 층 전체를 한 구획으로 두어도 법령 "
+                 f"조건을 충족하며, 스프링클러 설치를 가정하면 {comp_r:.0f}㎡"
+                 f"까지 여유가 있다."
+                 if total_area <= comp_p else
+                 f"본 층의 바닥면적은 {total_area:.0f}㎡로 원칙 한도를 넘지만, "
+                 f"스프링클러 등 자동식 소화설비 설치(가정) 시 완화 한도 "
+                 f"{comp_r:.0f}㎡ 이내이므로 법령 조건을 충족한다."),
+            ],
             "link": f"{base}_head_layout.html|스프링클러 헤드 배치 리포트",
         })
 
@@ -231,6 +257,17 @@ def main():
             ],
             "asm": ["직통계단이 규칙 제8조② 구조 기준에 적합 — 가정"
                     " (계단 구조 상세는 단면·상세도 소관)"],
+            "sum": [
+                f"{cite3}는 거실 바닥면적이 {esc_thr:.0f}㎡ 이상인 지하층에 대해 "
+                f"직통계단 외에 비상탈출구와 환기통을 설치할 의무를 두되, 기준에 "
+                f"적합한 직통계단이 {esc_nst:.0f}개소 이상이면 면제한다.",
+                f"본 건물의 {floor_name}은 거실 바닥면적 합계가 {living_area:.0f}㎡"
+                f"로 문턱({esc_thr:.0f}㎡)을 넘어 의무가 발동하므로, 이 조항에 "
+                f"대한 검토 대상이다.",
+                f"본 층에는 도면에서 인식된 직통계단이 {n_stairs}개소 있어(구조 "
+                f"기준 적합 가정) 단서의 면제 요건을 충족하며, 따라서 비상탈출구를 "
+                f"설치하지 않아도 법령에 어긋나지 않는다.",
+            ],
             "link": "",
         })
 
@@ -265,6 +302,17 @@ def main():
                  "cls": "ok" if n_stairs >= st_need else "bad"},
             ],
             "asm": [],
+            "sum": [
+                f"{cite4}는 지하층으로서 그 층 거실의 바닥면적 합계가 "
+                f"{st_thr:.0f}㎡ 이상인 건축물에 대해 피난층 또는 지상으로 통하는 "
+                f"직통계단을 {st_need:.0f}개소 이상 설치할 의무를 둔다.",
+                f"본 건물의 {floor_name}은 지하층이고 거실 바닥면적 합계가 "
+                f"{living_area:.0f}㎡로 문턱({st_thr:.0f}㎡)을 넘으므로, 이 조항에 "
+                f"대한 검토 대상이다.",
+                f"본 층에는 도면에서 인식된 직통계단이 {n_stairs}개소"
+                f"({', '.join(sorted({r['room'] for r in stair_rooms}))}) 있어 "
+                f"요구 개소({st_need:.0f}개소) 이상이므로 법령 조건을 충족한다.",
+            ],
             "link": "",
         })
 
@@ -398,13 +446,17 @@ def main():
             link_h = (f'<div style="margin-top:8px"><a class="xlink" '
                       f'href="{href}" data-demo="{demo}" '
                       f'target="_blank">↗ {html.escape(lab)}</a></div>')
+        sum_h = ('<ol class="sum">'
+                 + "".join(f'<li>{html.escape(s)}</li>' for s in c.get("sum", []))
+                 + '</ol>')
         details.append(
             f'<div class="dt" id="dt-{i}" hidden>'
             f'<h4>{c["no"]} {html.escape(c["title"])} {badge(c["v"])}</h4>'
             f'<div class="sec">1. 관련 조문</div>{law_h}'
             f'<div class="sec">2. 도면 측정값</div>{meas_h}'
             f'<div class="sec">3. 판정 과정</div>{st_h}'
-            f'<div class="sec">4. 전제 (가정)</div>{asm_h}{link_h}</div>')
+            f'<div class="sec">4. 전제 (가정)</div>{asm_h}'
+            f'<div class="sec">5. 검토 요약</div>{sum_h}{link_h}</div>')
 
     # 건물 사실 모달 (fire_layout 과 같은 무늬)
     _frow = [(k, str(v)) for k, v in profile.items()
@@ -510,6 +562,10 @@ padding:1px 8px;white-space:nowrap}}
 .st-fin{{margin-top:10px;padding:8px 11px;border:1px dashed #94a3b8;
 border-radius:10px;font-weight:700;font-size:13px;display:flex;
 align-items:center;gap:8px;flex-wrap:wrap}}
+.sum{{margin:4px 0 0;padding-left:20px;font-size:12.5px;line-height:1.75;
+color:#334155}}
+.sum li{{margin-bottom:7px}}
+.sum li::marker{{font-weight:800;color:var(--acc)}}
 #stage{{position:fixed;inset:52px 0 0 0;background:#fff;cursor:grab}}
 svg{{width:100%;height:100%;display:block}}
 #g-walls path{{stroke:#c9cfda;fill:none;stroke-width:1;vector-effect:non-scaling-stroke}}
