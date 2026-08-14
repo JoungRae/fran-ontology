@@ -252,8 +252,10 @@ def main():
             "steps": [
                 {"k": "조건", "law": "층 구분", "src": cite4,
                  "need": "지하층", "got": floor_name, "res": "✓ 해당", "cls": "ok"},
-                {"k": "의무", "law": "거실 바닥면적 합계", "src": cite4,
-                 "need": f"≥ {st_thr:.0f}㎡ → {st_need:.0f}개소 의무",
+                {"k": "의무", "src": cite4,
+                 "law": f"거실 바닥면적 합계 — 문턱 이상이면 직통계단 "
+                        f"{st_need:.0f}개소 의무",
+                 "need": f"≥ {st_thr:.0f}㎡",
                  "got": f"{living_area:.0f}㎡",
                  "res": "⚡ 의무 발동" if duty4 else "— 미발동",
                  "cls": "warn" if duty4 else "ok"},
@@ -491,8 +493,10 @@ padding:2px 9px;margin-top:2px}}
 .st-b{{flex:1;min-width:0}}
 .st-law{{font-size:12.5px;line-height:1.5}}
 .st-law small{{display:block;color:var(--mut);font-size:10.5px;margin-top:1px}}
-.st-cmp{{display:flex;align-items:baseline;gap:8px;margin-top:4px;
+.st-cmp{{display:flex;align-items:baseline;gap:8px;margin-top:4px;flex-wrap:wrap;
 background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:6px 10px}}
+.st-cmp .need{{white-space:nowrap}}
+.st-cmp .got{{white-space:nowrap}}
 .st-cmp .need{{font-size:14px}}
 .st-cmp .vs{{color:var(--mut);font-size:10.5px}}
 .st-cmp .got{{font-size:15.5px}}
