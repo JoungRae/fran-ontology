@@ -340,7 +340,13 @@ def main():
         link_h = ""
         if c["link"]:
             href, lab = c["link"].split("|")
-            link_h = (f'<div style="margin-top:8px"><a href="{href}" '
+            # 공개 데모(Pages)의 파일명은 로컬과 다르다 — data-demo 에 실어 두면
+            # JS 가 호스트를 보고 바꿔 단다. 데모 별칭이 없으면 링크를 숨긴다.
+            DEMO_ALIAS = {f"{base}_evac_layout.html": "evac_layout_pit.html",
+                          f"{base}_head_layout.html": "fire_head_layout_pit.html"}
+            demo = DEMO_ALIAS.get(href, "")
+            link_h = (f'<div style="margin-top:8px"><a class="xlink" '
+                      f'href="{href}" data-demo="{demo}" '
                       f'target="_blank">↗ {html.escape(lab)}</a></div>')
         details.append(
             f'<div class="dt" id="dt-{i}" hidden>'
@@ -504,6 +510,14 @@ var d=false,lx,ly;st.addEventListener('mousedown',function(e){{d=true;lx=e.clien
 window.addEventListener('mousemove',function(e){{if(!d)return;var r=s.getBoundingClientRect();
 vb.x-=(e.clientX-lx)/r.width*vb.w;vb.y-=(e.clientY-ly)/r.height*vb.h;lx=e.clientX;ly=e.clientY;ap()}});
 window.addEventListener('mouseup',function(){{d=false}});
+// 상세 링크 — 로컬 서버가 아니면 공개 데모 파일명(data-demo)으로 바꿔 단다
+if(!/^(localhost|127\.)/.test(location.hostname)){{
+ document.querySelectorAll('a.xlink').forEach(function(a){{
+  var d=a.getAttribute('data-demo');
+  if(d)a.setAttribute('href',d);
+  else a.parentNode.style.display='none';
+ }});
+}}
 var bfB=document.getElementById('bf-btn'),bfP=document.getElementById('bf-pop');
 if(bfB&&bfP){{bfB.onclick=function(){{bfP.hidden=false}};
 document.getElementById('bf-x').onclick=function(){{bfP.hidden=true}};
