@@ -65,33 +65,53 @@ CAD는 "선의 좌표 목록"일 뿐이고, 법령은 자연어 문장일 뿐입
 **키는 브라우저의 localStorage 에만 저장되고, 어떤 서버로도 전송되지 않습니다**
 (OpenAI API에 직접 요청). 이 저장소에는 어떤 API 키도 포함돼 있지 않습니다.
 
-## 직접 돌려보기 (파이프라인 재실행)
+## 직접 돌려보기 — 원클릭 (run_all.py)
+
+도면 JSON 하나로 전 리포트(헤드 배치·피난 거리·평면도 법률 검토)까지:
 
 ```bash
-pip install -r requirements.txt
-
-# 1) 방 인식
-python plan_rooms_rect.py "data/지하1층_pit.json"
-python plan_rooms_flood.py "data/지하1층_pit.json" --merge-into-rect
-
-# 2) (선택) 구조도 정합 — 보 위치 이식
-python align_beams.py "data/지하1층_구조_MLINE버전.json" "data/지하1층_pit.json" \
-    --anchor "S-CON-HID" --beam-lines "S-BEEM(부대)" --beam-polys "S-BTS(거더)" --depth 900
-
-# 3) 헤드 배치 리포트 생성
-python fire_layout.py "지하1층_pit" --heads
-#   반경 조절(성능 인정 헤드 등): --r-unit 3.2 --r-common 2.6
-
-# 4) 피난 경로 리포트 생성
-python evac_report.py "지하1층_pit"
-#   내화구조 완화(50m) 적용: --fire-resist
-
-# 5) 브라우저에서 반경을 바꿔가며 재계산하고 싶다면 로컬 서버 실행
-python fire_server.py 지하1층_pit
+python run_all.py 지하1층_pit          # data/지하1층_pit.json → 전 단계
+python run_all.py C:/어딘가/새도면.json  # data/ 로 복사 후 진행
+python run_all.py --list               # 단계 목록
+python run_all.py 지하1층_pit --dry-run # 뭘 돌릴지만 확인
 ```
 
-`layer_classify.py`(GPT 레이어 분류), `fetch_head_checks.py`(법령 DB 조회)는 각각
-OpenAI API 키, PostgreSQL 법령 DB 접속이 필요합니다 — `.env.example` 참고.
+- **증분 실행**: 산출물이 입력보다 새로우면 그 단계는 건너뜁니다. 중간에
+  실패해도 고친 뒤 같은 명령을 다시 치면 거기서부터 이어집니다.
+- **단계 강제**: 코드를 고쳐 mtime 으로 안 잡힐 때 `--force heads`
+  (그 단계부터 하류 전부), `--until bot`(거기까지만).
+- **두 개의 파이썬**: 기하 단계는 소스 프로젝트 venv, DB 단계(match·params)는
+  cons_law venv 를 씁니다. run_all 이 알아서 갈아탑니다 — 경로가 다르면
+  환경변수 `FRAN_SRC_PY` / `FRAN_LAW_PY` 로 지정.
+- 💰 표시 단계(classify·match)는 LLM 비용이 듭니다. match 는
+  (규칙, 실명) 캐시가 있어 같은 건물의 다른 층은 거의 무료입니다.
+- **선행 조건**: PostgreSQL 법령 DB 가 떠 있어야 합니다(도커라면 컨테이너
+  시작). OpenAI 키·DB 접속은 각 프로젝트의 `.env` — run_all 이 읽어
+  단계별로 주입합니다.
+- (선택) 보 살수장애 회피는 구조도 정합을 1회 해두면 자동 반영:
+  `python align_beams.py "data/<구조도>.json" "data/<도면>.json" --depth 900`
+
+끝나면 `python fire_server.py <도면>` 으로 로컬 서버를 띄워
+http://localhost:8765/ 에서 재계산·사람 확정까지 할 수 있습니다.
+
+<details><summary>단계별 수동 실행 (run_all 이 하는 일)</summary>
+
+```bash
+# 1) GPT 레이어 분류 → 2) 방 인식(rect+flood 병합)
+python layer_classify.py "data/지하1층_pit.json"
+python plan_rooms_rect.py "data/지하1층_pit.json"
+python plan_rooms_flood.py "data/지하1층_pit.json" --merge-into-rect
+# 3) BOT 온톨로지 → 4) 규칙×실 매칭(cons_law venv) → 5) 법령값 수확(〃)
+python build_bot.py 지하1층_pit
+python match_rules_rooms.py 지하1층_pit
+python derive_head_params.py 지하1층_pit
+# 6) 법령 레이어 TTL → 7~9) 리포트 3종
+python annotate_legal.py 지하1층_pit
+python fire_layout.py 지하1층_pit --heads
+python evac_report.py 지하1층_pit
+python plan_law_report.py 지하1층_pit
+```
+</details>
 
 ## 저장소 구성
 
